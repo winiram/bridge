@@ -32,3 +32,25 @@
 .search {
 	width: 5%;
 }
+
+#add {
+    font-size: 20px;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.intro {
+    font-weight:100;
+    font-size: 30px;
+    font-family: Verdana, Geneva, sans-serif;
+  -vendor-animation-duration: 5s;
+  -vendor-animation-delay: 3s;
+
+}
+
+.btn{
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 20px;
+}
+
+
