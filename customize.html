@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Bridge</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  
+<!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" href="css/bridge.css">
+
+
+
+  </head>
+
+
+
+<body>
+  <nav class="teal lighten-2" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Bridge</a>
+      <ul class="right">
+        <li><a href="#">EXPLORE</a></li>
+        <li><a href="#">ABOUT THE PROJECT</a></li>
+        <li> Hello, User!</li>
+      </ul>
+
+
+    </div>
+  </nav>
+
+
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+    <div class="row center">
+        <h1 class = "title">Create Search Interface</h1>
+        
+   <ul class="pagination">
+    <li class="waves-effect"><a href="#!">1</a></li>
+    <li class="aves-effect"><a href="#!">2</a></li>
+    <li class="active red accent-2"><a href="#!">3</a></li>
+    <li class="waves-effect"><a href="#!">4</a></li>
+  </ul>
+  <h3>Customize Search Interface</h3>
+    </div>
+
+    <div class="row">
+      <p>Customize your search interface by changing colors and fonts</p>
+    </div>
+       <div class="row outline">
+        <h3>Options</h3>
+
+
+
+
+
+
+
+
+<!--============================== BEGIN DEMO APP ==============================-->
+    <div id="demo-app">
+
+      <script src="js/jscolor.js"></script>
+
+
+      <div id="demo-links">
+        See also <a href="./examples/">other examples</a> of jscolor usage.
+      </div>
+
+
+      <div class="panel bgcolor col s4">
+        <button id="bgcolor-button">Choose background</button>
+        <table>
+          <tr><th>RGB</th><td><input id="bgcolor-rgb" onchange="setString('bgcolor', this.value)" /></td></tr>
+          <tr><th>HEX</th><td><input id="bgcolor-hex" onchange="setString('bgcolor', this.value)" /></td></tr>
+
+          <tr><th>H</th><td><input id="bgcolor-hue" class="short" onchange="setHSV('bgcolor', this.value, null, null)" /> &deg;</td></tr>
+          <tr><th>S</th><td><input id="bgcolor-sat" class="short" onchange="setHSV('bgcolor', null, this.value, null)" /> %</td></tr>
+          <tr><th>V</th><td><input id="bgcolor-val" class="short" onchange="setHSV('bgcolor', null, null, this.value)" /> %</td></tr>
+
+          <tr class="red"><th>R</th><td><input id="bgcolor-red" class="short" onchange="setRGB('bgcolor', this.value, null, null)" /></td></tr>
+          <tr class="grn"><th>G</th><td><input id="bgcolor-grn" class="short" onchange="setRGB('bgcolor', null, this.value, null)" /></td></tr>
+          <tr class="blu"><th>B</th><td><input id="bgcolor-blu" class="short" onchange="setRGB('bgcolor', null, null, this.value)" /></td></tr>
+        </table>
+      </div>
+
+
+      <div class="panel fgcolor col s4">
+        <button id="fgcolor-button">Choose foreground</button>
+        <table>
+          <tr><td><input id="fgcolor-rgb" onchange="setString('fgcolor', this.value)" /></td><th>RGB</th></tr>
+          <tr><td><input id="fgcolor-hex" onchange="setString('fgcolor', this.value)" /></td><th>HEX</th></tr>
+
+          <tr><td>&deg; <input id="fgcolor-hue" class="short" onchange="setHSV('fgcolor', this.value, null, null)" /></td><th>H</th></tr>
+          <tr><td>% <input id="fgcolor-sat" class="short" onchange="setHSV('fgcolor', null, this.value, null)" /></td><th>S</th></tr>
+          <tr><td>% <input id="fgcolor-val" class="short" onchange="setHSV('fgcolor', null, null, this.value)" /></td><th>V</th></tr>
+
+          <tr class="red"><td><input id="fgcolor-red" class="short" onchange="setRGB('fgcolor', this.value, null, null)" /></td><th>R</th></tr>
+          <tr class="grn"><td><input id="fgcolor-grn" class="short" onchange="setRGB('fgcolor', null, this.value, null)" /></td><th>G</th></tr>
+          <tr class="blu"><td><input id="fgcolor-blu" class="short" onchange="setRGB('fgcolor', null, null, this.value)" /></td><th>B</th></tr>
+        </table>
+      </div>
+
+
+    </div>
+    <!--============================== END DEMO APP ==============================-->
+
+
+
+
+      </div>
+
+      <div class="row outline" id="demo-preview">
+        <h3>Your Search Interface Preview</h3>
+              <div id="demo-preview">
+        This is a preview of the colors that you pick!<br />
+        This is a preview of the colors that you pick!<br />
+        This is a preview of the colors that you pick!<br />
+        This is a preview of the colors that you pick!<br />
+        This is a preview of the colors that you pick!<br />
+      </div>
+      <div class="input-field col s6">
+          <input placeholder="Placeholder" id="first_name" type="text" class="validate">
+          <label for="first_name">First Name</label>
+        </div>
+        <div class="input-field col s6">
+          <input placeholder="Placeholder" id="last_name" type="text" class="validate">
+          <label for="last_name">Last Name</label>
+        </div>
+      <div>
+
+
+      </div>  
+
+  </div>
+     <div class="row center">
+      <a href="createFields.html" class="red accent-2 waves-effect waves-light btn"><i class="material-icons left">toc</i>NEXT</a> 
+
+    </div>
+  </div>
+
+  <footer class="page-footer teal darken-3">
+    <div class="footer-copyright">
+      <div id = "copyright">Copyright 2016 BRIDGE</div>
+
+    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+  <script src="js/colorPicker.js"></script>
+
+  </body>
+</html>
