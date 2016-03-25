@@ -53,5 +53,30 @@
     font-size: 20px;
 }
 
+#instructions{
+    font-weight: 100;
+    margin-left: 5%;
+}
+
+.top-margin {
+    margin-top: 5%;
+}
+
+.left-margin {
+    margin-left: 5%;
+}
+
+.left-margin-big {
+    margin-left: 20%;
+}
+
+#upload {
+    padding-left: 5%;
+}
+
+.fp__btn {
+	background-color: #2196f3 !important;
+    
+}
 
 
