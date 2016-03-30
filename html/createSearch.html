@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+
+    <link rel="stylesheet" type="text/css" href="/css/custom.css" media="screen">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+    <title>Bridge</title>
+    <script>
+        $(document).ready(function() {
+            $('select').material_select();
+            $("#customSearchOptions").hide();
+            $("#newRow").hide();
+            $("#addButton").click(function() {
+                $("#newRow").toggle();
+            });
+            $("#customizeSearch").click(function() {
+                $("#customSearchOptions").toggle();
+            });
+        });
+        var myFirebaseRef = new Firebase("https://https://glaring-torch-9320.firebaseio.com/");
+    </script>
+    <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
+</head>
+<script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
+<script type="text/javascript" src="/javascript/appjs.js"></script>
+
+<body class="grey lighten-5">
+    <!--navbar-->
+    <div>
+        <nav class="white">
+            <div class="nav-wrapper">
+                <a href="#" class="blue-text brand-logo">Bridge</a>
+            </div>
+        </nav>
+    </div>
+    <!--end navbar-->
+    <!--start pagination-->
+    <div class="section">
+        <ul class="pagination">
+            <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+            <li class="waves-effect"><a href="createUpload.html">1</a></li>
+            <li class="blue active"><a href="createSearch.html">2</a></li>
+            <li class="waves-effect"><a href="#!">3</a></li>
+            <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+        </ul>
+    </div>
+    <!--end pagination-->
+
+    <div class="section">
+    </div>
+
+    <!--begin section-->
+    <div class="white section">
+        <h5 class="grey-text text-darken-2" id="instructions">2. Create Search Interface</h1>
+        <h6 class="grey-text left-margin">Go ahead and decide how people will search your collection</h6>
+    <div class="section"></div>
+        <!--divider-->
+        <div class="divider"></div>
+    
+    <div class="section"></div>
+    <!--begin search form-->
+       <form action="#">
+         
+        <div class="subtitle left-margin blue-text">a. Title</div>
+    <div class="row">
+        <div class="input-field col s4 offset-s2">
+            <input type="text" id="title" />
+            <label for="title" class="grey-text text-darken-2 validate">Enter title for search page</label>
+        </div>
+    </div>
+        <div class="subtitle left-margin blue-text">b. Search Type</div>
+    <div class="row">
+        <div class="col s4 offset-s2">
+            <input type="checkbox" id="fullTextSearch" />
+            <label for="fullTextSearch" class="grey-text text-darken-2">Full text search on collection</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s4 offset-s2">
+            <input type="checkbox" id="customizeSearch" />
+            <label for="customizeSearch" class="grey-text text-darken-2">Customize Search</label>
+        </div>
+    </div>  
+    <div id="customSearchOptions">
+    <div class="subtitle left-margin blue-text">c. Customize Interface</div>
+    <div class="row">
+        <div class="input-field col s2 offset-s2">
+            <input id="name" type="text" class="validate">
+            <label for="name">Name</label>
+        </div>
+        <div class="input-field col s2">
+            <input id="desc" type="text" class="validate">
+            <label for="desc">Description</label>
+        </div>
+        <div class="input-field col s2">
+            <select multiple>
+                <option value="" disabled selected>Choose your option</option>
+                <option value="1">Header 1</option>
+                <option value="2">Header 2</option>
+                <option value="3">Header 3</option>
+            </select>
+            <label>Materialize Multiple Select</label>
+        </div>
+        <div class="input-field col s2">
+            <select>
+                <option value="" disabled selected>Choose your option</option>
+                <option value="1">Textbox</option>
+                <option value="2">Dropdown</option>
+            </select>
+            <label>Materialize Multiple Select</label>
+        </div>
+        <div class="col s2">
+            <a class="btn-floating btn waves-effect waves-light red left-margin-big" id="addButton">
+                <i class="material-icons">add</i></a>
+        </div>
+    </div>  
+ <div class="row" id="newRow">
+    <div class="input-field col s2 offset-s2">
+        <input id="name" type="text" class="validate">
+        <label for="name">Name</label>
+    </div>
+    <div class="input-field col s2">
+        <input id="desc" type="text" class="validate">
+        <label for="desc">Description</label>
+    </div>
+    <div class="input-field col s2">
+        <select multiple>
+            <option value="" disabled selected>Choose your option</option>
+            <option value="1">Header 1</option>
+            <option value="2">Header 2</option>
+            <option value="3">Header 3</option>
+        </select>
+        <label>Materialize Multiple Select</label>
+    </div>
+    <div class="input-field col s2">
+        <select>
+            <option value="" disabled selected>Choose your option</option>
+            <option value="1">Textbox</option>
+            <option value="2">Dropdown</option>
+        </select>
+        <label>Materialize Multiple Select</label>
+     </div>   
+</div>
+    <div class="row">
+        <div class="col s4 offset-s2">
+        <p>Upload Header Image:</p>
+        <div class="file-field input-field">
+        <div class="btn blue">
+            <span>File</span>
+            <input type="file">
+        </div>
+        <div class="file-path-wrapper">
+            <input class="file-path validate" type="text" id="imageUpload">
+        </div>
+        </div>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col s3 offset-s2">
+            <p>Pick background color: </p>
+        </div>  
+        <div class="col s3">
+            <p>Pick font color: </p>
+        </div> 
+        <div class="col s3">
+            <p>Pick font style: </p>
+        </div> 
+    </div>
+</div>
+</form>
+<!--end search form-->
+    </div>
+<!--end section-->    
+    <div class="section"></div>        
+    <div class="section">
+        <a class="waves-effect waves-light red accent-2 btn right right-margin" href="previewSearch.html">Next</a>
+    </div>
+</body>
+</html>
