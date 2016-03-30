@@ -8,10 +8,11 @@
     <link rel="stylesheet" type="text/css" href="/css/custom.css" media="screen">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Bridge</title>
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.12.0-rc.1/jquery-ui.min.js"   integrity="sha256-mFypf4R+nyQVTrc8dBd0DKddGB5AedThU73sLmLWdc0="   crossorigin="anonymous"></script>
 </head>
-<script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
-
+    <script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
+    <script type="text/javascript" src="/javascript/appjs.js"></script>
 <body class="grey lighten-5">
     <!--navbar-->
     <div>
@@ -26,10 +27,8 @@
         <ul class="pagination">
             <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
             <li class="blue active"><a href="#!">1</a></li>
-            <li class="waves-effect"><a href="#!">2</a></li>
+            <li class="waves-effect"><a href="createSearch.html">2</a></li>
             <li class="waves-effect"><a href="#!">3</a></li>
-            <li class="waves-effect"><a href="#!">4</a></li>
-            <li class="waves-effect"><a href="#!">5</a></li>
             <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
         </ul>
     </div>
@@ -37,12 +36,13 @@
     <div class="white section">
         <h5 class="grey-text text-darken-2" id="instructions">1. Upload Collection</h1>
         <h6 class="grey-text left-margin">Please upload your collection (csv/excel)*</h6>
+        <div class="section"></div>
         <form action="#">
             <div class="file-field input-field" id="upload">
                 <div class="row">
-                <div class="col s1">
+                <div class="col s3">
                         <input type="filepicker" data-fp-apikey="AUJdiqo2nRiCbHdf9r8Yvz"
-onchange="alert(event.fpfile.url)">
+onchange="alert(event.fpfile.url)" id="filepicker">
                     </div>
                 </div>
              </div>  
@@ -52,8 +52,8 @@ onchange="alert(event.fpfile.url)">
         </div>
     </div>
     <div class="section">
-        <a class="waves-effect waves-light red accent-2 btn right">Next</a>
+        <a class="waves-effect waves-light red accent-2 btn right" href="createSearch.html">Next</a>
     </div>
-    <div type="filepicker-preview" data-fp-url="https://www.filestackapi.com/api/file/YgbOIWGjRZeuufyL5BfA" style="width:75%; height:1500px"> </div>
+    <div type="filepicker-preview" data-fp-url="https://www.filestackapi.com/api/file/S8O2rWoSFewERT8AfNxW" style="width:75%; height:1500px"> </div>
 </body>
 </html>
