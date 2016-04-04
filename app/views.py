@@ -5,12 +5,13 @@ import requests
 import json
 import os
 
-# To be transfered to database
+
 with open("../client_secret.json") as fin:
     client_secret = json.load(fin)
 CLIENT_ID = client_secret["web"]["client_id"]
 CLIENT_SECRET = client_secret["web"]["client_secret"]
 REDIRECT_URI = "http://localhost:8081/gdrive-token"
+
 
 @app.route('/')
 def index():
