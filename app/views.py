@@ -3,8 +3,8 @@ from app import app, models
 
 @app.route('/')
 def index():
-    return redirect('/home')
+    return redirect('/main')
 
-@app.route("/home")
+@app.route("/main")
 def home():
-    return render_template("home.html")
+    return render_template("main.html")
