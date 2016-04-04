@@ -1,28 +1,8 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    
-    <link rel="stylesheet" type="text/css" href="/css/materialize.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="/css/animate.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="/css/custom.css" media="screen">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <title>Bridge</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script src="http://code.jquery.com/ui/1.12.0-rc.1/jquery-ui.min.js"   integrity="sha256-mFypf4R+nyQVTrc8dBd0DKddGB5AedThU73sLmLWdc0="   crossorigin="anonymous"></script>
-</head>
+{% extends "base.html" %}
+{% block content %}
     <script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
     <script type="text/javascript" src="/javascript/appjs.js"></script>
-<body class="grey lighten-5">
-    <!--navbar-->
-    <div>
-        <nav class="white">
-            <div class="nav-wrapper">
-                <a href="#" class="blue-text brand-logo">Bridge</a>
-            </div>
-        </nav>
-    </div>
-    <!--end navbar-->
+
     <div class="section">
         <ul class="pagination">
             <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
@@ -45,15 +25,14 @@
 onchange="alert(event.fpfile.url)" id="filepicker">
                     </div>
                 </div>
-             </div>  
+             </div>
         </form>
         <div class="divider top-margin"></div>
         <p class="grey-text text-darken-2 left-margin">*1. Each column will be a header <br> 2. You can combine headers to create search fields</p>
         </div>
     </div>
     <div class="section">
-        <a class="waves-effect waves-light red accent-2 btn right" href="createSearch.html">Next</a>
+        <a class="waves-effect waves-light red accent-2 btn right" href="{{ url_for('createSearch')}}">Next</a>
     </div>
     <div type="filepicker-preview" data-fp-url="https://www.filestackapi.com/api/file/S8O2rWoSFewERT8AfNxW" style="width:75%; height:1500px"> </div>
-</body>
-</html>
+ {% endblock %}

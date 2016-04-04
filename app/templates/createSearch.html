@@ -6,7 +6,7 @@
 
     <!-- Compiled and minified JavaScript -->
 
-    <link rel="stylesheet" type="text/css" href="/css/custom.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="/static/custom.css" media="screen">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
@@ -62,11 +62,11 @@
     <div class="section"></div>
         <!--divider-->
         <div class="divider"></div>
-    
+
     <div class="section"></div>
     <!--begin search form-->
        <form action="#">
-         
+
         <div class="subtitle left-margin blue-text">a. Title</div>
     <div class="row">
         <div class="input-field col s4 offset-s2">
@@ -86,7 +86,7 @@
             <input type="checkbox" id="customizeSearch" />
             <label for="customizeSearch" class="grey-text text-darken-2">Customize Search</label>
         </div>
-    </div>  
+    </div>
     <div id="customSearchOptions">
     <div class="subtitle left-margin blue-text">c. Customize Interface</div>
     <div class="row">
@@ -119,7 +119,7 @@
             <a class="btn-floating btn waves-effect waves-light red left-margin-big" id="addButton">
                 <i class="material-icons">add</i></a>
         </div>
-    </div>  
+    </div>
  <div class="row" id="newRow">
     <div class="input-field col s2 offset-s2">
         <input id="name" type="text" class="validate">
@@ -145,7 +145,7 @@
             <option value="2">Dropdown</option>
         </select>
         <label>Materialize Multiple Select</label>
-     </div>   
+     </div>
 </div>
     <div class="row">
         <div class="col s4 offset-s2">
@@ -164,22 +164,22 @@
     <div class="row">
         <div class="col s3 offset-s2">
             <p>Pick background color: </p>
-        </div>  
+        </div>
         <div class="col s3">
             <p>Pick font color: </p>
-        </div> 
+        </div>
         <div class="col s3">
             <p>Pick font style: </p>
-        </div> 
+        </div>
     </div>
 </div>
 </form>
 <!--end search form-->
     </div>
-<!--end section-->    
-    <div class="section"></div>        
+<!--end section-->
+    <div class="section"></div>
     <div class="section">
-        <a class="waves-effect waves-light red accent-2 btn right right-margin" href="previewSearch.html">Next</a>
+        <a class="waves-effect waves-light red accent-2 btn right right-margin" href="{{ url_for('previewSearch')}}">Next</a>
     </div>
 </body>
 </html>
