@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div class="intro">
+        <h1 class="animated fadeInUp intro blue-text center">
+            Share your collection in 5 minutes
+        </h1>
+        <div class="row">
+            <img class="animated fadeInUp" src="/static/brige-intro.png">
+        </div>
+        <div class="row animated fadeInUp">
+            <div class="col s2 offset-s4">
+                <a class="waves-effect waves-light red accent-2 white-text btn" href="{{ url_for('createUpload')}}"><i class="material-icons left">add</i>Create</a>
+            </div>
+            <div class="col s2">
+                <a class="waves-effect waves-light blue-grey lighten-5 blue-text btn">Explore</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
