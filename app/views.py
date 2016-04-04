@@ -16,3 +16,7 @@ def createUpload():
 @app.route("/createSearch")
 def createSearch():
     return render_template("createSearch.html")
+
+@app.route("/previewSearch")
+def previewSearch():
+    return render_template("previewSearch.html")
