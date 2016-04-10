@@ -1,5 +1,6 @@
 from flask import render_template, redirect, request
 from app import app, models
+import base64, json, time
 
 test_file_url = 'https://www.filestackapi.com/api/file/S8O2rWoSFewERT8AfNxW'
 
@@ -13,6 +14,7 @@ def main():
 
 @app.route("/createUpload")
 def createUpload():
+    # Should create a security policy to make this safer
     return render_template("createUpload.html")
 
 @app.route("/previewUpload", methods=['POST'])
