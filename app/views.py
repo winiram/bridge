@@ -20,3 +20,7 @@ def createSearch():
 @app.route("/previewSearch")
 def previewSearch():
     return render_template("previewSearch.html")
+
+@app.route("/searchInterface")
+def searchInterface():
+    return render_template("searchInterface.html")
