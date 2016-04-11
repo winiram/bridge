@@ -1,28 +1,9 @@
 <!DOCTYPE html>
-<html>
 
-<head>
-    <link rel="stylesheet" type="text/css" href="/css/materialize.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="/css/animate.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="/css/custom.css" media="screen">
-    <title>Bridge</title>
-</head>
+{% extends "base.html" %}
+{% block content %}
 
 <body class="blue-grey lighten-5">
-    <!--navbar-->
-    <div>
-        <nav class="blue">
-            <div class="nav-wrapper">
-                <a href="#" class="brand-logo">Bridge</a>  
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="#">Search Collections</a></li>
-                    <li><a href="#">Add Collection</a></li>
-                    <li class="active"><a href="#">Sign in/up</a></li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-    <!--end navbar-->
 
     <div class="row">
         <form id="login" class="col s4 offset-s4 card">
@@ -50,4 +31,4 @@
 
 </body>
 
-</html>
+{% endblock %}

@@ -16,7 +16,9 @@
      border-bottom: 1px solid #2196F3;
      box-shadow: 0 1px 0 0 #2196F3;
    }
-
+html{
+    font-family: "Roboto", sans-serif;
+}
 #login {
 	margin-top: 10%;
 }
@@ -54,9 +56,8 @@
 }
 
 #instructions{
-    font-weight: 500 !important;
-    margin-left: 5%;
-    font-size: 28px;
+    font-weight: 200 !important;
+    font-size: 35px;
 }
 
 .top-margin {
@@ -80,13 +81,15 @@
     margin-left: 20%;
 }
 
-#upload {
-    padding-left: 5%;
+#filepicker {
+	background-color: white;
 }
 
 .fp__btn {
-	background-color: #2196f3 !important;
-    
+	background-color: #FF5252 !important;
+    font-family: "Roboto", sans-serif;
+    height: 120%;
+    width: 130%;  
 }
 
 .subtitle {
@@ -101,6 +104,10 @@
 
 #header1 {
 	border-bottom: 0;
+}
+
+.leftspace{
+    margin-left: 5%;
 }
 
 
