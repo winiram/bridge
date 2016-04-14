@@ -1,36 +1,26 @@
-function init_picker(){
-  filepicker.setKey('AwWNg6Ei3SHyfKegusrWIz');
-  filepicker.pick(
+function storeFile() {
+  // Send URL to be processed in backend
+  var url = '/storeFile';
+  var file_url = window.event.fpfile["url"]
+  $.post(url,
     {
-      extensions: ['.csv', 'xls', 'xlsx', '.gsheet', '.png'],
-      services: ['COMPUTER', 'GOOGLE_DRIVE']
+      url: file_url
     },
-    function(Blob){
-      console.log(Blob.url);
-
-      // On success update preview and send URL to flask to process
-      // Update preview
-      var fileId = Blob.url.substr(Blob.url.lastIndexOf('/') + 1);
-      var previewUrl = "https://www.filestackapi.com/api/file/" + fileId;
-      // var div = document.createElement("div");
-      // //div.setAttribute("id", "file-preview");
-      // div.setAttribute("type", "filepicker-preview")
-      // div.setAttribute("data-fp-url", previewUrl);
-      // div.setAttribute("style", "width:75%; height:1500px");
-      //
-      // $('body').append(div);
-
-      //$('div[type=filepicker-preview]').setAttribute("data-fp-url", previewUrl);
-
-      console.log("Redirecting")
-      // Send URL to Flask
-      var url = '/previewUpload';
-      $.post(url,
-        {
-          url: Blob.url
-        }
-      )
-
+    success = function(response) {
+      if (response["success"]) {
+        file_preview(file_url)
+        //document.getElementById("filepicker").submit();
+      }
+      else {
+        alert(response["error"]);
+      }
     }
-  );
+  )
+}
+
+function file_preview(file_url) {
+  var fileId = file_url.substr(file_url.lastIndexOf('/') + 1);
+  var previewUrl = "https://www.filestackapi.com/api/preview/" + fileId;
+  var div = document.createElement("div");
+  $('iframe[src*="https://www.filestackapi.com/api/preview/"]')[0].setAttribute("src", previewUrl)
 }
