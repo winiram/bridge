@@ -1,32 +1,25 @@
-{% extends "base.html" %} {% block content %}
+{% extends "create_base.html" %} {% block content %}
 <script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
 <script type="text/javascript" src="/javascript/appjs.js"></script>
 
-<div class="section">
-    <ul class="pagination">
-        <li class="blue active leftspace"><a href="createUpload.html">1</a></li>
-        <li class="waves-effect"><a href="createSearch.html">2</a></li>
-        <li class="waves-effect"><a href="previewSearch.html">3</a></li>
-    </ul>
-</div>
-<div class="section"></div>
+<div class="grey lighten-3" role="main">
 
-<div class="white card center">
-    <h1 class="blue-text text-darken-1" id="instructions">Upload Collection</h1>
-    <p class="blue-text">Format: csv/excel</p>
-    <div class="section"></div>
-    <form action="#">
-        <div class="file-field input-field center">
-            <input type="filepicker" id="filepicker" data-fp-apikey="AUJdiqo2nRiCbHdf9r8Yvz" onchange="alert(event.fpfile.url)">
-        </div>
-    </form>
-    <div class="divider top-margin"></div>
-    <p class="blue-text">*1. Each column will be a header
-        <br> 2. You can combine headers to create search fields</p>
+    <div class="white container section center z-depth-1">
+        <h1 class="grey-text text-darken-2" id="instructions">1. Upload Collection</h1>
+        <div class="divider"></div>
+        <div class="section"></div>
+        <form action="#">
+            <div class="file-field input-field center">
+                <input type="filepicker" id="filepicker" data-fp-apikey="AUJdiqo2nRiCbHdf9r8Yvz" onchange="alert(event.fpfile.url)">
+            </div>
+            <p class="blue-text center">Format: csv/excel</p>
+        </form>
+        <div class="divider top-margin"></div>
+        <p class="grey-text">Each column will be a header</p>
+    </div>
+    <div type="filepicker-preview" id="iframe" data-fp-url="https://www.filestackapi.com/api/file/S8O2rWoSFewERT8AfNxW" style="width:75%; height:450px"> </div>
+    <div class="section">
+        <a class="waves-effect waves-light red accent-2 btn right" id="paddedbutton" href="{{ url_for('createSearch')}}">Next</a>
+    </div>
 </div>
-
-<div class="section">
-    <a class="waves-effect waves-light red accent-2 btn right" href="{{ url_for('createSearch')}}">Next</a>
-</div>
-<div type="filepicker-preview" data-fp-url="https://www.filestackapi.com/api/file/S8O2rWoSFewERT8AfNxW" style="width:75%; height:1500px"> </div>
 {% endblock %}
