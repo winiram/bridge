@@ -18,21 +18,26 @@
         <nav class="white">
             <div class="nav-wrapper z-depth-1">
                 <a href="main" class="blue-text brand-logo">Bridge</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="#" class="blue-text">Login</a></li>
+                    <li><a href="#" class="blue-text">Signup</a></li>
+                </ul>
             </div>
         </nav>
     </div>
     <!--end navbar-->
 
     {% block content %}{% endblock %}
-     
+
 </body>
 <footer class="page-footer white">
 
-          <div class="footer-copyright grey lighten-4">
-            <div class="container">
-                <a class="grey-text text-darken-2" href="#">About Bridge</a>
+    <div class="footer-copyright grey lighten-4">
+        <div class="container">
+            <a class="grey-text text-darken-2" href="#">About Bridge</a>
             <a class="grey-text text-darken-2 right" href="#!">Contact us</a>
-            </div>
-          </div>
-        </footer>
+        </div>
+    </div>
+</footer>
+
 </html>

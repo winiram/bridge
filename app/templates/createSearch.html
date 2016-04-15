@@ -1,24 +1,34 @@
 <!DOCTYPE html> {% extends "create_base.html" %} {% block content %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-<script src="/app/jquery.repeater.js"></script>
+<script src="/static/js/bootstrap-colorpicker.js"></script>
+<link rel="stylesheet" href="../static/css/bootstrap-colorpicker.css" type='text/css'>
+<link rel="stylesheet" href="../static/css/bootstrap-colorpicker.css.map" type="text/css">
 <title>Bridge</title>
 <script>
-   $(document).ready(function () {
-       var row=1;
-       $('select').material_select();
-       $('#customSearchOptions').hide();
-       $('#customizeSearch').click(function(){$('#customSearchOptions').toggle();});
-       $("#addButton").click(
-           function(){
-               row++
-               $("#newRow").append(' <div class="row" id="'+row+++'"><div class="input-field col s2 offset-s2"><input id="name" type="text" class="validate"><label for="name">Search Field Name</label></div><div class="input-field col s2"><input id="desc" type="text" class="validate"><label for="desc">Description</label></div><div class="input-field col s2"><select multiple><option value="" disabled selected>Choose your option</option><option value="1">Header 1</option><option value="2">Header 2</option><option value="3">Header 3</option></select><label>Materialize Multiple Select</label></div><div class="input-field col s2"><select><option value="" disabled selected>Choose your option</option><option value="1">Textbox</option><option value="2">Dropdown</option></select><label>Materialize Multiple Select</label></div><div class="col s2"><a class="waves-effect waves-teal btn-flat" id="deleteButton'+row+++'"><i class="tiny material-icons black-text">delete</i></a></div>'); 
-$('select').material_select();
-return row;  //returning row ID (number)                   
-}); //end of click event functions
-}); //end of document ready
-
-
+    $(document).ready(function() {
+        var row = 1;
+        $('select').material_select();
+        $('#customSearchOptions').hide();
+        $('#customizeSearch').click(function() {
+            $('#customSearchOptions').toggle();
+        });
+        $("#addButton").click(
+            //Don't know how to simplify this, but this NEEDS TO BE SIMPLIFIED!!!! 
+            function() {
+                var newRow = row++
+                    var deleteButtonID = "deleteButton_" + newRow;
+                $("#newRow").append(' <div class="row animated fadeInUp" id="' + newRow + '"><div class="input-field col s2 offset-s2"><input id="name" type="text" class="validate"><label for="name">Search Field Name</label></div><div class="input-field col s2"><input id="desc" type="text" class="validate"><label for="desc">Description</label></div><div class="input-field col s2"><select multiple><option value="" disabled selected>Choose your option</option><option value="1">Header 1</option><option value="2">Header 2</option><option value="3">Header 3</option></select><label>Materialize Multiple Select</label></div><div class="input-field col s2"><select><option value="" disabled selected>Choose your option</option><option value="1">Textbox</option><option value="2">Dropdown</option></select><label>Materialize Multiple Select</label></div><div class="col s2"><a class="waves-effect waves-teal btn-flat" id="' + deleteButtonID + '" onclick="deleteRow(this);"><i class="tiny material-icons black-text">delete</i></a></div>');
+                $('select').material_select();
+                //returning row ID (number)                   
+            }); //end of add button click event functions
+    }); //end of document ready
+    // Logic for deleting row by row ID
+    function deleteRow(value) {
+        var id = $(value).attr("id");
+        rowid = id.split("_");
+        $("#" + rowid[1]).remove();
+    }
     var myFirebaseRef = new Firebase("https://https://glaring-torch-9320.firebaseio.com/");
 </script>
 <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
@@ -26,8 +36,6 @@ return row;  //returning row ID (number)
 <script type="text/javascript" src="/javascript/appjs.js"></script>
 
 <!--end pagination-->
-
-
 <div class="grey lighten-2 full" role="main">
     <!--grey background at the back-->
     <!--begin intro section-->
@@ -40,7 +48,7 @@ return row;  //returning row ID (number)
 
     <div class="section"></div>
     <!--begin search form-->
-       <form class="repeater" action="#">
+<form action="POST">
 <div class="row">
     <div class="col s4 offset-s1">
         <h5 class="blue-text">1. Page details</h5>
@@ -87,7 +95,7 @@ return row;  //returning row ID (number)
             <div class="subtitle blue-text">Create Search Fields</div>
         </div>
     </div>
-    <div class="row">
+    <div class="row animated fadeInUp">
         <div class="input-field col s2 offset-s2">
             <input id="name" type="text" class="validate">
             <label for="name">Search Field Name</label>
@@ -119,12 +127,45 @@ return row;  //returning row ID (number)
         </div>
     </div>
     <div class="row" id="newRow">
-       <!--dynamic rows will be inserted here-->
+        <!--dynamic rows will be inserted here-->
     </div>
 </div>
-           
+<div class="divider"></div>
+<div class="divider"></div>
 <div id="customizeStyle">
-           
+    <div class="section"></div>
+    <div class="row">
+        <div class="col s5 offset-s1">
+            <h5 class="blue-text">3. Style your interface</h5>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s4 offset-s2">
+            <div class="subtitle grey-text text-darken-2">Select font-color
+                <input id="colorpicker" type="color" class="none">
+            </div>
+        </div>
+        <div class="col s4">
+            <div class="subtitle grey-text text-darken-2">Select background-color
+                <input id="colorpicker" type="color" class="none">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s4 offset-s2">
+        <div class="file-field input-field">
+            <div class="red accent-2 btn">
+                <span>File</span>
+                <input type="file">
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path validate" type="text">
+            </div>
+        </div>
+        </div>
+    </div>
+
 </div>
 </div>
 <div class="section"></div>
@@ -133,9 +174,9 @@ return row;  //returning row ID (number)
 
 <!--end section-->
 <div class="section"></div>
-    <a class="waves-effect waves-light red accent-2 btn right right-margin" href="{{ url_for('previewSearch')}}">Next</a>
+<a class="waves-effect waves-light red accent-2 btn right right-margin" href="{{ url_for('previewSearch')}}">Next</a>
 <div class="section"></div>
-   
+
 </div>
- 
+
 {% endblock %}
