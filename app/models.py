@@ -9,19 +9,19 @@ class User(db.Model, UserMixin):
     lname = db.Column(db.String(60), unique=False)
     email = db.Column(db.String(120), unique=False)
     search_interfaces = db.relationship('SearchInterface', backref="user")
-    password = db.Column(db.String(128))
+    _password = db.Column(db.String(128))
     authenticated = db.Column(db.Boolean, default=False)
 
     @hybrid_property
     def password(self):
-        return self.password
+        return self._password
 
     @password.setter
     def _set_password(self, plaintext):
-        self.password = bcrypt.generatepassword_hash(plaintext)
+        self._password = bcrypt.generate_password_hash(plaintext)
 
     def is_correct_password(self, plaintext):
-        return bcrypt.check_password_hash(self.password, plaintext)
+        return bcrypt.check_password_hash(self._password, plaintext)
 
     @lm.user_loader
     def load_user(id):
