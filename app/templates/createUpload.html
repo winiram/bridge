@@ -1,13 +1,8 @@
-<<<<<<< HEAD
-{% extends "create_base.html" %} {% block content %}
-<script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
-<script type="text/javascript" src="/javascript/appjs.js"></script>
-=======
+
 {% extends "base.html" %}
 {% block content %}
     <script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
     <script type="text/javascript" src="/static/filepicker.js"></script>
->>>>>>> master
 
 <div class="grey lighten-3" role="main">
 
@@ -15,14 +10,7 @@
         <h1 class="grey-text text-darken-2" id="instructions">1. Upload Collection</h1>
         <div class="divider"></div>
         <div class="section"></div>
-<<<<<<< HEAD
-        <form action="#">
-            <div class="file-field input-field center">
-                <input type="filepicker" id="filepicker" data-fp-apikey="AUJdiqo2nRiCbHdf9r8Yvz" onchange="alert(event.fpfile.url)">
-            </div>
-            <p class="blue-text center">Format: csv/excel</p>
-        </form>
-=======
+
           <div class="file-field input-field" id="upload">
               <div class="row">
                 <div class="col s3">
@@ -32,25 +20,15 @@
                 </div>
               </div>
            </div>
->>>>>>> master
         <div class="divider top-margin"></div>
         <p class="grey-text">Each column will be a header</p>
     </div>
     <div type="filepicker-preview" id="iframe" data-fp-url="https://www.filestackapi.com/api/file/S8O2rWoSFewERT8AfNxW" style="width:75%; height:450px"> </div>
     <div class="section">
-<<<<<<< HEAD
-        <a class="waves-effect waves-light red accent-2 btn right" id="paddedbutton" href="{{ url_for('createSearch')}}">Next</a>
-    </div>
-</div>
-{% endblock %}
-=======
-      <div id="file-preview-container">
-        <div type="filepicker-preview" data-fp-url="https://www.filestackapi.com/api/file/S8O2rWoSFewERT8AfNxW" style="width:75%; height:1500px"> </div>
-      </div>
         <a class="waves-effect waves-light red accent-2 btn right" href="{{ url_for('createSearch')}}">Next</a>
     </div>
 
 
 
  {% endblock %}
->>>>>>> master
+
