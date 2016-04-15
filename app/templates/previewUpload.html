@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+    <script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
+    <script type="text/javascript" src="/static/filepicker.js"></script>
+
+
+    <div id="file-preview-container">
+      <div type="filepicker-preview" data-fp-url="{{ url }}" style="width:75%; height:1500px"> </div>
+    </div>
+
+ {% endblock %}

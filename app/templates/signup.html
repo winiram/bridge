@@ -1,11 +1,6 @@
 <!DOCTYPE html>
+<html>
 
-<<<<<<< HEAD
-{% extends "base.html" %}
-{% block content %}
-
-<body class="blue-grey lighten-5">
-=======
 <head>
     <link rel="stylesheet" type="text/css" href="/static/materialize.css" media="screen">
     <link rel="stylesheet" type="text/css" href="/static/animate.css" media="screen">
@@ -28,13 +23,25 @@
         </nav>
     </div>
     <!--end navbar-->
->>>>>>> master
 
     <div class="row">
-        <form action="/log_in" method="post" id="login" class="col s4 offset-s4 card">
+        <form action="/sign_up" method="post" id="login" class="col s4 offset-s4 card" name='login'>
         {{ form.hidden_tag() }}
             <div class="col s12">
-                <h3 class="smalltext center grey-text">LOGIN</h3>
+                <h3 class="smalltext center grey-text">SIGN UP</h3>
+            </div>
+
+            <div class="input-field col s12">
+                <!-- <input id="fname" type="text" class="validate" name="fname">
+                <label for="fname">First Name</label> -->
+                First name:<br>
+                {{ form.fname(size=60) }}<br>
+            </div>
+            <div class="input-field col s12">
+                <!-- <input id="lname" type="text" class="validate" name="lname">
+                <label for="lname">Last Name</label> -->
+                Last name:<br>
+                {{ form.lname(size=60) }}<br>
             </div>
             <div class="input-field col s12">
                 <!-- <input id="email" type="text" class="validate" name="email">
@@ -49,24 +56,13 @@
                 {{ form.password(size=20) }}<br>
             </div>
             <div class="input-field col s6 offset-s4">
-                <a class="waves-effect waves-light btn blue" id="signup" href="{{ url_for('sign_up') }}">Signup</a>
-            </div>
-            <div class="input-field col s6 offset-s4">
-                <p><input type="submit" class="waves-effect waves-light btn blue" id="login" value="Log In"></p>
+                <p><input type="submit" class="waves-effect waves-light btn blue" id="signup" value="Sign Up"></p>
             </div>
             <div class="row">
             </div>
             <div class="row">
             </div>
-            {{ form.csrf_token }}
         </form>
     </div>
-
-
 </body>
-
-<<<<<<< HEAD
-{% endblock %}
-=======
 </html>
->>>>>>> master
