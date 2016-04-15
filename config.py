@@ -6,3 +6,5 @@ SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
 
 WTF_CSRF_ENABLED = True
 SECRET_KEY = 'bridge-bridge-bridge'
+
+BCRYPT_LOG_ROUNDS = 12
