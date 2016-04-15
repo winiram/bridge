@@ -12,3 +12,4 @@ pandas==0.16.2
 blinker==1.4
 flask-bcrypt==0.7.1
 bcrypt==2.0.0
+flask-login==0.3.2
