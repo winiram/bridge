@@ -14,6 +14,8 @@ from .util.security import ts
 from flask_login import login_user, logout_user, login_required
 from flask.ext.login import current_user
 
+BUTTON_TYPES = ["Textbox", "Dropdown"]
+
 @app.route('/')
 def index():
     return redirect('/main')
@@ -75,7 +77,10 @@ def saveFile():
 
 @app.route("/createSearch")
 def createSearch():
-    return render_template("createSearch.html")
+    si = models.SearchInterface.query.first() # REPLACE WITH SI ID IN SESSION
+    query_result = db.engine.execute("PRAGMA table_info({})".format(si.document_id)).fetchall()
+    headers = [(item[1], item[0]) for item in query_result]
+    return render_template("createSearch.html", headers=headers, types="")
 
 @app.route("/previewSearch")
 @login_required
