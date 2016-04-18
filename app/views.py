@@ -102,7 +102,11 @@ def searchInterface_side():
 @app.route("/test")
 def test():
     return render_template("test.html")   
+<<<<<<< Updated upstream
     
+=======
+
+>>>>>>> Stashed changes
 
 @app.route("/sign_up", methods=['GET', 'POST'])
 def sign_up():
