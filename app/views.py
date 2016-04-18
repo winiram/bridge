@@ -1,7 +1,12 @@
 from flask import render_template, redirect, request, flash, jsonify, url_for, g, escape, session
 from app import app, models, db, fileprocessing
 import base64, json, time
-import urllib.request
+try:
+    # For Python 3.0 and later
+    from urllib.request import urlopen
+except ImportError:
+    # Fall back to Python 2's urllib2
+    from urllib2 import urlopen
 import pandas as pd
 from sqlalchemy import engine
 from .forms import SignupForm, LoginForm
@@ -77,7 +82,6 @@ def saveFile():
     return jsonify(validation)
 
 @app.route("/createSearch")
-@login_required
 def createSearch():
     return render_template("createSearch.html")
 
