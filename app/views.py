@@ -90,6 +90,7 @@ def createSearch():
 def previewSearch():
     return render_template("previewSearch.html")
 
+<<<<<<< HEAD
 @app.route("/interface")
 def searchInterface():
     return render_template("interface.html")
@@ -107,6 +108,12 @@ def test():
 =======
 
 >>>>>>> Stashed changes
+=======
+@app.route("/searchInterface")
+@login_required
+def searchInterface():
+    return render_template("searchInterface.html")
+>>>>>>> master
 
 @app.route("/sign_up", methods=['GET', 'POST'])
 def sign_up():
@@ -152,4 +159,7 @@ def log_out():
 @app.before_request
 def before_request():
     g.user = current_user
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
