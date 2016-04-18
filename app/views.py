@@ -148,4 +148,4 @@ def log_out():
 @app.before_request
 def before_request():
     g.user = current_user
->>>>>>> master
+
