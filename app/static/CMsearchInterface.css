@@ -1,0 +1,85 @@
+
+header, main, footer {
+  padding-left: 240px;
+}
+
+@media only screen and (max-width : 992px) {
+  header, main, footer {
+    padding-left: 0;
+  }
+}
+.gridItem{
+	text-align: left;
+}
+
+.modal-content {
+	color: black;
+	line-height: 110%;
+}
+
+.gridItem {
+	display: inline-block;
+	box-sizing: border-box;
+}
+
+.gridItem img{
+	max-width: 100%;
+}
+
+nav {
+	padding-left: 30px;
+	padding-right: 30px;
+}
+
+
+.tabs {
+/*	background-color: black;*/
+	}
+
+.dropdown-content {
+	width: 100px;
+}
+#header-img{
+	width: 100%;
+}
+.row {
+	margin-bottom: 0px
+}
+
+.flex-container {
+    display: -webkit-flex;
+    display: flex;
+}
+
+.flex-item {
+    /*margin: 10px;*/
+}
+
+.filter {
+	display: flex;
+	flex-direction: column;
+	
+}
+
+
+/*main color*/
+
+	/*nav*/
+
+/*accent colors*/
+
+.tabs .tab a {
+/*	color: black;*/
+	}
+
+.tabs .indicator {
+/*	background-color: black;*/
+}
+
+.btn {
+/*	background-color: black;*/
+}
+
+.btn hover{
+	background-color: black;
+}
