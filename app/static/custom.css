@@ -153,5 +153,10 @@ h5{
 	height: 100%;
 }
 
+.reducedwidth {
+	width: 80% !important;
+    margin-left: 10%;
+}
+
 
 
