@@ -21,6 +21,15 @@ def createSearch():
 def previewSearch():
     return render_template("previewSearch.html")
 
-@app.route("/searchInterface")
+@app.route("/interface")
 def searchInterface():
-    return render_template("searchInterface.html")
+    return render_template("interface.html")
+
+@app.route("/search")
+def searchInterface_side():
+    return render_template("search.html")        
+
+
+@app.route("/test")
+def test():
+    return render_template("test.html")   
