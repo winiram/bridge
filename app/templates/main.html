@@ -1,9 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
 
+
     <div class="intro">
+      {% if g.user.is_authenticated %}
+        <span id="email">Logged in as {{ email }}</span>
+        <div class="input-field col s6 offset-s4">
+            <a class="waves-effect waves-light btn blue" id="logout" href="{{ url_for('log_out') }}">Log Out</a>
+        </div>
+      {% else %}
+        <div class="input-field col s6 offset-s4">
+          <a class="waves-effect waves-light btn blue" id="login" href="{{ url_for('log_in') }}">Log In</a>
+        </div>
+      {% endif %}
+
         <h1 class="animated fadeInUp intro blue-text center">
-            Share your collection in 5 minutes
+            Share your collection in under 5 minutes
         </h1>
         <div class="row">
             <img class="animated fadeInUp" src="/static/brige-intro.png">

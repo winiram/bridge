@@ -1,30 +1,14 @@
 <!DOCTYPE html>
-<html>
 
-<head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
-
-    <!-- Compiled and minified JavaScript -->
-
-    <link rel="stylesheet" type="text/css" href="/css/custom.css" media="screen">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-    <title>Bridge</title>
+{% extends "base.html" %}
+{% block content %}
+    
     <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
-</head>
 <script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
 <script type="text/javascript" src="/javascript/appjs.js"></script>
 
 <body class="grey lighten-5">
     <!--navbar-->
-    <div>
-        <nav class="white">
-            <div class="nav-wrapper">
-                <a href="#" class="blue-text brand-logo">Bridge</a>
-            </div>
-        </nav>
-    </div>
     <!--end navbar-->
     <!--start pagination-->
     <div class="section">
@@ -73,4 +57,4 @@
         <a class="waves-effect waves-light grey btn right" href="createSearch.html">Edit</a>
     </div>
 </body>
-</html>
+{% endblock %}

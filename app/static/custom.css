@@ -1,3 +1,5 @@
+
+@import "bourbon";
 /* label focus color */
    .input-field input[type=text]:focus + label {
      color: #2196F3;
@@ -6,6 +8,11 @@
    .input-field input[type=text]:focus {
      border-bottom: 1px solid #2196F3;
      box-shadow: 0 1px 0 0 #2196F3;
+   }
+/* label underline focus color */
+   textarea.materialize-textarea:focus {
+        border-bottom: 1px solid #2196F3 !important;
+     box-shadow: 0 1px 0 0 #2196F3 !important;
    }
 /* label focus color */
  .input-field input[type=password]:focus + label {
@@ -16,7 +23,22 @@
      border-bottom: 1px solid #2196F3;
      box-shadow: 0 1px 0 0 #2196F3;
    }
+html,body{
+    font-family: "Roboto", sans-serif !important;
+    display: flex !important;
+    min-height: 100vh !important;
+    flex-direction: column !important;
+    
 
+}
+
+iframe{
+    float: right!important;
+}
+  main {
+    flex: 1 0 auto !important;
+  }
+      
 #login {
 	margin-top: 10%;
 }
@@ -40,23 +62,25 @@
 }
 
 .intro {
-    font-weight:100;
+    font-weight:300 !important;
     font-size: 30px;
-    font-family: Verdana, Geneva, sans-serif;
+    font-family: 'Roboto', sans-serif;
   -vendor-animation-duration: 5s;
   -vendor-animation-delay: 3s;
 
 }
 
 .btn{
-    font-family: Verdana, Geneva, sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 20px;
+
 }
 
 #instructions{
-    font-weight: 500 !important;
-    margin-left: 5%;
-    font-size: 28px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300 !important;
+    font-size: 34px;
+    font
 }
 
 .top-margin {
@@ -80,13 +104,9 @@
     margin-left: 20%;
 }
 
-#upload {
-    padding-left: 5%;
-}
-
 .fp__btn {
-	background-color: #2196f3 !important;
-    
+	background-color: #FF5252 !important;
+    font-family: "Roboto", sans-serif !important;
 }
 
 .subtitle {
@@ -101,6 +121,36 @@
 
 #header1 {
 	border-bottom: 0;
+}
+
+.leftspace{
+    margin-left: 5%;
+}
+
+#footer{
+    position:fixed;
+    height:50px;
+    background-color:blue;
+    bottom:0px;
+    left:0px;
+    right:0px;
+    margin-bottom:0px;
+}
+
+#paddedbutton {
+	margin-right: 10%;
+}
+
+.thintext{
+    font-weight: 100 !important;
+}
+
+h5{
+    font-weight: 200 !important;
+}
+
+.full {
+	height: 100%;
 }
 
 
