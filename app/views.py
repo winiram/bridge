@@ -90,7 +90,6 @@ def createSearch():
 def previewSearch():
     return render_template("previewSearch.html")
 
-<<<<<<< HEAD
 @app.route("/interface")
 def searchInterface():
     return render_template("interface.html")
@@ -103,11 +102,7 @@ def searchInterface_side():
 @app.route("/test")
 def test():
     return render_template("test.html")   
-=======
-@app.route("/searchInterface")
-@login_required
-def searchInterface():
-    return render_template("searchInterface.html")
+    
 
 @app.route("/sign_up", methods=['GET', 'POST'])
 def sign_up():
