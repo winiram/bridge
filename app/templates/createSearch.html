@@ -9,6 +9,7 @@
 <script>
     $(document).ready(function() {
         var row = 1;
+        var array = new Array();
         $('select').material_select();
         $('#customSearchOptions').hide();
         $('#customizeSearch').click(function() {
@@ -19,10 +20,17 @@
             function() {
                 var newRow = row++
                     var deleteButtonID = "deleteButton_" + newRow;
-                $("#newRow").append(' <div class="row animated fadeInUp" id="' + newRow + '"><div class="input-field col s2 offset-s2"><input id="name" type="text" class="validate"><label for="name">Search Field Name</label></div><div class="input-field col s2"><input id="desc" type="text" class="validate"><label for="desc">Description</label></div><div class="input-field col s2"><select multiple><option value="" disabled selected>Choose your option</option><option value="1">Header 1</option><option value="2">Header 2</option><option value="3">Header 3</option></select><label>Materialize Multiple Select</label></div><div class="input-field col s2"><select><option value="" disabled selected>Choose your option</option><option value="1">Textbox</option><option value="2">Dropdown</option></select><label>Materialize Multiple Select</label></div><div class="col s2"><a class="waves-effect waves-teal btn-flat" id="' + deleteButtonID + '" onclick="deleteRow(this);"><i class="tiny material-icons black-text">delete</i></a></div>');
+                $("#newRow").append(' <div class="row animated fadeInUp" id="row' + newRow + '"><div class="input-field col s2 offset-s2"><input id="name" type="text" class="validate"><label for="name">Search Field Name</label></div><div class="input-field col s2"><input id="desc" type="text" class="validate"><label for="desc">Description</label></div><div class="input-field col s2"><select multiple><option value="" disabled selected>Choose your option</option><option value="1">Header 1</option><option value="2">Header 2</option><option value="3">Header 3</option></select><label>Materialize Multiple Select</label></div><div class="input-field col s2"><select><option value="" disabled selected>Choose your option</option><option value="1">Textbox</option><option value="2">Dropdown</option></select><label>Materialize Multiple Select</label></div><div class="col s2"><a class="waves-effect waves-teal btn-flat" id="' + deleteButtonID + '" onclick="deleteRow(this);"><i class="tiny material-icons black-text">delete</i></a></div>');
                 $('select').material_select();
                 //returning row ID (number)                   
             }); //end of add button click event functions
+
+        //on click of Next button, return row IDs
+        $("#next").click(function() {
+            var rowid = $("div[id^=row]");
+            array.push(rowid);
+            alert(array);
+        });
     }); //end of document ready
     // Logic for deleting row by row ID
     function deleteRow(value) {
@@ -30,7 +38,6 @@
         rowid = id.split("_");
         $("#" + rowid[1]).remove();
     }
-    var myFirebaseRef = new Firebase("https://https://glaring-torch-9320.firebaseio.com/");
 </script>
 <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
 <script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
@@ -144,16 +151,17 @@
 
     <div class="row">
         <div class="col s4 offset-s2">
-            <div class="subtitle grey-text text-darken-2">Choose primary color
-                <input id="fontcolorpicker" type="color" class="none">
+            <div class="grey-text text-darken-2">a. Choose primary color
+                <input id="fontcolorpicker" type="color" class="none" value="#000000">
             </div>
         </div>
         <div class="col s4">
-            <div class="subtitle grey-text text-darken-2">Choose secondary/accent color
-                <input id="backgroundcolorpicker" type="color" value="rgb(100,255,218)">
+            <div class="grey-text text-darken-2">b. Choose accent color
+                <input id="backgroundcolorpicker" type="color" value="#cfd8dc">
             </div>
         </div>
     </div>
+    <div class="section"></div>
     <div class="section grey lighten-5 card reducedwidth centered">
         <div class="row">
             <div class="col s4 offset-s4 center">
@@ -180,7 +188,7 @@
 </form>
 
 <div class="section"></div>
-<a class="waves-effect waves-light red accent-2 btn right right-margin" href="{{ url_for('previewSearch')}}">Next</a>
+<a class="waves-effect waves-light red accent-2 btn right right-margin" href="{{ url_for('searchInterface')}}" id="next">Next</a>
 <div class="section"></div>
 
 </div>
