@@ -39,14 +39,6 @@ def createUpload():
         db.session.commit()
     return render_template("createUpload.html")
 
-@app.route("/previewUpload", methods=['POST'])
-@login_required
-def previewUpload():
-    global test_file_url
-    si = models.SearchInterface.query.first()
-    file_url = 'https://www.filestackapi.com/api/file/' + si.document_id;
-    return render_template("previewUpload.html", url=file_url)
-
 @app.route("/storeFile", methods=["POST"])
 @login_required
 def saveFile():
@@ -57,7 +49,7 @@ def saveFile():
     file_id = file_url.split('/')[-1]
 
     # Get file from filestack, Might need to implement HTTPS
-    httpResponse = urllib.request.urlopen(file_url + "/metadata")
+    httpResponse = urlopen(file_url + "/metadata")
     print("The server's response to {} was {}".format(file_url, httpResponse.status))
     file_metadata = json.loads(httpResponse.read().decode("utf-8"))
     mimetype = file_metadata["mimetype"]
@@ -97,12 +89,12 @@ def searchInterface():
 
 @app.route("/search")
 def searchInterface_side():
-    return render_template("search.html")        
+    return render_template("search.html")
 
 
 @app.route("/test")
 def test():
-    return render_template("test.html")   
+    return render_template("test.html")
 
 
 @app.route("/sign_up", methods=['GET', 'POST'])
@@ -149,4 +141,3 @@ def log_out():
 @app.before_request
 def before_request():
     g.user = current_user
-
