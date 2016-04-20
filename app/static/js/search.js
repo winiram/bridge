@@ -31,11 +31,14 @@ var gridView = [];
         }
 
  // make rows (list and grid views)
-
         for(j in val){
 // get values
             var table_header = j;
             var sub_val = val[j];
+        
+            if(table_header == "imglink"){
+              console.log("img!!")
+              continue}
 // make headers, put the id as the header name
             headers.push("<th data-field='"+table_header+"'>"+ table_header+"</th>");             
 // make rows for list view
@@ -51,7 +54,10 @@ var gridView = [];
       }
    // make headers
 
-      for (i = 0; i < count.length; i++) { 
+            
+      for (i = 0; i < count.length-1; i++) { 
+
+
         headerRow.push(headers[i])
       }
 
