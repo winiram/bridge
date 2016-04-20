@@ -39,14 +39,6 @@ def createUpload():
         db.session.commit()
     return render_template("createUpload.html")
 
-@app.route("/previewUpload", methods=['POST'])
-@login_required
-def previewUpload():
-    global test_file_url
-    si = models.SearchInterface.query.first()
-    file_url = 'https://www.filestackapi.com/api/file/' + si.document_id;
-    return render_template("previewUpload.html", url=file_url)
-
 @app.route("/storeFile", methods=["POST"])
 @login_required
 def saveFile():
