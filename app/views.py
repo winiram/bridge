@@ -14,6 +14,7 @@ from .util.security import ts
 from flask_login import login_user, logout_user, login_required
 from flask.ext.login import current_user
 
+
 @app.route('/')
 def index():
     return redirect('/main')
@@ -30,13 +31,13 @@ def main():
 @app.route("/createUpload")
 @login_required
 def createUpload():
-    # Temporarily just create one search interface
-    if not models.SearchInterface.query.first():
-        user = models.User.query.first()
-        si = models.SearchInterface()
-        user.search_interfaces.append(si)
-        db.session.add(user)
-        db.session.commit()
+    # # Temporarily just create one search interface
+    # if not models.SearchInterface.query.first():
+    #     user = models.User.query.first()
+    #     si = models.SearchInterface()
+    #     user.search_interfaces.append(si)
+    #     db.session.add(user)
+    #     db.session.commit()
     return render_template("createUpload.html")
 
 @app.route("/storeFile", methods=["POST"])
@@ -63,9 +64,36 @@ def saveFile():
 
     # If file is valid store in database, otherwise return to upload page with error message
     if not db.engine.has_table(file_id):
+        # Create table on the fly
         df.to_sql(file_id, db.engine, index=False)
-        si = models.SearchInterface.query.first() # REPLACE WITH SI ID IN SESSION
-        si.document_id = file_id
+
+        user = models.User.query.filter_by(email=session["email"]).first()
+
+        # Create search interface and link it to the user
+        si = models.SearchInterface(user = user.id)
+        db.session.add(si)
+
+        # Create document and link it to the search interface
+        si_query = models.SearchInterface.query.filter_by(user=user.id).first()
+        print("printing search interface id: {}".format(si_query.id))
+
+        document = models.Document()
+        document.document_id = file_id
+        document.search_interface = si_query.id
+
+        # Create headers and link them to the document
+        query_result = db.engine.execute('PRAGMA table_info("{}")'.format(document.document_id)).fetchall()
+        # Headers is a list of (header_name, header_value)
+        for item in query_result:
+            print(item)
+            header = models.Header()
+            header.header_name = item[1]
+            header.document = document.document_id
+            db.session.add(header)
+
+        db.session.add(user)
+        db.session.add(si)
+        db.session.add(document)
         db.session.commit()
     else:
         # COMPLETE check if file has been updated and passes test than can add file
@@ -75,7 +103,15 @@ def saveFile():
 
 @app.route("/createSearch")
 def createSearch():
-    return render_template("createSearch.html")
+    user = models.User.query.filter_by(email=session["email"]).first()
+    si = models.SearchInterface.query.filter_by(user=user.id).first() #assuming user has only one search interface
+    document = models.Document.query.filter_by(search_interface=si.id).first()
+    headers = models.Header.query.filter_by(document=document.document_id).all()
+
+    headers_names = [header.header_name for header in headers] # Headers is a list of header names
+    print(headers_names)
+
+    return render_template("createSearch.html", headers=headers, types=models.BUTTON_TYPES)
 
 @app.route("/previewSearch")
 @login_required
