@@ -51,8 +51,9 @@
 
     <!--begin search form-->
 
-<form action="/createSearch" method="post" id="createsearch">
-
+<!-- <form action="/createSearch" method="post" id="createsearch"> -->
+<form action="/createSearch" method="post" id="createsearch" class="col s4 offset-s4 card">
+  {{ form.hidden_tag() }}
   <div class="section"></div>
   <div class="row">
       <div class="col s5 offset-s1">
@@ -82,45 +83,51 @@
       </div>
       <div class="row animated fadeInUp" data-row="0">
           <div class="input-field col s2 offset-s2">
-              <input id="searchFieldName" type="text" class="validate">
-              <label for="searchFieldName">Search Field Name</label>
+              <!-- <input id="searchFieldName" type="text" class="validate">
+              <label for="searchFieldName">Search Field Name</label> -->
+              Search Field Name:<br>
+              {{ form.fieldname(size=120) }}<br>
           </div>
           <div class="input-field col s2">
-              <input id="searchFieldDescription" type="text" class="validate">
-              <label for="searchFieldDescription">Description</label>
+              <!-- <input id="searchFieldDescription" type="text" class="validate">
+              <label for="searchFieldDescription">Description</label> -->
+              Description:<br>
+              {{ form.description(size=120) }}<br>
           </div>
           <div class="input-field col s2">
-              <select multiple>
+              <!-- <select multiple>
                   <option value="" disabled selected>Choose your option</option>
                   <option value="header1">Header 1</option>
                   <option value="header2">Header 2</option>
                   <option value="header3">Header 3</option>
               </select>
-              <label>Materialize Multiple Select</label>
+              <label>Materialize Multiple Select</label> -->
+              {{form.header}}
           </div>
           <div class="input-field col s2">
-              <select>
+              <!-- <select>
                   <option value="" disabled selected>Choose your option</option>
                   <option value="option1">Textbox</option>
                   <option value="option2">Dropdown</option>
               </select>
-              <label>Materialize Multiple Select</label>
+              <label>Materialize Multiple Select</label> -->
+              {{form.display}}
           </div>
           <div class="col s2">
               <a class="btn-floating btn waves-effect waves-light red left-margin-big" id="addButton">
                   <i class="material-icons">add</i></a>
-
           </div>
       </div>
       <div class="row" id="newRow">
           <!--dynamic rows will be inserted here-->
       </div>
+      <div class="section"></div>
+      <!-- <a class="waves-effect waves-light red accent-2 btn right right-margin" onclick="$('form[id=createsearch]').submit()" id="next">Next</a> -->
+      <p><input type="submit" class="waves-effect waves-light red accent-2 btn right right-margin" id="next" value="Next"></p>
+      <div class="section"></div>
   </div>
+  {{ form.csrf_token }}
 </form>
-
-<div class="section"></div>
-<a class="waves-effect waves-light red accent-2 btn right right-margin" onclick="$('form[id=createsearch]').submit()" id="next">Next</a>
-<div class="section"></div>
 
 </div>
 
