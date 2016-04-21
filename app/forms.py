@@ -18,3 +18,5 @@ class SignupForm(Form):
     email = EmailField('Email', validators=[DataRequired(), Email(),
         Unique(User, User.email,message='There is already an account with that email.')])
     password = PasswordField('password', validators=[DataRequired()])
+
+#class SearchInterfaceForm(Form):
