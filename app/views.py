@@ -101,17 +101,21 @@ def saveFile():
 
     return jsonify(validation)
 
-@app.route("/createSearch")
+@app.route("/createSearch", methods=['GET', 'POST'])
 def createSearch():
-    user = models.User.query.filter_by(email=session["email"]).first()
-    si = models.SearchInterface.query.filter_by(user=user.id).first() #assuming user has only one search interface
-    document = models.Document.query.filter_by(search_interface=si.id).first()
-    headers = models.Header.query.filter_by(document=document.document_id).all()
 
-    headers_names = [header.header_name for header in headers] # Headers is a list of header names
-    print(headers_names)
+    if request.method == 'GET':
+        user = models.User.query.filter_by(email=session["email"]).first()
+        si = models.SearchInterface.query.filter_by(user=user.id).first() #assuming user has only one search interface
+        document = models.Document.query.filter_by(search_interface=si.id).first()
+        headers = models.Header.query.filter_by(document=document.document_id).all()
 
-    return render_template("createSearch.html", headers=headers, types=models.BUTTON_TYPES)
+        headers_names = [header.header_name for header in headers] # Headers is a list of header names
+        print(headers_names)
+
+        return render_template("createSearchSimple.html", headers=headers, types=models.BUTTON_TYPES)
+    elif request.method == 'POST':
+        return redirect(url_for("interface"))
 
 @app.route("/previewSearch")
 @login_required
@@ -120,7 +124,7 @@ def previewSearch():
 
 
 @app.route("/interface")
-def searchInterface():
+def interface():
     return render_template("interface.html")
 
 @app.route("/search")
