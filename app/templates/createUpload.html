@@ -14,7 +14,7 @@
           <div class="file-field input-field" id="upload">
               <div class="row">
                 <div class="col s4 offset-s4">
-                  <form method="POST" action="{{ url_for('previewUpload') }}" id="filepicker">
+                  <form id="filepicker">
                     <input type=filepicker data-fp-apikey="AwWNg6Ei3SHyfKegusrWIz" data-fp-extensions=".csv,.xls,.xlsx,.gsheet" data-fp-services="COMPUTER,GOOGLE_DRIVE" data-fp-maxFiles="1" onchange="storeFile()">
                   </form>
                 </div>
@@ -32,4 +32,3 @@
 
 
  {% endblock %}
-
