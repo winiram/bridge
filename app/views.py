@@ -113,7 +113,20 @@ def createSearch():
 
         print(headers_names)
         searchform = SearchInterfaceForm(headers_names)
+        print("before")
 
+        ###BUG RIGHT NOW--> It's not entering into the below if statement and not storing the function)
+        if searchform.validate_on_submit():
+            print("after-------")
+            searchfield = models.SearchField(
+                name = searchform.fieldname.data,
+                description = searchform.description.data,
+                field_type = searchform.display.data,
+            )
+            print("pritning searchi field")
+            print(searchfield)
+            db.session.add(searchfield)
+            db.session.commit()
         # return render_template("createSearchSimple.html", headers=headers, types=models.BUTTON_TYPES)
         return render_template("createSearchSimple.html", form=searchform)
     elif request.method == 'POST':
