@@ -12,7 +12,7 @@ class User(db.Model, UserMixin):
     fname = db.Column(db.String(60), unique=False)
     lname = db.Column(db.String(60), unique=False)
     email = db.Column(db.String(120), unique=True)
-    search_interfaces = db.relationship('SearchInterface', backref="users")
+    search_interfaces = db.relationship('SearchInterface', lazy='dynamic', backref="users")
     _password = db.Column(db.String(128))
     authenticated = db.Column(db.Boolean, default=False)
 
@@ -60,8 +60,7 @@ class SearchInterface(db.Model):
 class Document(db.Model):
     document_id = db.Column(db.String(120), primary_key=True)
     search_interface = db.Column(db.Integer, db.ForeignKey('search_interface.id'))
-    headers = db.relationship("Header", backref="documents")
-
+    headers = db.relationship("Header",lazy='dynamic', backref="documents")
 
 headers = db.Table('headers',
     db.Column('search_field', db.Integer, db.ForeignKey('search_field.id')),

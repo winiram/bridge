@@ -69,24 +69,37 @@ def saveFile():
 
         # Create search interface and append it to the user table
         user = models.User.query.filter_by(email=session["email"]).first()
-        si = models.SearchInterface()
-        user.search_interfaces.append(si)
+
+        # user.search_interfaces.append(si)
 
         # Create document and add it to the search interface table
-        document = models.Document()
-        si.document_id = document.document_id
-        si.user = user.id
-        document.document_id = file_id
-        document.search_interface = si.id
+        si = models.SearchInterface(
+            user = user.id)
 
+        db.session.add(si)
+
+        si_query = models.SearchInterface.query.filter_by(user=user.id).first()
+
+        print("printing search interface id")
+        print (si_query.id)
+        #si.user = user.id
+
+        document = models.Document()
+        document.document_id = file_id
+
+        document.search_interface = si_query.id #this is not working
+        # si.document = document.document_id
+
+        # si.document_id = document.document_id
         # Create headers and add it to the header table
-        query_result = db.engine.execute("PRAGMA table_info({})".format(document.document_id)).fetchall()
+        query_result = db.engine.execute('PRAGMA table_info("{}")'.format(document.document_id)).fetchall()
         # Headers is a list of (header_name, header_value)
-        headers = [(item[1], item[0]) for item in query_result]
         for item in query_result:
+            print(item)
             header = models.Header()
             header.header_name = item[1]
-            document.headers.append(header)
+            header.document = document.document_id
+            # document.headers.append(header)
             db.session.add(header)
 
         db.session.add(user)
@@ -101,11 +114,19 @@ def saveFile():
 
 @app.route("/createSearch")
 def createSearch():
+    user = models.User.query.filter_by(email=session["email"]).first()
+    print("hi")
+    si = models.SearchInterface.query.filter_by(user=user.id).first() #assuming user has only one search interface
+    document = models.Document.query.filter_by(search_interface=si.id).first()
 
-    si = models.SearchInterface.query.first() # REPLACE WITH SI ID IN SESSION
-    query_result = db.engine.execute("PRAGMA table_info({})".format(si.document_id)).fetchall()
-    # Headers is a list of (header_name, header_value)
-    headers = [(item[1], item[0]) for item in query_result]
+
+    headers = models.Header.query.filter_by(document=document.document_id).all()
+    print(headers)
+
+    # si = models.SearchInterface.query.first() # REPLACE WITH SI ID IN SESSION
+    # query_result = db.engine.execute("PRAGMA table_info({})".format(si.document_id)).fetchall()
+    # # Headers is a list of (header_name, header_value)
+    # headers = [(item[1], item[0]) for item in query_result]
     return render_template("createSearch.html", headers=headers, types=models.BUTTON_TYPES)
 
 @app.route("/previewSearch")
