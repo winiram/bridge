@@ -14,7 +14,6 @@ from .util.security import ts
 from flask_login import login_user, logout_user, login_required
 from flask.ext.login import current_user
 
-BUTTON_TYPES = ["Textbox", "Dropdown"]
 
 @app.route('/')
 def index():
@@ -32,13 +31,13 @@ def main():
 @app.route("/createUpload")
 @login_required
 def createUpload():
-    # Temporarily just create one search interface
-    if not models.SearchInterface.query.first():
-        user = models.User.query.first()
-        si = models.SearchInterface()
-        user.search_interfaces.append(si)
-        db.session.add(user)
-        db.session.commit()
+    # # Temporarily just create one search interface
+    # if not models.SearchInterface.query.first():
+    #     user = models.User.query.first()
+    #     si = models.SearchInterface()
+    #     user.search_interfaces.append(si)
+    #     db.session.add(user)
+    #     db.session.commit()
     return render_template("createUpload.html")
 
 @app.route("/storeFile", methods=["POST"])
@@ -65,9 +64,34 @@ def saveFile():
 
     # If file is valid store in database, otherwise return to upload page with error message
     if not db.engine.has_table(file_id):
+        # Create table on the fly
         df.to_sql(file_id, db.engine, index=False)
-        si = models.SearchInterface.query.first() # REPLACE WITH SI ID IN SESSION
-        si.document_id = file_id
+
+        # Create search interface and append it to the user table
+        user = models.User.query.filter_by(email=session["email"]).first()
+        si = models.SearchInterface()
+        user.search_interfaces.append(si)
+
+        # Create document and add it to the search interface table
+        document = models.Document()
+        si.document_id = document.document_id
+        si.user = user.id
+        document.document_id = file_id
+        document.search_interface = si.id
+
+        # Create headers and add it to the header table
+        query_result = db.engine.execute("PRAGMA table_info({})".format(document.document_id)).fetchall()
+        # Headers is a list of (header_name, header_value)
+        headers = [(item[1], item[0]) for item in query_result]
+        for item in query_result:
+            header = models.Header()
+            header.header_name = item[1]
+            document.headers.append(header)
+            db.session.add(header)
+
+        db.session.add(user)
+        db.session.add(si)
+        db.session.add(document)
         db.session.commit()
     else:
         # COMPLETE check if file has been updated and passes test than can add file
@@ -77,10 +101,12 @@ def saveFile():
 
 @app.route("/createSearch")
 def createSearch():
+
     si = models.SearchInterface.query.first() # REPLACE WITH SI ID IN SESSION
     query_result = db.engine.execute("PRAGMA table_info({})".format(si.document_id)).fetchall()
+    # Headers is a list of (header_name, header_value)
     headers = [(item[1], item[0]) for item in query_result]
-    return render_template("createSearch.html", headers=headers, types="")
+    return render_template("createSearch.html", headers=headers, types=models.BUTTON_TYPES)
 
 @app.route("/previewSearch")
 @login_required
