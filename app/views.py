@@ -1,4 +1,4 @@
-from flask import render_template, redirect, request, flash, jsonify, url_for, g, escape, session
+from flask import render_template, redirect, request, flash, jsonify, url_for, g, escape, session, render_template_string
 from app import app, models, db, fileprocessing
 import base64, json, time
 try:
@@ -9,7 +9,7 @@ except ImportError:
     from urllib2 import urlopen
 import pandas as pd
 from sqlalchemy import engine
-from .forms import SignupForm, LoginForm
+from .forms import SignupForm, LoginForm, SearchInterfaceForm
 from .util.security import ts
 from flask_login import login_user, logout_user, login_required
 from flask.ext.login import current_user
@@ -92,7 +92,7 @@ def saveFile():
             db.session.add(header)
 
         db.session.add(user)
-        db.session.add(si)
+        # db.session.add(si)
         db.session.add(document)
         db.session.commit()
     else:
@@ -103,17 +103,19 @@ def saveFile():
 
 @app.route("/createSearch", methods=['GET', 'POST'])
 def createSearch():
-
     if request.method == 'GET':
         user = models.User.query.filter_by(email=session["email"]).first()
         si = models.SearchInterface.query.filter_by(user=user.id).first() #assuming user has only one search interface
         document = models.Document.query.filter_by(search_interface=si.id).first()
         headers = models.Header.query.filter_by(document=document.document_id).all()
-
         headers_names = [header.header_name for header in headers] # Headers is a list of header names
-        print(headers_names)
+        headers_names = [(header, header) for header in headers_names] #preparing it into tupes for feeding the form
 
-        return render_template("createSearchSimple.html", headers=headers, types=models.BUTTON_TYPES)
+        print(headers_names)
+        searchform = SearchInterfaceForm(headers_names)
+
+        # return render_template("createSearchSimple.html", headers=headers, types=models.BUTTON_TYPES)
+        return render_template("createSearchSimple.html", form=searchform)
     elif request.method == 'POST':
         return redirect(url_for("interface"))
 
