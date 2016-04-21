@@ -20,17 +20,10 @@
             function() {
                 var newRow = row++
                     var deleteButtonID = "deleteButton_" + newRow;
-                $("#newRow").append(' <div class="row animated fadeInUp" id="row' + newRow + '"><div class="input-field col s2 offset-s2"><input id="name" type="text" class="validate"><label for="name">Search Field Name</label></div><div class="input-field col s2"><input id="desc" type="text" class="validate"><label for="desc">Description</label></div><div class="input-field col s2"><select multiple><option value="" disabled selected>Choose your option</option><option value="1">Header 1</option><option value="2">Header 2</option><option value="3">Header 3</option></select><label>Materialize Multiple Select</label></div><div class="input-field col s2"><select><option value="" disabled selected>Choose your option</option><option value="1">Textbox</option><option value="2">Dropdown</option></select><label>Materialize Multiple Select</label></div><div class="col s2"><a class="waves-effect waves-teal btn-flat" id="' + deleteButtonID + '" onclick="deleteRow(this);"><i class="tiny material-icons black-text">delete</i></a></div>');
+                $("#newRow").append(' <div class="row animated fadeInUp" data-row="'+newRow+'" id="'+newRow+'"><div class="input-field col s2 offset-s2"><input id="name" type="text" class="validate"><label for="name">Search Field Name</label></div><div class="input-field col s2"><input id="desc" type="text" class="validate"><label for="desc">Description</label></div><div class="input-field col s2"><select multiple><option value="" disabled selected>Choose your option</option><option value="1">Header 1</option><option value="2">Header 2</option><option value="3">Header 3</option></select><label>Materialize Multiple Select</label></div><div class="input-field col s2"><select><option value="" disabled selected>Choose your option</option><option value="1">Textbox</option><option value="2">Dropdown</option></select><label>Materialize Multiple Select</label></div><div class="col s2"><a class="waves-effect waves-teal btn-flat" id="' + deleteButtonID + '" onclick="deleteRow(this);"><i class="tiny material-icons black-text">delete</i></a></div>');
                 $('select').material_select();
                 //returning row ID (number)                   
             }); //end of add button click event functions
-
-        //on click of Next button, return row IDs
-        $("#next").click(function() {
-            var rowid = $("div[id^=row]");
-            array.push(rowid);
-            alert(array);
-        });
     }); //end of document ready
     // Logic for deleting row by row ID
     function deleteRow(value) {
@@ -55,8 +48,10 @@
         <div class="divider"></div>
 
     <div class="section"></div>
+        
     <!--begin search form-->
-<form method="post">
+        
+<form action="/createSearch" method="post" id="createsearch">
 <div class="row">
     <div class="col s4 offset-s1">
         <h5 class="blue-text">1. Page details</h5>
@@ -133,14 +128,34 @@
         <div class="col s2">
             <a class="btn-floating btn waves-effect waves-light red left-margin-big" id="addButton">
                 <i class="material-icons">add</i></a>
+
         </div>
     </div>
     <div class="row" id="newRow">
         <!--dynamic rows will be inserted here-->
     </div>
+
 </div>
+<div class="row" id="visualizations">
+    <div class="col s4 offset-s2 subtitle blue-text">Choose visualizations (optional)</div>
+</div>
+<div class="row">
+    <div class="col s2 offset-s2">
+        <a class="waves-effect waves-teal btn-flat viz">
+            <i class="fa fa-line-chart icon_padding" aria-hidden="true"></i></a>
+    </div>
+    <div class="col s2">
+        <a class="waves-effect waves-teal btn-flat viz">
+            <i class="fa fa-bar-chart icon_padding" aria-hidden="true"></i></a>
+    </div>
+    <div class="col s2">
+        <a class="waves-effect waves-teal btn-flat viz">
+            <i class="fa fa-bar-chart icon_padding" aria-hidden="true"></i></a>
+    </div>
+</div>
+<div class="section"></div>
 <div class="divider"></div>
-<div class="divider"></div>
+<div class="section"></div>
 <div id="customizeStyle">
     <div class="section"></div>
     <div class="row">
