@@ -69,7 +69,8 @@ headers = db.Table('headers',
 
 class SearchField(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    field_type = db.Column(db.Enum(*BUTTON_TYPES))
+    # field_type = db.Column(db.Enum(*BUTTON_TYPES))
+    field_type = db.Column(db.String(120))
     name = db.Column(db.String(120))
     description = db.Column(db.Text)
     headers = db.relationship('Header', secondary=headers, backref='search_fields')
