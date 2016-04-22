@@ -1,5 +1,5 @@
 from flask.ext.wtf import Form
-from wtforms import StringField, IntegerField, PasswordField, FieldList, SelectField
+from wtforms import StringField, IntegerField, PasswordField, FieldList, SelectField, SelectMultipleField
 from flask_wtf.html5 import EmailField
 from wtforms.validators import DataRequired, Email
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
@@ -24,11 +24,10 @@ display_choices = [('textbox', 'Textbox'), ('dropdown', 'Dropdown')]
 
 class SearchInterfaceForm(Form):
     fieldname = StringField('fieldname', validators=[DataRequired()])
-    description = StringField('description', validators=[DataRequired()])
-    # header = SelectField(label='header', choices=choices)
-    header =SelectField(label='header')
+    description = StringField('description')
+    header = SelectMultipleField(label='header')
     display = SelectField(label='display', choices=display_choices)
 
-    def __init__(self, header):
+    def __init__(self, headers):
         super(SearchInterfaceForm, self).__init__()
-        self.header.choices = header
+        self.header.choices = headers
