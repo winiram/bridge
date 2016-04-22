@@ -82,6 +82,10 @@ def createSearch():
 def previewSearch():
     return render_template("previewSearch.html")
 
+@app.route("/viz")
+def viz():
+    return render_template("viz.html")
+
 
 @app.route("/interface")
 def searchInterface():
