@@ -103,34 +103,27 @@ def saveFile():
 
 @app.route("/createSearch", methods=['GET', 'POST'])
 def createSearch():
-    if request.method == 'GET':
-        user = models.User.query.filter_by(email=session["email"]).first()
-        si = models.SearchInterface.query.filter_by(user=user.id).first() #assuming user has only one search interface
-        document = models.Document.query.filter_by(search_interface=si.id).first()
-        headers = models.Header.query.filter_by(document=document.document_id).all()
-        headers_names = [header.header_name for header in headers] # Headers is a list of header names
-        headers_names = [(header, header) for header in headers_names] #preparing it into tupes for feeding the form
+    user = models.User.query.filter_by(email=session["email"]).first()
+    si = models.SearchInterface.query.filter_by(user=user.id).first() #assuming user has only one search interface
+    document = models.Document.query.filter_by(search_interface=si.id).first()
+    headers = models.Header.query.filter_by(document=document.document_id).all()
+    headers_names = [(header.header_name, header.header_name) for header in headers] # Headers is a list of header names
 
-        print(headers_names)
-        searchform = SearchInterfaceForm(headers_names)
-        print("before")
+    searchform = SearchInterfaceForm(headers_names)
 
-        ###BUG RIGHT NOW--> It's not entering into the below if statement and not storing the function)
-        if searchform.validate_on_submit():
-            print("after-------")
-            searchfield = models.SearchField(
-                name = searchform.fieldname.data,
-                description = searchform.description.data,
-                field_type = searchform.display.data,
-            )
-            print("pritning searchi field")
-            print(searchfield)
-            db.session.add(searchfield)
-            db.session.commit()
-        # return render_template("createSearchSimple.html", headers=headers, types=models.BUTTON_TYPES)
-        return render_template("createSearchSimple.html", form=searchform)
-    elif request.method == 'POST':
+    if request.method == 'POST' and searchform.validate_on_submit():
+        searchfield = models.SearchField(
+            name = searchform.fieldname.data,
+            description = searchform.description.data,
+            field_type = searchform.display.data,
+        )
+        print("pritning searchi field")
+        print(searchfield)
+        db.session.add(searchfield)
+        db.session.commit()
         return redirect(url_for("interface"))
+
+    return render_template("createSearchSimple.html", form=searchform, types=models.BUTTON_TYPES)
 
 @app.route("/previewSearch")
 @login_required
