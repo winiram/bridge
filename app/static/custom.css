@@ -66,6 +66,10 @@ iframe{
 	width: 5%;
 }
 
+#iframe{
+  margin-left: 10%;
+  margin-right: 10%;
+}
 #add {
     font-size: 20px;
     margin-right: 0;
@@ -79,6 +83,11 @@ iframe{
   -vendor-animation-duration: 5s;
   -vendor-animation-delay: 3s;
 
+}
+
+[type="radio"]:checked + label
+{
+  color: #ff5252 !important;
 }
 
 .btn{
