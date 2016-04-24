@@ -32,6 +32,9 @@ html,body{
 
 }
 
+footer.page-footer{
+  margin-top: 0px;
+}
 .icon_padding {
 	padding-left: 5px;
     padding-right: 5px;
@@ -78,6 +81,7 @@ iframe{
     font-family: 'Roboto', sans-serif;
   -vendor-animation-duration: 5s;
   -vendor-animation-delay: 3s;
+  height: 100%;
 
 }
 
