@@ -42,7 +42,7 @@
               <a class="waves-effect waves-light btn" href="/interface">Explore the Collection</a>
 
               <!-- Modal Trigger -->
-              <a class="modal-trigger waves-effect waves-light btn" href="#about">About</a>
+              <a class="modal-trigger waves-effect waves-light btn" href="#0">About</a>
 
               <!-- Modal Structure -->
               <div id="about" class="modal modal-fixed-footer">
@@ -59,9 +59,9 @@
     </div>
 
 
-    <div class="row">
+    <div class="row header-img-container">
         <!-- GET HEADER IMAGE -->
-        <img id="header-img" src="http://omeg.pl/blog/wp-content/themes/bryanveloso-chaoticsoul-d8db5fc/images/headerimage.jpg">
+        <img id="header-img" src="http://oncampus.osu.edu/wp-content/uploads/2014/07/bugs.jpg">
     </div>
 
 
@@ -75,8 +75,8 @@
                 <h3>Search <a class="tooltipped" data-position="right" data-delay="50" data-tooltip="Enter search critera into any field to refine to locate records in the collection"><i class="fa fa-question small"></i></a></h3>
 
                 <div class="row">
-                  <a class="waves-effect waves-light btn" id="searchbtn"type="submit">search</a>
-                  <a class="waves-effect waves-light btn" id="clearbtn"type="submit">clear</a>
+                  <a class="waves-effect waves-light btn searchbtn" type="submit">search</a>
+                  <a class="waves-effect waves-light btn clearbtn" type="submit">clear</a>
                 </div>
 
                 <div class="input-field col s12">
@@ -88,7 +88,7 @@
                   <input id="common_name" type="text" class="validate searchItem">
                   <label for="common_name">Common Name</label>
                 </div>
-
+<!-- 
                  <div class="input-field col s12">
                   <select>
                     <option value="" disabled selected>Category</option>
@@ -96,8 +96,8 @@
                     <option value="2">Butterfly</option>
                     <option value="3">Ant</option>
                   </select>
-                  <label>Materialize Select</label>
-                </div>
+                  <label>Category</label>
+                </div> -->
                 <div class="input-field col s12">
                   <input id="any_name" type="text" class="validate searchItem">
                   <label for="any_name">Any Name</label>
@@ -110,19 +110,18 @@
                 </div>    
 
                <div class="row">
-                <a class="waves-effect waves-light btn" id="searchbtn"type="submit">search</a>
-                <a class="waves-effect waves-light btn" id="clearbtn"type="submit">clear</a>
+                <a class="waves-effect waves-light btn searchbtn" type="submit">search</a>
+                <a class="waves-effect waves-light btn clearbtn" type="submit">clear</a>
               </div>                     
             </form>
           </div>
 
 
-
+<a href=""></a>
 
 <!-- Results -->
-      <div class="col s9 center">
+      <div class="col s10 center">
         <h3>Search Results</h3>
-
         <div class="row">
           <div class="col s12">
             <ul class="tabs">
@@ -132,13 +131,17 @@
           </div>
 
 <!-- list view -->
-          <div id="listView" class="col s12">
+          <div id="listView" class="listView col s12">
 
-      <table class="highlight">
+      <table class="highlight" id="results">
         <thead id="table_head">
         </thead>
 
         <tbody id="table_results"> 
+<!--           <td> <a class="waves-effect waves-light btn modal-trigger" href="#0">Q</a></td>
+          <td>something</td>
+          <td>somethign else</td>
+ -->
         </tbody>
       </table>
 
@@ -155,11 +158,23 @@
 
 
 <!-- Whole document REVIEW -->
-      <div class="col s1 grey lighten-3"></br> Your search results in the entire collection:
-        <p>---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</p>
-      </div>
+<!--       <div class="col s1 grey lighten-3"></br> Your search results in the entire collection:
+        <p></p>
+      </div> -->
       
     </div>
+
+
+              <!-- Modal Structure -->
+              <div id="0" class="modal modal-fixed-footer">
+                <div class="modal-content">
+                  <h4>About the Project</h4>
+                  <p>test modal</p>
+                </div>
+                <div class="modal-footer">
+                  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+                </div>
+              </div>
 
 <footer class="page-footer grey">
 
@@ -182,9 +197,17 @@
   $(document).ready(function(){
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
     $('.modal-trigger').leanModal();
+    $('select').material_select();
+
+
+
   });
 
-</script>   
+
+
+</script> 
+
+
 
 </body>
 </html>
