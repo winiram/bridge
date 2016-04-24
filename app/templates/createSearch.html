@@ -8,6 +8,13 @@
 <title>Bridge</title>
 <script>
     $(document).ready(function() {
+        $('#visualizations').hide();
+
+        $("#switch").click(function(){
+
+            $('#visualizations').toggle();
+        });
+
         var row = 1;
         var array = new Array();
         $('select').material_select();
@@ -134,25 +141,44 @@
     <div class="row" id="newRow">
         <!--dynamic rows will be inserted here-->
     </div>
+      <!-- Switch -->
 
 </div>
-<div class="row" id="visualizations">
-    <div class="col s4 offset-s2 subtitle blue-text">Choose visualizations (optional)</div>
-</div>
+
+
 <div class="row">
+        <div class="col s4 offset-s2">
+            <div class="subtitle blue-text">Create Visualizations (optional)</div>
+        </div>
+    </div>
+<div class="row">
+    <div class="col s4 offset-s2">
+ <div class="switch">
+    <label>
+      Off
+      <input type="checkbox" id="switch">
+      <span class="lever"></span>
+      On
+    </label>
+  </div>
+</div>
+</div>
+
+<div class="row" id="visualizations">
     <div class="col s2 offset-s2">
-        <a class="waves-effect waves-teal btn-flat viz">
-            <i class="fa fa-line-chart icon_padding" aria-hidden="true"></i></a>
+        <input name="group1" type="radio" id="test1" />
+         <label for ="test1" class="black-text"><i class="fa fa-line-chart fa-2x icon_padding" aria-hidden="true"></i></label>
     </div>
     <div class="col s2">
-        <a class="waves-effect waves-teal btn-flat viz">
-            <i class="fa fa-bar-chart icon_padding" aria-hidden="true"></i></a>
+        <input name="group1" type="radio" id="test2" />
+        <label for="test2" class="black-text"><i class="fa fa-bar-chart fa-2x icon_padding" aria-hidden="true"></i></label> 
     </div>
     <div class="col s2">
-        <a class="waves-effect waves-teal btn-flat viz">
-            <i class="fa fa-bar-chart icon_padding" aria-hidden="true"></i></a>
+        <input name="group1" type="radio" id="test3" />
+          <label for="test3" class="black-text"><i class="fa fa-globe fa-2x icon_padding" aria-hidden="true"></i><label>
     </div>
 </div>
+
 <div class="section"></div>
 <div class="divider"></div>
 <div class="section"></div>
