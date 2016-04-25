@@ -23,6 +23,12 @@ p {
 	line-height: 110%;
 }
 
+.modalContent img{
+	border: 1px solid grey;
+	/*width: 100%;*/
+
+
+}
 .gridItem {
 	display: inline-block;
 	box-sizing: border-box;
