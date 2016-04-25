@@ -102,6 +102,7 @@ def saveFile():
     return jsonify(validation)
 
 @app.route("/createSearch", methods=['GET', 'POST'])
+@login_required
 def createSearch():
     user = models.User.query.filter_by(email=session["email"]).first()
     si = models.SearchInterface.query.filter_by(user=user.id).first() #assuming user has only one search interface
@@ -123,7 +124,7 @@ def createSearch():
         db.session.commit()
         return redirect(url_for("interface"))
 
-    return render_template("createSearchSimple.html", form=searchform, types=models.BUTTON_TYPES)
+    return render_template("createSearch.html", form=searchform, types=models.BUTTON_TYPES)
 
 @app.route("/previewSearch")
 @login_required

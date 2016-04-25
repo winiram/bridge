@@ -167,6 +167,7 @@ iframe{
 
 h5{
     font-weight: 200 !important;
+    font-size: 18px !important;
 }
 
 .full {
@@ -175,7 +176,7 @@ h5{
 
 .reducedwidth {
 	width: 80% !important;
-    margin-left: 10%;
+    margin-left: 10% !important;
 }
 
 
