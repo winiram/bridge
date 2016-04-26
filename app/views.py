@@ -97,12 +97,12 @@ def searchInterface():
 
 @app.route("/search")
 def searchInterface_side():
-    return render_template("search.html")        
+    return render_template("search.html")      
 
+@app.route("/profile")
+def projects():
+    return render_template("profile.html")    
 
-@app.route("/test")
-def test():
-    return render_template("test.html")   
 
 
 @app.route("/sign_up", methods=['GET', 'POST'])
