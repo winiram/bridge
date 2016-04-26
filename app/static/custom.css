@@ -32,6 +32,17 @@ html,body{
 
 }
 
+.icon_padding {
+	padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.viz:selected{
+    background-color:blue !important;
+}
+
 iframe{
     float: right!important;
 }
@@ -55,6 +66,10 @@ iframe{
 	width: 5%;
 }
 
+#iframe{
+  margin-left: 10%;
+  margin-right: 10%;
+}
 #add {
     font-size: 20px;
     margin-right: 0;
@@ -68,6 +83,11 @@ iframe{
   -vendor-animation-duration: 5s;
   -vendor-animation-delay: 3s;
 
+}
+
+[type="radio"]:checked + label
+{
+  color: #ff5252 !important;
 }
 
 .btn{
@@ -151,6 +171,11 @@ h5{
 
 .full {
 	height: 100%;
+}
+
+.reducedwidth {
+	width: 80% !important;
+    margin-left: 10%;
 }
 
 

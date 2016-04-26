@@ -1,34 +1,60 @@
 
-{% extends "base.html" %}
+{% extends "create_base.html" %}
 {% block content %}
-    <script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
-    <script type="text/javascript" src="/static/filepicker.js"></script>
+<script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
+<script type="text/javascript" src="/static/filepicker.js"></script>
 
-<div class="grey lighten-3" role="main">
+<div class="grey lighten-2" role="main">
 
-    <div class="white container section center z-depth-1">
-        <h1 class="grey-text text-darken-2" id="instructions">1. Upload Collection</h1>
-        <div class="divider"></div>
-        <div class="section"></div>
+  <div class="white container section center z-depth-1">
+    <h1 class="grey-text text-darken-2" id="instructions">1. Upload Collection</h1>
+    <div class="divider"></div>
+    <div class="section"></div>
 
-          <div class="file-field input-field" id="upload">
-              <div class="row">
-                <div class="col s3">
-                  <form method="POST" action="{{ url_for('previewUpload') }}" id="filepicker">
-                    <input type=filepicker data-fp-apikey="AwWNg6Ei3SHyfKegusrWIz" data-fp-extensions=".csv,.xls,.xlsx,.gsheet" data-fp-services="COMPUTER,GOOGLE_DRIVE" data-fp-maxFiles="1" onchange="storeFile()">
-                  </form>
-                </div>
-              </div>
-           </div>
-        <div class="divider top-margin"></div>
-        <p class="grey-text">Each column will be a header</p>
+    <div class="file-field input-field" id="upload">
+      <div class="section">
+        <div class="row">
+          <div class="col s4 offset-s4">
+            <form id="filepicker">
+              <input type="filepicker" data-fp-apikey="AwWNg6Ei3SHyfKegusrWIz" data-fp-extensions=".csv,.xls,.xlsx,.gsheet" data-fp-services="COMPUTER,GOOGLE_DRIVE" data-fp-maxFiles="1" onchange="storeFile()">
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <p class="grey-text text-darken-2 center">Accepted formats <br>.csv, .xls, .xlsx, Google Spreadsheet</p>
+
+        </div>
+      </div>
+  <div class="section"></div>
+      <div class="section"></div>
+      <div class="section"></div>
+      <div class="section grey lighten-5">
+        <div class="row">
+          <h5 class="blue-text">Things to remember</h5>
+        </div>
+        <div class="row animated fadeInUp">
+          <p class='grey-text text-darken-2'>1. Each column will be considered a header<br>
+            2. The first <span class="teal-text">10</span> columns will be displayed on your collection screen<br>
+            3. If you would like to add images, please add a separate column named <span class="teal-text">media</span> in your spreadsheet with links to images<br>
+            4. You will be able to customize search fields based on headers<br>
+            5. You will be able to create visualizations based on lat-long data</br></p>
+
+          </div>
+        </div>
+      </div>
+      <div class="section"></div>
+      <div class="section"></div>
+      <h5 class="grey-text center">Preview</h5>
+      <div type="filepicker-preview" id="iframe" data-fp-url="https://www.filestackapi.com/api/file/S8O2rWoSFewERT8AfNxW" style="height:300px"> </div>
+      <div class="section"></div>
+      <div class="section"></div>
+      <div class="section"></div>
     </div>
-    <div type="filepicker-preview" id="iframe" data-fp-url="https://www.filestackapi.com/api/file/S8O2rWoSFewERT8AfNxW" style="width:75%; height:450px"> </div>
+
+    <div class="section"></div> 
     <div class="section">
-        <a class="waves-effect waves-light red accent-2 btn right" href="{{ url_for('createSearch')}}">Next</a>
+      <a class="waves-effect waves-light red accent-2 btn right right-margin" href="{{ url_for('createSearch')}}">Next</a>
     </div>
+  </div>
 
-
-
- {% endblock %}
-
+  {% endblock %}
