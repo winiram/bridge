@@ -115,17 +115,33 @@ def createSearch():
 
     print(request.form)
     if request.method == 'POST' and searchform.validate_on_submit():
-        # searchfield = models.SearchField(
-        #     name = searchform.fieldname.data,
-        #     description = searchform.description.data,
-        #     field_type = searchform.display.data,
-        # )
-        print("pritning searchi field")
-        print(searchform.data)
-        # db.session.add(searchfield)
-        # db.session.commit()
+        for search_field in searchform.search_fields:
+            print("------------printing search field data -------------")
+            print(search_field.data)
+            ## To be removed when form validation is implemented
+            if not search_field.fieldname.data or not search_field.header.data:
+                print("------Incomplete search field, not saved-----")
+                continue;
+            ##
+            # Add search_field to db
+            searchfield = models.SearchField(
+                name = search_field.fieldname.data,
+                description = search_field.field_description.data,
+                field_type = search_field.field_type.data,
+            )
+
+            # Add headers selected to db
+            for header_name in search_field.header.data:
+                header = models.Header.query \
+                    .filter_by(header_name=header_name) \
+                    .filter_by(document=document.document_id) \
+                    .first()
+                searchfield.headers.append(header)
+
+            db.session.add(searchfield)
+            db.session.commit()
         return redirect(url_for("interface"))
-        
+
         # if "action" not in request.form and searchform.validate_on_submit():
         # elif request.form["action"] == "add":
         #     print("Adding row requested")
