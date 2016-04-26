@@ -9,7 +9,7 @@ except ImportError:
     from urllib2 import urlopen
 import pandas as pd
 from sqlalchemy import engine
-from .forms import SignupForm, LoginForm, SearchInterfaceForm
+from .forms import SignupForm, LoginForm, SearchInterfaceForm, SearchInterface
 from .util.security import ts
 from flask_login import login_user, logout_user, login_required
 from flask.ext.login import current_user
@@ -109,21 +109,32 @@ def createSearch():
     headers = models.Header.query.filter_by(document=document.document_id).all()
     headers_names = [(header.header_name, header.header_name) for header in headers] # Headers is a list of header names
 
-    searchform = SearchInterfaceForm(headers_names)
+    searchform = SearchInterface()
+    for search_field in searchform.search_fields:
+        search_field.header.choices = headers_names
 
+    print(request.form)
     if request.method == 'POST' and searchform.validate_on_submit():
-        searchfield = models.SearchField(
-            name = searchform.fieldname.data,
-            description = searchform.description.data,
-            field_type = searchform.display.data,
-        )
+        # searchfield = models.SearchField(
+        #     name = searchform.fieldname.data,
+        #     description = searchform.description.data,
+        #     field_type = searchform.display.data,
+        # )
         print("pritning searchi field")
-        print(searchfield)
-        db.session.add(searchfield)
-        db.session.commit()
+        print(searchform.data)
+        # db.session.add(searchfield)
+        # db.session.commit()
         return redirect(url_for("interface"))
+        
+        # if "action" not in request.form and searchform.validate_on_submit():
+        # elif request.form["action"] == "add":
+        #     print("Adding row requested")
+        #     searchform.search_fields.append_entry()
+        #     searchform.search_fields.entries[-1].header.choices = headers_names
+        # elif request.form["action"] == "remove":
+        #     pass
 
-    return render_template("createSearchSimple.html", form=searchform, types=models.BUTTON_TYPES)
+    return render_template("createSearchSimple.html", form=searchform)
 
 @app.route("/previewSearch")
 @login_required
