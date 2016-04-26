@@ -16,6 +16,7 @@
         $('#customSearchOptions').hide();
         $('#customizeSearch').click(function() {
             $('#customSearchOptions').toggle();
+            $('select').material_select();
         });
         $("#addButton").click(
             //Don't know how to simplify this, but this NEEDS TO BE SIMPLIFIED!!!!
@@ -159,25 +160,25 @@
 
             <div class="section"></div>
             <div class="row" id="visualizations">
-                <div class="col s2 offset-s2">
+                <div class="col s3 offset-s2">
                     <div class="row">
                         <input name="viz" type="radio" id="linechart" />
                         <label for="linechart" class="grey-text"><i class="fa fa-line-chart fa-2x icon_padding" aria-hidden="true"></i></label>
                     </div>
                     <div class="row">
-                        <p class="grey-text">Recommended for showing comparison between categories</p>
+                        <p class="grey-text">Recommended for showing comparison<br> between categories</p>
                     </div>
                 </div>
-                <div class="col s2">
+                <div class="col s3">
                     <div class="row">
                         <input name="viz" type="radio" id="barchart" />
                         <label for="barchart" class="grey-text"><i class="fa fa-bar-chart fa-2x icon_padding" aria-hidden="true"></i></label>
                     </div>
                     <div class="row">
-                        <p class="grey-text">Recommended for showing comparison between categories</p>
+                        <p class="grey-text">Recommended for comparing two<br> or more categories</p>
                     </div>
                 </div>
-                <div class="col s2">
+                <div class="col s3">
                     <div class="row">
                         <input name="viz" type="radio" id="mapchart" />
                         <label for="mapchart" class="grey-text"><i class="fa fa-globe fa-2x icon_padding" aria-hidden="true"></i>
@@ -192,7 +193,7 @@
                 <div class="section"></div>
             </div>
             <div class="divider"></div>
-            <div class="divider"></div>
+            
             
             <div id="customizeStyle">
                 <div class="section"></div>
