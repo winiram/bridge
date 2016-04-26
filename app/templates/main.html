@@ -3,7 +3,7 @@
 
 
     <div class="intro">
-      {% if g.user.is_authenticated %}
+     <!-- {% if g.user.is_authenticated %}
         <span id="email">Logged in as {{ email }}</span>
         <div class="input-field col s6 offset-s4">
             <a class="waves-effect waves-light btn blue" id="logout" href="{{ url_for('log_out') }}">Log Out</a>
@@ -12,15 +12,15 @@
         <div class="input-field col s6 offset-s4">
           <a class="waves-effect waves-light btn blue" id="login" href="{{ url_for('log_in') }}">Log In</a>
         </div>
-      {% endif %}
+      {% endif %}-->
 
-        <h1 class="animated fadeInUp intro blue-text center">
+        <h1 class="intro blue-text center animated fadeInDown">
             Share your collection in under 5 minutes
         </h1>
         <div class="row">
-            <img class="animated fadeInUp" src="/static/brige-intro.png">
+            <img class="animated fadeInDown" src="/static/brige-intro.png">
         </div>
-        <div class="row animated fadeInUp">
+        <div class="row animated fadeInDown">
             <div class="col s2 offset-s4">
                 <a class="waves-effect waves-light red accent-2 white-text btn" href="{{ url_for('createUpload')}}"><i class="material-icons left">add</i>Create</a>
             </div>
