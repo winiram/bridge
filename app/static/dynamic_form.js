@@ -7,17 +7,7 @@ $(document).ready(function() {
     $("#addButton").click(function () {
         clone_field_list('div[class*=searchField]');
     });
-
-    // function addRow() {
-    //   console.log("Adding row")
-    //   var url='/createSearch'
-    //   $.post(
-    //     url,
-    //     {
-    //       action:"add"
-    //     }
-    //   );
-    // }
+    $('select').material_select();
 });
 
 function clone_field_list(selector) {
@@ -78,6 +68,7 @@ function clone_field_list(selector) {
   // $('select').material_select();
   // $('input').material_input();
   $(selector).last().after(new_element);
+  $('select').material_select();
 }
 
 
