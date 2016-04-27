@@ -8,12 +8,12 @@ except ImportError:
     # Fall back to Python 2's urllib2
     from urllib2 import urlopen
 import pandas as pd
-from sqlalchemy import engine
+from sqlalchemy import engine, text
 from .forms import SignupForm, LoginForm, SearchInterfaceForm, SearchInterface
 from .util.security import ts
 from flask_login import login_user, logout_user, login_required
 from flask.ext.login import current_user
-
+from collections import OrderedDict
 
 @app.route('/')
 def index():
@@ -66,6 +66,8 @@ def saveFile():
     if not db.engine.has_table(file_id):
         # Create table on the fly
         df.to_sql(file_id, db.engine, index=False)
+
+        session['file'] = file_id
 
         user = models.User.query.filter_by(email=session["email"]).first()
 
@@ -166,11 +168,28 @@ def interface():
 def searchInterface_side():
     return render_template("search.html")
 
+@app.route("/getData", methods=["GET"])
+@login_required
+def getData():
+    file = escape(session['file']) #getting the name of the table
+    sql = text("SELECT * FROM \"" + str(file) + "\"") #querying the db
+    result = db.engine.execute(sql)
+
+    data = []
+    for v in result:
+        d = OrderedDict([])
+        for column, value in v.items():
+            d[str(column)] = str(value)
+            #print('{0}: {1}'.format(column, value))
+        data.append(d)
+        # print('json dump')
+        # print(json.dumps(data))
+    return json.dumps(data)
+
 
 @app.route("/test")
 def test():
     return render_template("test.html")
-
 
 @app.route("/sign_up", methods=['GET', 'POST'])
 def sign_up():
