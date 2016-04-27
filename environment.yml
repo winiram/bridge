@@ -1,0 +1,35 @@
+name: bridge
+dependencies:
+- flask=0.10.1=py34_1
+- itsdangerous=0.24=py34_0
+- jinja2=2.8=py34_0
+- markupsafe=0.23=py34_0
+- mkl=11.3.1=0
+- numpy=1.11.0=py34_0
+- openssl=1.0.2g=0
+- pandas=0.18.0=np111py34_0
+- pip=8.1.1=py34_1
+- python=3.4.4=0
+- python-dateutil=2.5.2=py34_0
+- pytz=2016.3=py34_0
+- readline=6.2=2
+- setuptools=20.7.0=py34_0
+- six=1.10.0=py34_0
+- sqlalchemy=1.0.12=py34_0
+- sqlite=3.9.2=0
+- tk=8.5.18=0
+- werkzeug=0.11.8=py34_0
+- wheel=0.29.0=py34_0
+- xlrd=0.9.4=py34_0
+- xz=5.0.5=1
+- zlib=1.2.8=0
+- pip:
+  - bcrypt==2.0.0
+  - cffi==1.6.0
+  - flask-bcrypt==0.7.1
+  - flask-login==0.3.2
+  - flask-sqlalchemy==2.1
+  - flask-wtf==0.12
+  - pycparser==2.14
+  - wtforms==2.1
+
