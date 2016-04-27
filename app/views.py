@@ -19,6 +19,10 @@ from flask.ext.login import current_user
 def index():
     return redirect('/main')
 
+@app.route('/explore')
+def explore():
+    return render_template('explore.html')
+
 @app.route("/main")
 def main():
     email = ''

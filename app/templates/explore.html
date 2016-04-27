@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% extends "create_base.html" %}
+{% block content %}
+<script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
+<script type="text/javascript" src="/static/filepicker.js"></script>
+ <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApw6JIpj4hV5lvwGvA5gxqJ2kHMQUZRX8&callback=initMap" async defer></script>
+ <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+<script>
+var map;
+      function initMap() {
+          alert("hi");
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 8
+        });
+      }
+</script>
+<div class="grey lighten-2" role="main">
+
+    <div class="white container section center z-depth-1">
+        <h4 class="grey-text thin">Explore collections from across the world</h4>
+        <div class="section"></div>
+        <div class="divider"></div>
+        <div class="section"></div>
+        <div id="map"></div>
+    </div>
+    
+    <div class="section">
+        <a class="waves-effect waves-light red accent-2 btn right right-margin" href="{{ url_for('createSearch')}}">Next</a>
+    </div>
+</div>
+
+  {% endblock %}
