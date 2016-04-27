@@ -112,11 +112,26 @@ def createSearch():
     headers_names = [(header.header_name, header.header_name) for header in headers] # Headers is a list of header names
 
     searchform = SearchInterface()
+    ## Initialising SearchInterface form, could be done in object
     for search_field in searchform.search_fields:
         search_field.header.choices = headers_names
 
     print(request.form)
     if request.method == 'POST' and searchform.validate_on_submit():
+        # Process full_text_search
+        if searchform.full_text_search.data:
+            print("Adding full text search")
+            searchfield = models.SearchField(
+                name = "Full text search",
+                description = "",
+                field_type = models.FieldType.Textbox.name,
+                search_interface = si.id ## To be changed when suporting multiple SI
+            )
+            for header in headers:
+                searchfield.headers.append(header)
+            db.session.add(searchfield)
+
+        # Process custom search fields
         for search_field in searchform.search_fields:
             print("------------printing search field data -------------")
             print(search_field.data)
@@ -130,6 +145,7 @@ def createSearch():
                 name = search_field.fieldname.data,
                 description = search_field.field_description.data,
                 field_type = search_field.field_type.data,
+                search_interface = si.id ## To be changed when suporting multiple SI
             )
 
             # Add headers selected to db
@@ -141,7 +157,7 @@ def createSearch():
                 searchfield.headers.append(header)
 
             db.session.add(searchfield)
-            db.session.commit()
+        db.session.commit()
         return redirect(url_for("interface"))
 
         # if "action" not in request.form and searchform.validate_on_submit():

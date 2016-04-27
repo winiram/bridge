@@ -61,6 +61,7 @@ class SearchInterface(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user = db.Column(db.Integer, db.ForeignKey('user.id'))
     document_id = db.relationship("Document", uselist=False, backref="search_interfaces")
+    search_fields = db.relationship("SearchField", lazy="dynamic", backref="search_interfaces")
 
 class Document(db.Model):
     document_id = db.Column(db.String(120), primary_key=True)
@@ -78,6 +79,7 @@ class SearchField(db.Model):
     name = db.Column(db.String(120))
     description = db.Column(db.Text)
     headers = db.relationship('Header', secondary=headers, backref='search_fields')
+    search_interface = db.Column(db.Integer, db.ForeignKey("search_interface.id"))
 
 class Header(db.Model):
     header_name = db.Column(db.String(120), primary_key=True)
