@@ -56,8 +56,7 @@
           </div>
       </div>
       {% for search_field in form.search_fields %}
-      <fieldset>
-        <div class="row animated fadeInUp">
+        <div class="row animated fadeInUp searchField">
             <div class="input-field col s2 offset-s2">
                 Search Field Name:<br>
                 {{ search_field.fieldname }}<br>
@@ -85,7 +84,6 @@
 
         </div>
         {{ search_field.csrf_token}}
-      </fieldset>
       {% endfor %}
 
       <div class="row" id="newRow">
@@ -98,6 +96,7 @@
   {{ form.csrf_token }}
 </form>
 
+</div>
 </div>
 
 {% endblock %}
