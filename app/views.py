@@ -123,9 +123,11 @@ def createSearch():
                 name = "Full text search",
                 description = "",
                 field_type = models.FieldType.Textbox.name,
+                search_interface = si.id ## To be changed when suporting multiple SI
             )
             for header in headers:
                 searchfield.headers.append(header)
+            db.session.add(searchfield)
 
         # Process custom search fields
         for search_field in searchform.search_fields:
@@ -141,6 +143,7 @@ def createSearch():
                 name = search_field.fieldname.data,
                 description = search_field.field_description.data,
                 field_type = search_field.field_type.data,
+                search_interface = si.id ## To be changed when suporting multiple SI
             )
 
             # Add headers selected to db
@@ -152,7 +155,7 @@ def createSearch():
                 searchfield.headers.append(header)
 
             db.session.add(searchfield)
-            db.session.commit()
+        db.session.commit()
         return redirect(url_for("interface"))
 
         # if "action" not in request.form and searchform.validate_on_submit():
