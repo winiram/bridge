@@ -1,6 +1,5 @@
 
   //////////////////////////// POPULATE HEADERS AND RECORD DATA ////////////////////////////
-  console.log('hi')
     $.ajax({
     url: "/getData",
     type: 'get',

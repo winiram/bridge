@@ -16,13 +16,13 @@
             $('#customSearchOptions').toggle();
         });
         $("#addButton").click(
-            //Don't know how to simplify this, but this NEEDS TO BE SIMPLIFIED!!!! 
+            //Don't know how to simplify this, but this NEEDS TO BE SIMPLIFIED!!!!
             function() {
                 var newRow = row++
                     var deleteButtonID = "deleteButton_" + newRow;
                 $("#newRow").append(' <div class="row animated fadeInUp" data-row="'+newRow+'" id="'+newRow+'"><div class="input-field col s2 offset-s2"><input id="name" type="text" class="validate"><label for="name">Search Field Name</label></div><div class="input-field col s2"><input id="desc" type="text" class="validate"><label for="desc">Description</label></div><div class="input-field col s2"><select multiple><option value="" disabled selected>Choose your option</option><option value="1">Header 1</option><option value="2">Header 2</option><option value="3">Header 3</option></select><label>Materialize Multiple Select</label></div><div class="input-field col s2"><select><option value="" disabled selected>Choose your option</option><option value="1">Textbox</option><option value="2">Dropdown</option></select><label>Materialize Multiple Select</label></div><div class="col s2"><a class="waves-effect waves-teal btn-flat" id="' + deleteButtonID + '" onclick="deleteRow(this);"><i class="tiny material-icons black-text">delete</i></a></div>');
                 $('select').material_select();
-                //returning row ID (number)                   
+                //returning row ID (number)
             }); //end of add button click event functions
     }); //end of document ready
     // Logic for deleting row by row ID
@@ -48,9 +48,9 @@
         <div class="divider"></div>
 
     <div class="section"></div>
-        
+
     <!--begin search form-->
-        
+
 <form action="/createSearch" method="post" id="createsearch">
 <div class="row">
     <div class="col s4 offset-s1">
