@@ -179,4 +179,38 @@ h5{
 }
 
 
+.projectCard {
+  background-color: white;
+  width: 400px;
+  height: 210px;
+  margin-left: 60px !important;
+}
+
+
+.projectCard img {
+  width: 100%;
+}
+
+.projImgContainer {
+    height: 100px; 
+    width: 100%;
+    overflow: hidden; 
+
+}
+
+
+.projEditButtons {
+  position: absolute; 
+  padding-left: 15px;
+  bottom: -60px;
+
+}
+
+#profilePic {
+  width: 200px;
+}
+
+.editProfile {
+  float: right;
+}
 

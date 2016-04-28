@@ -1,0 +1,102 @@
+<!DOCTYPE html> {% extends "create_base.html" %} {% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+
+<title>Bridge</title>
+
+<script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
+<script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
+<script type="text/javascript" src="/javascript/appjs.js"></script>
+
+<!--end pagination-->
+<div class="grey lighten-2 full" role="main">
+    <!--grey background at the back-->
+    <!--begin intro section-->
+    <div class="white container section z-depth-1">
+        <h5 class="grey-text text-darken-2 center" id="instructions">Your Bridge</h1>
+        <h6 class="grey-text center">Information about you and your projects</h6>
+    <div class="section"></div>
+        <!--divider-->
+        <div class="divider"></div>
+
+    <div class="section"></div>
+
+<div class="row">
+    <div class="col s4 offset-s1">
+        <h5 class="blue-text">Your Search Interfaces</h5>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s3  projectCard card-panel">
+        <div class="row center">
+            <h5 class="">Create a new project</h5>
+            </br></br>
+            <a href="createSearch" class="btn-floating btn btn-large waves-effect waves-light red" id="addButton"><i class="material-icons">add</i></a>
+        </div>
+    </div>
+
+    <div class="col s3 projectCard card-panel">
+        <h5>1970s Music</h5>
+            <div class= "projImgContainer">
+
+                <a href="#!"><img src="http://www.lovethispic.com/uploaded_images/41085-Music-Record-Collection.jpg" onmouseover="this.src='https://www.freakalytics.com/files/5_Bar_Chart_Freakalytics_29.png'" onmouseout="this.src='http://www.lovethispic.com/uploaded_images/41085-Music-Record-Collection.jpg'" /></a>
+            </div>
+        </br>
+            <div class="row center">             
+                <a href="#"><i class="small material-icons black-text">visibility</i></a> 
+                <a href="#"><i class="small material-icons black-text">mode_edit</i></a> 
+                <a href="#"><i class="small material-icons black-text">delete</i></a>
+            </div>    
+    </div>
+    <div class="col s3 projectCard card-panel">
+        <h5>Antique Illustrations</h5>
+            <div class= "projImgContainer">
+
+                <a href="#!"><img src="https://s-media-cache-ak0.pinimg.com/736x/63/02/96/6302963cf0bbcef06302a7729c05f9d9.jpg" onmouseover="this.src='http://lh6.ggpht.com/-qu55cXtud3I/UHiLoKSpyBI/AAAAAAAAbSM/7U-eW9vWcSQ/image%25255B29%25255D.png?imgmax=800'" onmouseout="this.src='https://s-media-cache-ak0.pinimg.com/736x/63/02/96/6302963cf0bbcef06302a7729c05f9d9.jpg'" /></a>
+            </div>
+        </br>
+            <div class="row center">             
+                <a href="#"><i class="small material-icons black-text">visibility</i></a> 
+                <a href="#"><i class="small material-icons black-text">mode_edit</i></a> 
+                <a href="#"><i class="small material-icons black-text">delete</i></a>
+            </div>    
+    </div>
+
+</div>
+    <div class="section"></div>
+        <!--divider-->
+        <div class="divider"></div>
+        <div class="section"></div>
+
+<div class="row">
+    <div class="col s8">
+        <div class="col s3 offset-s1"> <h5 class="blue-text">Your Profile</h5> 
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col s2 offset-s2">
+        <p><img id="profilePic"src="http://tr3.cbsistatic.com/fly/bundles/techrepubliccore/images/icons/standard/icon-user-default.png"></p>
+    </div>
+    <div class="col s5 offset-s1">
+        <p>Name:</p>
+        <p>Organization:</p>
+        <p>Address:</p>
+        <p>Contact Email:</p>
+        <a href="#"><i class="small material-icons blue-text">mode_edit</i> edit</a>
+    </div>
+
+</div>
+
+
+
+
+    <div class="section"></div>
+    <!--begin Projects-->
+
+
+
+</div>
+
+{% endblock %}
