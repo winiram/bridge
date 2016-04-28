@@ -200,12 +200,11 @@ def getData():
         data.append(d)
         # print('json dump')
         # print(json.dumps(data))
-    return json.dumps(data)
+    return json.dumps(data)    
 
-
-@app.route("/test")
-def test():
-    return render_template("test.html")
+@app.route("/profile")
+def projects():
+    return render_template("profile.html")    
 
 @app.route("/sign_up", methods=['GET', 'POST'])
 def sign_up():
