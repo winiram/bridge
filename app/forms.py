@@ -1,5 +1,5 @@
 from flask.ext.wtf import Form
-from wtforms import StringField, IntegerField, PasswordField, FieldList, SelectField, SelectMultipleField, FormField, FieldList
+from wtforms import StringField, IntegerField, PasswordField, FieldList, SelectField, SelectMultipleField, FormField, FieldList, BooleanField
 from flask_wtf.html5 import EmailField
 from wtforms.validators import DataRequired, Email
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
@@ -40,3 +40,5 @@ class SearchField(Form):
 class SearchInterface(Form):
     # Need to change min_entries to 1 when javascript for adding rows is implemented
     search_fields = FieldList(FormField(SearchField), min_entries=1)
+    # full_text_search = BooleanField(label="Full text search on collection")
+    full_text_search = BooleanField()

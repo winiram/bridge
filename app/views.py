@@ -8,12 +8,12 @@ except ImportError:
     # Fall back to Python 2's urllib2
     from urllib2 import urlopen
 import pandas as pd
-from sqlalchemy import engine
+from sqlalchemy import engine, text
 from .forms import SignupForm, LoginForm, SearchInterfaceForm, SearchInterface
 from .util.security import ts
 from flask_login import login_user, logout_user, login_required
 from flask.ext.login import current_user
-
+from collections import OrderedDict
 
 @app.route('/')
 def index():
@@ -67,6 +67,8 @@ def saveFile():
         # Create table on the fly
         df.to_sql(file_id, db.engine, index=False)
 
+        session['file'] = file_id
+
         user = models.User.query.filter_by(email=session["email"]).first()
 
         # Create search interface and link it to the user
@@ -110,11 +112,26 @@ def createSearch():
     headers_names = [(header.header_name, header.header_name) for header in headers] # Headers is a list of header names
 
     searchform = SearchInterface()
+    ## Initialising SearchInterface form, could be done in object
     for search_field in searchform.search_fields:
         search_field.header.choices = headers_names
 
     print(request.form)
     if request.method == 'POST' and searchform.validate_on_submit():
+        # Process full_text_search
+        if searchform.full_text_search.data:
+            print("Adding full text search")
+            searchfield = models.SearchField(
+                name = "Full text search",
+                description = "",
+                field_type = models.FieldType.Textbox.name,
+                search_interface = si.id ## To be changed when suporting multiple SI
+            )
+            for header in headers:
+                searchfield.headers.append(header)
+            db.session.add(searchfield)
+
+        # Process custom search fields
         for search_field in searchform.search_fields:
             print("------------printing search field data -------------")
             print(search_field.data)
@@ -128,6 +145,7 @@ def createSearch():
                 name = search_field.fieldname.data,
                 description = search_field.field_description.data,
                 field_type = search_field.field_type.data,
+                search_interface = si.id ## To be changed when suporting multiple SI
             )
 
             # Add headers selected to db
@@ -139,7 +157,7 @@ def createSearch():
                 searchfield.headers.append(header)
 
             db.session.add(searchfield)
-            db.session.commit()
+        db.session.commit()
         return redirect(url_for("interface"))
 
         # if "action" not in request.form and searchform.validate_on_submit():
@@ -166,11 +184,28 @@ def interface():
 def searchInterface_side():
     return render_template("search.html")
 
+@app.route("/getData", methods=["GET"])
+@login_required
+def getData():
+    file = escape(session['file']) #getting the name of the table
+    sql = text("SELECT * FROM \"" + str(file) + "\"") #querying the db
+    result = db.engine.execute(sql)
+
+    data = []
+    for v in result:
+        d = OrderedDict([])
+        for column, value in v.items():
+            d[str(column)] = str(value)
+            #print('{0}: {1}'.format(column, value))
+        data.append(d)
+        # print('json dump')
+        # print(json.dumps(data))
+    return json.dumps(data)
+
 
 @app.route("/test")
 def test():
     return render_template("test.html")
-
 
 @app.route("/sign_up", methods=['GET', 'POST'])
 def sign_up():
