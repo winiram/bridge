@@ -1,6 +1,7 @@
 <!DOCTYPE html> {% extends "create_base.html" %} {% block content %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+<script src="/static/js/bootstrap-colorpicker.js"></script>
 <link rel="stylesheet" href="../static/css/bootstrap-colorpicker.css" type='text/css'>
 <link rel="stylesheet" href="../static/css/bootstrap-colorpicker.css.map" type="text/css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.8/jquery.form-validator.min.js"></script>
@@ -21,10 +22,10 @@
     <div class="section"></div>
         <!--divider-->
         <div class="divider"></div>
+
     <div class="section"></div>
 
     <!--begin search form-->
-
 
 <form action="/createSearch" method="post" id="createsearch" class="col s4 offset-s4 card">
   {{ form.hidden_tag() }}
@@ -60,11 +61,11 @@
     <div class="row animated fadeInUp searchField">
         <div class="input-field col s2 offset-s1">
             {{ search_field.fieldname }}
-            <label for="searchFieldName">Search Field Name</label> 
+            <!-- <label for="searchFieldName">Search Field Name</label>  -->
         </div>
          <div class="input-field col s2">
              {{ search_field.field_description }}
-            <label for="searchFieldDescription">Description</label>
+            <!-- <label for="searchFieldDescription">Description</label> -->
         </div>
         <div class="input-field col s3">
             {{search_field.header}}
@@ -78,7 +79,7 @@
             </a>
         </div>
     </div>
-    {{ search_field.csrf_token}} 
+    {{ search_field.csrf_token}}
     {% endfor %}
   </div>
   {{ form.csrf_token }}
@@ -87,5 +88,6 @@
 <div class="section"></div>
 <a class="waves-effect waves-light red accent-2 btn right right-margin" onclick="$('form[id=createsearch]').submit()" id="next">Next</a>
 <div class="section"></div>
+</div>
 </div>
 {% endblock %}
