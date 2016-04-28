@@ -63,7 +63,9 @@
         <!-- SEARCH INTERFACE -->
 
         <div class="row flex-container">
-            <form class="col grey lighten-3 center searchform" id="searchform">
+            <!-- <form class="col grey lighten-3 center searchform" id="searchform"> -->
+            <form action="/search" method="post" id="search" class="col grey lighten-3 center searchform">
+              {{ form.hidden_tag() }}
               <div class="row">
 
                 <h3>Search <a class="tooltipped" data-position="right" data-delay="50" data-tooltip="Enter search critera into any field to refine to locate records in the collection"><i class="fa fa-question small"></i></a></h3>
@@ -74,16 +76,24 @@
                         </div>
 
                         <div class="input-field col s12">
-                          <input id="any_field" type="text" class="validate searchItem">
-                          <label for="any_field">Search Any Field</label>
+                          <!-- <input id="any_field" type="text" class="validate searchItem">
+                          <label for="any_field">Search Any Field</label> -->
+                          {% for field in form.text_searches %}
+                            {{ field.search.data.label}}<br>
+                            {{ field.search.data(size=120)}}<br>
+                          {% endfor %}
                         </div>
 
                         <div class="input-field col s12">
-                          <input id="common_name" type="text" class="validate searchItem">
-                          <label for="common_name">Common Name</label>
+                          <!-- <input id="common_name" type="text" class="validate searchItem">
+                          <label for="common_name">Common Name</label> -->
+                          {% for field in form.unique_searches %}
+                            {{ field.search.default }}<br>
+                            {{ field.search.data }}<br>
+                          {% endfor %}
                         </div>
-
-                        <div class="input-field col s12">
+                        </div>
+                        <!-- <div class="input-field col s12">
                           <input id="any_name" type="text" class="validate searchItem">
                           <label for="any_name">Any Name</label>
                         </div>
@@ -91,7 +101,7 @@
                         <div class="input-field col s12">
                           <input id="location" type="text" class="validate searchItem">
                           <label for="location">Location</label>
-                        </div>
+                        </div> -->
 
                        <div class="row">
                         <a class="waves-effect waves-light btn searchbtn" type="submit">search</a>

@@ -9,11 +9,12 @@ except ImportError:
     from urllib2 import urlopen
 import pandas as pd
 from sqlalchemy import engine, text
-from .forms import SignupForm, LoginForm, SearchInterfaceForm, SearchInterface
+from .forms import SignupForm, LoginForm, SearchInterfaceForm, SearchInterface, TextboxForm, UniqueSearchForm, DisplayForm
 from .util.security import ts
 from flask_login import login_user, logout_user, login_required
 from flask.ext.login import current_user
 from collections import OrderedDict
+from flask.ext.wtf import Form
 
 @app.route('/')
 def index():
@@ -112,26 +113,12 @@ def createSearch():
     headers_names = [(header.header_name, header.header_name) for header in headers] # Headers is a list of header names
 
     searchform = SearchInterface()
-    ## Initialising SearchInterface form, could be done in object
     for search_field in searchform.search_fields:
         search_field.header.choices = headers_names
 
     print(request.form)
     if request.method == 'POST' and searchform.validate_on_submit():
-        # Process full_text_search
-        if searchform.full_text_search.data:
-            print("Adding full text search")
-            searchfield = models.SearchField(
-                name = "Full text search",
-                description = "",
-                field_type = models.FieldType.Textbox.name,
-                search_interface = si.id ## To be changed when suporting multiple SI
-            )
-            for header in headers:
-                searchfield.headers.append(header)
-            db.session.add(searchfield)
-
-        # Process custom search fields
+        # entryNum = 1 #keeping the count of the searchfields to populate later
         for search_field in searchform.search_fields:
             print("------------printing search field data -------------")
             print(search_field.data)
@@ -144,9 +131,10 @@ def createSearch():
             searchfield = models.SearchField(
                 name = search_field.fieldname.data,
                 description = search_field.field_description.data,
-                field_type = search_field.field_type.data,
-                search_interface = si.id ## To be changed when suporting multiple SI
+                field_type = search_field.field_type.data
             )
+
+            searchfield.search_interface = si.id
 
             # Add headers selected to db
             for header_name in search_field.header.data:
@@ -155,9 +143,13 @@ def createSearch():
                     .filter_by(document=document.document_id) \
                     .first()
                 searchfield.headers.append(header)
+                print('printing headers')
+                print(header)
+                # session['header' + str(entryNum)] = header.header_name
 
             db.session.add(searchfield)
-        db.session.commit()
+            db.session.commit()
+            # entryNum += 1
         return redirect(url_for("interface"))
 
         # if "action" not in request.form and searchform.validate_on_submit():
@@ -182,7 +174,57 @@ def interface():
 
 @app.route("/search")
 def searchInterface_side():
-    return render_template("search.html")
+    ## Getting all the required information to conduct queries
+    user = models.User.query.filter_by(email=session["email"]).first()
+    si = models.SearchInterface.query.filter_by(user=user.id).first() #assuming user has only one search interface
+    search_fields = models.SearchField.query.filter_by(search_interface=si.id).all()
+    document = models.Document.query.filter_by(search_interface=si.id).first()
+
+    #Instantiate Displayform so we can insert textboxform or dropdown form
+    displayform = DisplayForm()
+    for field in search_fields:
+        if(field.field_type == "Textbox"):
+            textboxform = TextboxForm()
+            textboxform.search_field_id.value = field.id
+            textboxform.search.label = str(field.name)
+            displayform.text_searches.append_entry(textboxform)
+            # for search in textboxform:
+            #     print(search.data)
+        else:
+            #Querying the selected headers for a given header
+            selected_header = models.Header.query.filter(models.Header.search_fields.any(id=field.id)).all()
+            # getting the table to query the content inside a header
+            document_model = document.document_id
+            choice = []
+            # for every header
+            for head in selected_header:
+                sql = text("SELECT DISTINCT " + str(head.header_name) + " FROM \"" + str(document_model) + "\"") #querying the db
+                result = db.engine.execute(sql)
+                for item in result:
+                    i = 0
+                    choice.append((i,item[0]))
+
+
+            uniquesearchform = UniqueSearchForm()
+            uniquesearchform.search.label = str(field.name)
+            uniquesearchform.search.choices = choice
+            uniquesearchform.search_field_id.value = field.id
+            displayform.unique_searches.append_entry(uniquesearchform)
+
+            # print("####################")
+            # for search in uniquesearchform:
+            #     print(search.search.data.value)
+    #
+    # print('#########fieldlist#########')
+    # for text_search in displayform.text_searches:
+    #     print('print name')
+    #     print(text_search.search.data.label)
+
+    print('#########secondfieldlist#########')
+    for unique in displayform.unique_searches:
+        print(unique.search.label)
+
+    return render_template("search.html", form=displayform)
 
 @app.route("/getData", methods=["GET"])
 @login_required
@@ -201,7 +243,6 @@ def getData():
         # print('json dump')
         # print(json.dumps(data))
     return json.dumps(data)
-
 
 @app.route("/test")
 def test():
