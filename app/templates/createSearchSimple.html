@@ -5,10 +5,11 @@
 <link rel="stylesheet" href="../static/css/bootstrap-colorpicker.css.map" type="text/css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.8/jquery.form-validator.min.js"></script>
 <title>Bridge</title>
-<script type="text/javascript" src="/static/dynamic_form.js"></script>
+
 <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
 <script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
 <script type="text/javascript" src="/javascript/appjs.js"></script>
+<script type="text/javascript" src="/static/dynamic_form.js"></script>
 
 <!--end pagination-->
 <div class="grey lighten-2 full" role="main">
@@ -57,7 +58,7 @@
     <div class="row animated fadeInUp searchField">
         <div class="input-field col s2 offset-s1">
             {{ search_field.fieldname }}
-            <label for="searchFieldName">Search Field Name</label>
+            <label for="searchFieldName">Search Field Name</label> 
         </div>
          <div class="input-field col s2">
              {{ search_field.field_description }}
@@ -69,16 +70,11 @@
         <div class="input-field col s2">
             {{search_field.field_type}}
         </div>
-        {% if loop.index0 == 0%}
         <div class="col s2">
-            <a class="btn-floating btn waves-effect waves-light red left-margin-big" id="addButton">
-                <i class="material-icons">add</i></a>
+            <a class="addButton btn-floating btn waves-effect waves-light red left-margin-big">
+                <i class="material-icons">add</i>
+            </a>
         </div>
-        {% else %}
-        <div class="col s2">
-            <a class="waves-effect waves-teal btn-flat" id="deleteButton"><i class="tiny material-icons black-text">delete</i></a>
-        </div>
-        {% endif %}
 
     </div>
     {{ search_field.csrf_token}} {% endfor %}
@@ -90,11 +86,9 @@
 </div>
 {{ form.csrf_token }}
 </form>
-
 </div>
 <div class="section"></div>
 <a class="waves-effect waves-light red accent-2 btn right right-margin" onclick="$('form[id=createsearch]').submit()" id="next">Next</a>
 <div class="section"></div>
 </div>
-
 {% endblock %}

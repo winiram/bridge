@@ -39,4 +39,4 @@ class SearchField(Form):
 
 class SearchInterface(Form):
     # Need to change min_entries to 1 when javascript for adding rows is implemented
-    search_fields = FieldList(FormField(SearchField), min_entries=2)
+    search_fields = FieldList(FormField(SearchField), min_entries=1)
