@@ -1,6 +1,7 @@
 <!DOCTYPE html> {% extends "create_base.html" %} {% block content %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+</script>
 <title>Bridge</title>
 
 <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
@@ -76,10 +77,12 @@
     <div class="section"></div>
     <div class="section"></div>
     {{ form.csrf_token }}
-    </form>
+
     <div class="section"></div>
-    <a class="waves-effect waves-light red accent-2 btn right right-margin" onclick="$('form[id=createsearch]').submit()" id="next">Next</a>
     <div class="section"></div>
 </div>
+</form>
+</div>
+<a class="waves-effect waves-light red accent-2 btn right right-margin" onclick="$('form[id=createsearch]').submit()" id="next">Next</a>
 </div>
 {% endblock %}
