@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html>
 
+<html>
 <head>
     <link rel="stylesheet" type="text/css" href="/static/materialize.css" media="screen">
     <link rel="stylesheet" type="text/css" href="/static/animate.css" media="screen">
@@ -13,11 +13,10 @@
     <div>
         <nav class="blue">
             <div class="nav-wrapper">
-                <a href="#" class="brand-logo">Bridge</a>
+                <a href="/main" class="blue-text brand-logo"> <img src="../static/files/bridge_logos_v1-02.png"></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a href="#">Search Collections</a></li>
-                    <li><a href="#">Add Collection</a></li>
-                    <li class="active"><a href="#">Sign in/up</a></li>
+                    <li><a href="{{url_for('log_in')}}" class="white-text">Log in</a></li>
                 </ul>
             </div>
         </nav>
@@ -65,4 +64,6 @@
         </form>
     </div>
 </body>
+
+
 </html>
