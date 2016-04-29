@@ -1,21 +1,18 @@
 <!DOCTYPE html> {% extends "create_base.html" %} {% block content %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-<script src="/static/js/bootstrap-colorpicker.js"></script>
-<link rel="stylesheet" href="../static/css/bootstrap-colorpicker.css" type='text/css'>
-<link rel="stylesheet" href="../static/css/bootstrap-colorpicker.css.map" type="text/css">
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.8/jquery.form-validator.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script></script>
 <title>Bridge</title>
-<script type="text/javascript" src="/static/dynamic_form.js"></script>
+
 <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
 <script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
 <script type="text/javascript" src="/javascript/appjs.js"></script>
+<script type="text/javascript" src="/static/dynamic_form.js"></script>
 
 <!--end pagination-->
 <div class="grey lighten-2 full" role="main">
     <!--grey background at the back-->
     <!--begin intro section-->
-    <div class="white container section z-depth-1">
+    <div class="white container section">
         <h5 class="grey-text text-darken-2 center" id="instructions">2. Create Search Interface</h1>
         <h6 class="grey-text center">Go ahead and decide how people will search your collection</h6>
     <div class="section"></div>
@@ -26,76 +23,63 @@
 
     <!--begin search form-->
 
-<form action="/createSearch" method="post" id="createsearch" class="col s4 offset-s4 card">
-  {{ form.hidden_tag() }}
-  <div class="section"></div>
-  <div class="row">
-      <div class="col s5 offset-s1">
-          <h5 class="blue-text">2. Customize Search Interface</h5>
-      </div>
-  </div>
+<form action="/createSearch" method="post" id="createsearch" class="col s4 offset-s4">
+    <div class="section"></div>
+    <div class="row">
+        <div class="col s5 offset-s1">
+            <h5 class="blue-text">2. Customize Search Interface</h5>
+    </div>
+</div>
+<div class="row">
+    <div class="col s4 offset-s2">
+        {{ form.full_text_search() }} {{ form.full_text_search.label }}
+        <p class="grey-text">Check this if you want a Google-like searchbox for your collection</p>
 
-  <div class="row">
-      <div class="col s4 offset-s2">
-          {{ form.full_text_search() }}
-          {{ form.full_text_search.label }}
-          <p class="grey-text">Check this if you want a Google-like searchbox for your collection</p>
-
-      </div>
-      <div class="col s4">
-          <input type="checkbox" id="customizeSearch" />
-          <label for="customizeSearch" class="grey-text text-darken-2">Customize Search</label>
-          <p class="grey-text">Check this if you want to customize search fields</p>
-      </div>
-  </div>
-
-  <div id="customSearchOptions">
-      <div class="section"></div>
-      <div class="row" id="0">
-          <div class="col s4 offset-s2">
-              <div class="subtitle blue-text">Create Search Fields</div>
-          </div>
-      </div>
-      {% for search_field in form.search_fields %}
-      <fieldset>
-        <div class="row animated fadeInUp">
-            <div class="input-field col s2 offset-s2">
-                Search Field Name:<br>
-                {{ search_field.fieldname }}<br>
-            </div>
-            <div class="input-field col s2">
-                Description:<br>
-                {{ search_field.field_description }}<br>
-            </div>
-            <div class="input-field col s2">
-                {{search_field.header}}
-            </div>
-            <div class="input-field col s2">
-                {{search_field.field_type}}
-            </div>
-            {% if loop.index0 == 0%}
-            <div class="col s2">
-                <a class="btn-floating btn waves-effect waves-light red left-margin-big" id="addButton">
-                    <i class="material-icons">add</i></a>
-            </div>
-            {% else %}
-            <div class="col s2">
-              <a class="waves-effect waves-teal btn-flat" id="deleteButton"><i class="tiny material-icons black-text">delete</i></a>
-            </div>
-            {% endif %}
-
-        </div>
-        {{ search_field.csrf_token}}
-      </fieldset>
-      {% endfor %}
-
-  </div>
-  <div class="section"></div>
-    <p><input type="submit" class="waves-effect waves-light red accent-2 btn right right-margin" id="next" value="Next"></p>
-  <div class="section"></div>
-  {{ form.csrf_token }}
-</form>
-
+    </div>
+    <div class="col s4">
+        <input type="checkbox" id="customizeSearch" />
+        <label for="customizeSearch" class="grey-text text-darken-2">Customize Search</label>
+        <p class="grey-text">Check this if you want to customize search fields</p>
+    </div>
 </div>
 
+<div id="customSearchOptions">
+    <div class="section"></div>
+    <div class="row" id="0">
+        <div class="col s4 offset-s2">
+            <div class="subtitle blue-text">Create Search Fields</div>
+        </div>
+    </div>
+    {% for search_field in form.search_fields %}
+    <div class="row animated fadeInUp searchField">
+        <div class="input-field col s2 offset-s1">
+            {{ search_field.fieldname }}
+            <label for="searchFieldName">Search Field Name</label>
+        </div>
+        <div class="input-field col s2">
+            {{ search_field.field_description }}
+            <label for="searchFieldDescription">Description</label>
+        </div>
+        <div class="input-field col s3">
+            {{search_field.header}}
+        </div>
+        <div class="input-field col s2">
+            {{search_field.field_type}}
+        </div>
+        <div class="col s2">
+            <a class="addButton btn-floating btn waves-effect waves-light red left-margin-big">
+                <i class="material-icons">add</i>
+            </a>
+        </div>
+        {{ search_field.csrf_token}} {% endfor %}
+    </div>
+    <div class="section"></div>
+    <div class="section"></div>
+    {{ form.csrf_token }}
+    </form>
+    <div class="section"></div>
+    <a class="waves-effect waves-light red accent-2 btn right right-margin" onclick="$('form[id=createsearch]').submit()" id="next">Next</a>
+    <div class="section"></div>
+</div>
+</div>
 {% endblock %}
