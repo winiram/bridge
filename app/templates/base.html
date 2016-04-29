@@ -17,10 +17,10 @@
     <div>
         <nav class="white">
             <div class="nav-wrapper z-depth-1">
-                <a href="main" class="blue-text brand-logo">Bridge</a>
+                <a href="/main" class="blue-text brand-logo"> <img src="../static/files/bridge_logo_text1.png"></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="#" class="blue-text">Login</a></li>
-                    <li><a href="#" class="blue-text">Signup</a></li>
+                    <li><a href="{{url_for('log_in')}}" class="blue-text">Login</a></li>
+                    <li><a href="{{url_for('sign_up')}}" class="blue-text">Signup</a></li>
                 </ul>
             </div>
         </nav>
@@ -34,8 +34,8 @@
 
     <div class="footer-copyright grey lighten-4">
         <div class="container">
-            <a class="grey-text text-darken-2" href="#">About Bridge</a>
-            <a class="grey-text text-darken-2 right" href="#!">Contact us</a>
+            <a class="grey-text text-darken-2" href="/main">About Bridge</a>
+            <a class="grey-text text-darken-2 right" href="main!">Contact us</a>
         </div>
     </div>
 </footer>

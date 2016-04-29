@@ -13,11 +13,10 @@
     <div>
         <nav class="blue">
             <div class="nav-wrapper">
-                <a href="#" class="brand-logo">Bridge</a>
+                <a href="/main" class="blue-text brand-logo"> <img src="../static/files/bridge_logo_text3.png"></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a href="#">Search Collections</a></li>
-                    <li><a href="#">Add Collection</a></li>
-                    <li class="active"><a href="#">Sign in/up</a></li>
+                    <li><a href="{{url_for('sign_up')}}" class="white-text">Signup</a></li>
                 </ul>
             </div>
         </nav>
@@ -43,10 +42,11 @@
                 {{ form.password(size=20) }}<br>
             </div>
             <div class="input-field col s6 offset-s4">
-                <a class="waves-effect waves-light btn blue" id="signup" href="{{ url_for('sign_up') }}">Signup</a>
-            </div>
-            <div class="input-field col s6 offset-s4">
                 <p><input type="submit" class="waves-effect waves-light btn blue" id="login" value="Log In"></p>
+            </div>
+        </br>
+            <div class="input-field col s6 offset-s4">
+                <a class="waves-effect waves-light btn blue" id="signup" href="{{ url_for('sign_up') }}">Signup</a>
             </div>
             <div class="row">
             </div>

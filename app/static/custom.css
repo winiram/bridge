@@ -55,7 +55,11 @@ iframe{
 }
 
 .brand-logo{
-    margin-left: 5px;
+    margin-left: 10px;
+}
+.brand-logo img{
+    height: 55px;
+    margin-top: 4px
 }
 
 .smalltext {
@@ -214,3 +218,12 @@ h5{
   float: right;
 }
 
+.intro img{
+  width: 100%;
+
+}
+
+.logo_head {
+  width: 150px;
+  margin-bottom: -30px;
+}
