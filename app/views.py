@@ -228,13 +228,13 @@ def search():
             i = 0
             if query != 'None' and query != None:
                 print(query)
+                print('printing unique headers')
                 print(unique_headers)
-                selected_header = models.Header.query.filter(models.Header.search_fields.any(id=unique_headers[i])).first()
-                print(selected_header.header_name)
-                sql = text("SELECT * FROM " + str(document_model) + " WHERE " + str(selected_header.header_name) + " = '" + str(query) + "';") #querying the db
+                selected_header = models.Header.query.filter(models.Header.search_fields.any(id=unique_headers[i])).all()
+                print(selected_header)
+                sql = text("SELECT * FROM " + str(document_model) + " WHERE " + str(selected_header[i].header_name) + " = '" + str(query) + "';") #querying the db
                 result = db.engine.execute(sql)
-                # for item in result:
-                #     print(item)
+                i += 1
 
                 data = []
                 for v in result:
@@ -244,7 +244,8 @@ def search():
                         #print('{0}: {1}'.format(column, value))
                     data.append(d)
                 session['json'] = json.dumps(data)
-                # return json.dumps(data)
+                print(json.dumps(data))
+                return json.dumps(data)
         return redirect(url_for("search"))
     return render_template("search.html", form=displayform)
 
