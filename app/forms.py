@@ -1,5 +1,6 @@
 from flask.ext.wtf import Form
 from wtforms import StringField, IntegerField, PasswordField, FieldList, SelectField, SelectMultipleField, FormField, FieldList, BooleanField
+from wtforms import Form as WTForm
 from flask_wtf.html5 import EmailField
 from wtforms.validators import DataRequired, Email, Optional
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
@@ -31,17 +32,16 @@ class SearchInterfaceForm(Form):
         super(SearchInterfaceForm, self).__init__()
         self.header.choices = headers
 
-class SearchField(Form):
+# Bug in Flask-WTF with dynamic form, need to use original WTF
+class SearchField(WTForm):
     # Need to add validators when javascript for adding rows is implemented
     fieldname = StringField()
     field_description = StringField()
     header = SelectMultipleField()
     field_type = SelectField(choices = [(name, member.value) for name, member in FieldType.__members__.items()])
 
-class SearchInterface(Form):
-    # Need to change min_entries to 1 when javascript for adding rows is implemented
-    search_fields = FieldList(FormField(SearchField), min_entries=5)
-    # full_text_search = BooleanField(label="Full text search on collection")
+class SearchInterface(WTForm):
+    search_fields = FieldList(FormField(SearchField), min_entries=1)
     full_text_search = BooleanField()
 
 class TextboxForm(Form):

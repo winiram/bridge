@@ -56,8 +56,9 @@
 
     <div class="section"></div>
 
+        
     <!--begin search form-->
-
+        
 <form action="/createSearch" method="post" id="createsearch">
 <div class="row">
     <div class="col s4 offset-s1">
@@ -229,7 +230,9 @@
 </form>
 
 <div class="section"></div>
-<a class="waves-effect waves-light red accent-2 btn right right-margin" onclick="$('form[id=createsearch]').submit()" id="next">Next</a>
+
+<a class="waves-effect waves-light red accent-2 btn right right-margin" href="{{ url_for('searchInterface')}}" id="next">Next</a>
+
 <div class="section"></div>
 
 </div>

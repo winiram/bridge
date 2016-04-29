@@ -111,22 +111,38 @@ def createSearch():
     document = models.Document.query.filter_by(search_interface=si.id).first()
     headers = models.Header.query.filter_by(document=document.document_id).all()
     headers_names = [(header.header_name, header.header_name) for header in headers] # Headers is a list of header names
+    searchform = SearchInterface(request.form) # Bug in Flask-WTF with dynamic form, need to use original WTF
 
-    searchform = SearchInterface()
+
+    ## Initialising SearchInterface form, could be done in object
     for search_field in searchform.search_fields:
         search_field.header.choices = headers_names
+    if request.method == 'POST' and searchform.validate():
 
-    print(request.form)
-    if request.method == 'POST' and searchform.validate_on_submit():
-        # entryNum = 1 #keeping the count of the searchfields to populate later
+        # Process full_text_search
+        if searchform.full_text_search.data:
+            print("Adding full text search")
+            searchfield = models.SearchField(
+                name = "Full text search",
+                description = "",
+                field_type = models.FieldType.Textbox.name,
+                search_interface = si.id ## To be changed when suporting multiple SI
+            )
+            for header in headers:
+                searchfield.headers.append(header)
+            db.session.add(searchfield)
+
+        # Process custom search fields
         for search_field in searchform.search_fields:
             print("------------printing search field data -------------")
             print(search_field.data)
+
             ## To be removed when form validation is implemented
             if not search_field.fieldname.data or not search_field.header.data:
                 print("------Incomplete search field, not saved-----")
                 continue;
             ##
+
             # Add search_field to db
             searchfield = models.SearchField(
                 name = search_field.fieldname.data,
@@ -247,6 +263,7 @@ def search():
                 print(json.dumps(data))
                 return json.dumps(data)
         return redirect(url_for("search"))
+        # return json.dumps(data)
     return render_template("search.html", form=displayform)
 
 @app.route("/updateData", methods=["GET"])
@@ -274,6 +291,10 @@ def getData():
 @app.route("/test")
 def test():
     return render_template("test.html")
+
+@app.route("/profile")
+def projects():
+    return render_template("profile.html")
 
 @app.route("/sign_up", methods=['GET', 'POST'])
 def sign_up():
