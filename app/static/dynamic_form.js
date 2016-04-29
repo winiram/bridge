@@ -1,13 +1,16 @@
 $(document).ready(function () {
     $('select').material_select();
-
+    $('#visualizations').hide();
+    $("#switch").click(function () {
+        $('#visualizations').toggle();
+    });
     $('#customSearchOptions').hide();
     $('#customizeSearch').click(function () {
         $('#customSearchOptions').toggle();
-    });  
+    });
     var selector = 'div[class*=searchField]';
     var element = $('div[class*=searchField]').last().clone(true);
-    
+
     $("a[class*=addButton]").click(function () {
         clone_field_list(element, selector);
     });
@@ -17,7 +20,7 @@ function clone_field_list(element1, selector1) {
     var new_element = element1.clone(true);
     var elem_id = $('div[class*=searchField]').last().find('input')[0].id;
     var elem_num = parseInt(elem_id.replace(/.*-(\d{1,4})-.*/m, '$1')) + 1;
-new_element.find('input').each(function () {
+    new_element.find('input').each(function () {
 
         var attr = $(this).attr('id');
         if (typeof attr !== typeof undefined && attr !== false) {
@@ -71,7 +74,7 @@ new_element.find('input').each(function () {
         $(this).children('a').remove();
         $(this).prepend("<a class='deleteButton waves-effect waves-teal btn-flat'> <i class='material-icons'>delete</i></a>");
     });
-    
+
     $(selector1).last().after(new_element);
     $('select').material_select();
     $(".deleteButton").click(function () {

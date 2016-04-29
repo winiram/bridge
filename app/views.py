@@ -177,7 +177,7 @@ def createSearch():
         # elif request.form["action"] == "remove":
         #     pass
 
-    return render_template("createSearchSimple.html", form=searchform)
+    return render_template("createSearch.html", form=searchform)
 
 @app.route("/previewSearch")
 @login_required

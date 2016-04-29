@@ -21,7 +21,11 @@
     <div>
         <nav class="blue">
             <div class="nav-wrapper z-depth-1">
-                <a href="main" class="white-text brand-logo">Bridge</a>
+                <a href="/main" class="white-text brand-logo"> <img src="../static/files/bridge_logos_v1-02.png"></a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="/profile" class="white-text">Profile</a></li>
+                    <li><a href="{{url_for('log_out')}}" class="white-text">Log out</a></li>
+                </ul>
             </div>
         </nav>
     </div>
