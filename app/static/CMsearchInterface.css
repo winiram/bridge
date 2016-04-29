@@ -32,11 +32,13 @@ p {
 .gridItem {
 	display: inline-block;
 	box-sizing: border-box;
+	width: 23%;
+	height: 300px;
 }
 
 .gridItem img{
 	max-width: 100%;
-	display: center;
+	max-height: 60%;
 }
 
 nav {
