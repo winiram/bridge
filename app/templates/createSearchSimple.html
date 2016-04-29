@@ -16,7 +16,7 @@
 <div class="grey lighten-2 full" role="main">
     <!--grey background at the back-->
     <!--begin intro section-->
-    <div class="white container section z-depth-1">
+    <div class="white container section">
         <h5 class="grey-text text-darken-2 center" id="instructions">2. Create Search Interface</h1>
         <h6 class="grey-text center">Go ahead and decide how people will search your collection</h6>
     <div class="section"></div>
@@ -27,27 +27,25 @@
 
     <!--begin search form-->
 
-<form action="/createSearch" method="post" id="createsearch" class="col s4 offset-s4 card">
-  <div class="section"></div>
-  <div class="row">
-      <div class="col s5 offset-s1">
-          <h5 class="blue-text">2. Customize Search Interface</h5>
-      </div>
-  </div>
+<form action="/createSearch" method="post" id="createsearch" class="col s4 offset-s4">
+    <div class="section"></div>
+    <div class="row">
+        <div class="col s5 offset-s1">
+            <h5 class="blue-text">2. Customize Search Interface</h5>
+    </div>
+</div>
+<div class="row">
+    <div class="col s4 offset-s2">
+        {{ form.full_text_search() }} {{ form.full_text_search.label }}
+        <p class="grey-text">Check this if you want a Google-like searchbox for your collection</p>
 
-  <div class="row">
-      <div class="col s4 offset-s2">
-          {{ form.full_text_search() }}
-          {{ form.full_text_search.label }}
-          <p class="grey-text">Check this if you want a Google-like searchbox for your collection</p>
-
-      </div>
-      <div class="col s4">
-          <input type="checkbox" id="customizeSearch" />
-          <label for="customizeSearch" class="grey-text text-darken-2">Customize Search</label>
-          <p class="grey-text">Check this if you want to customize search fields</p>
-      </div>
-  </div>
+    </div>
+    <div class="col s4">
+        <input type="checkbox" id="customizeSearch" />
+        <label for="customizeSearch" class="grey-text text-darken-2">Customize Search</label>
+        <p class="grey-text">Check this if you want to customize search fields</p>
+    </div>
+</div>
 
 <div id="customSearchOptions">
     <div class="section"></div>
@@ -60,11 +58,11 @@
     <div class="row animated fadeInUp searchField">
         <div class="input-field col s2 offset-s1">
             {{ search_field.fieldname }}
-            <!-- <label for="searchFieldName">Search Field Name</label>  -->
+            <label for="searchFieldName">Search Field Name</label>
         </div>
-         <div class="input-field col s2">
-             {{ search_field.field_description }}
-            <!-- <label for="searchFieldDescription">Description</label> -->
+        <div class="input-field col s2">
+            {{ search_field.field_description }}
+            <label for="searchFieldDescription">Description</label>
         </div>
         <div class="input-field col s3">
             {{search_field.header}}
@@ -77,16 +75,15 @@
                 <i class="material-icons">add</i>
             </a>
         </div>
+        {{ search_field.csrf_token}} {% endfor %}
     </div>
-    {{ search_field.csrf_token}}
-    {% endfor %}
-  </div>
-  {{ form.csrf_token }}
-</form>
-
-<div class="section"></div>
-<a class="waves-effect waves-light red accent-2 btn right right-margin" onclick="$('form[id=createsearch]').submit()" id="next">Next</a>
-<div class="section"></div>
+    <div class="section"></div>
+    <div class="section"></div>
+    {{ form.csrf_token }}
+    </form>
+    <div class="section"></div>
+    <a class="waves-effect waves-light red accent-2 btn right right-margin" onclick="$('form[id=createsearch]').submit()" id="next">Next</a>
+    <div class="section"></div>
 </div>
 </div>
 {% endblock %}

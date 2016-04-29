@@ -42,3 +42,4 @@ class SearchField(WTForm):
 class SearchInterface(WTForm):
     search_fields = FieldList(FormField(SearchField), min_entries=1)
     full_text_search = BooleanField()
+

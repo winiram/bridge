@@ -110,13 +110,13 @@ def createSearch():
     document = models.Document.query.filter_by(search_interface=si.id).first()
     headers = models.Header.query.filter_by(document=document.document_id).all()
     headers_names = [(header.header_name, header.header_name) for header in headers] # Headers is a list of header names
-
     searchform = SearchInterface(request.form) # Bug in Flask-WTF with dynamic form, need to use original WTF
+
     ## Initialising SearchInterface form, could be done in object
     for search_field in searchform.search_fields:
         search_field.header.choices = headers_names
-
     if request.method == 'POST' and searchform.validate():
+
         # Process full_text_search
         if searchform.full_text_search.data:
             print("Adding full text search")
