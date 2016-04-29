@@ -4,7 +4,12 @@ $(document).ready(function () {
     $('#customSearchOptions').hide();
     $('#customizeSearch').click(function () {
         $('#customSearchOptions').toggle();
-    });  
+
+    }); 
+
+    $('#search_fields-0-header').prepend('<option value="" disabled selected>Choose headers</option>');
+    $('select').material_select();
+
     var selector = 'div[class*=searchField]';
     var element = $('div[class*=searchField]').last().clone(true);
     
