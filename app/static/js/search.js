@@ -1,21 +1,27 @@
 $(document).ready(function(){
-    updateData("/getData");
-    console.log("in herrrrrrrrrr")
+    getData();
   });
 
-function updateData (jsonFile) {
-  console.log(jsonFile);
+function getData () {
+  console.log("Getting original data");
 
   //////////////////////////// POPULATE HEADERS AND RECORD DATA ////////////////////////////
     $.ajax({
-    url: jsonFile,
-    type: 'get',
-    dataType: 'json',
-    error: function(data){
-      console.log("some error has occured :((((")
-    },
-    success: function(data){
-      console.log("succeess")
+      url: "/getData",
+      type: 'get',
+      dataType: 'json',
+      error: function(data){
+        console.log("error while getting original data")
+      },
+      success: function(data) {
+        displayData(data)
+      }
+  });
+}
+
+
+function displayData(data) {
+      console.log("Displaying data")
   var table = [];
   var headers = [];
   var headerRow=[];
@@ -90,13 +96,14 @@ function updateData (jsonFile) {
   $("#gridView").html(gridView)
   $('.modal-trigger').leanModal();
 
-  }
-  });
+}
+
+
 
   /////////////////////////////////// END POPULATE HEADERS AND RECORD DATA /////////////////////////////////
 
 
-  function modalMaker (data, rowNum) {
+function modalMaker (data, rowNum) {
   var modalStart = '<div id="m' // plus row num
   var modal2_rec = '"class="modal modal-fixed-footer modalContent"><div class="modal-content"><h4>Record Detail</h4>' //plus details
   var modal_close = '<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a></div></div>'
@@ -134,26 +141,49 @@ function updateData (jsonFile) {
 
 
   };
-};
 
 
   /////////////////////////// SEARCH FIELDS ////////////////////////////////////////////////////////
-  $(function() {
-        $(".clearbtn").click( function()
-             { console.log("clear button is clicked!")
-             $(this).closest('form').find("input[type=text], textarea").val("");
+$(function() {
+      $(".clearbtn").click( function()
+           { console.log("clear button is clicked!")
+           $(this).closest('form').find("input[type=text], textarea").val("");
 
-             }
-        );
+           }
+      );
+});
+
+$(function() {
+      $(".searchbtn").click( function()
+           { console.log("search button is clicked!");
+           getUpdatedData();
+         }
+       )}
+);
+
+function getUpdatedData() {
+  console.log("Getting updated data");
+
+  //////////////////////////// POPULATE HEADERS AND RECORD DATA ////////////////////////////
+  // Collect form data from form
+
+  // Post to /search with form content and receive json file in return
+    $.post({
+      url: "/search",
+      dataType: 'json',
+      data: $('#searchform').serialize(),
+      error: function(data, textStatus){
+        console.log(textStatus);
+        console.log(data)
+        console.log("error while getting updated data")
+      },
+      success: function(data) {
+        displayData(data)
+      }
   });
 
-  $(function() {
-        $(".searchbtn").click( function()
-             { console.log("search button is clicked!");
-             updateData("/updateData");
-           }
-  )}
-        );
+}
+
   //////////////////////////// POPULATE HEADERS AND RECORD DATA ////////////////////////////
 //     $.ajax({
 //     url: "../static/results.json",

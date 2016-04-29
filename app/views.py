@@ -259,9 +259,9 @@ def search():
                         d[str(column)] = str(value)
                         #print('{0}: {1}'.format(column, value))
                     data.append(d)
-                session['json'] = json.dumps(data)
-                # return json.dumps(data)
-        return redirect(url_for("search"))
+                # session['json'] = json.dumps(data)
+        return json.dumps(data)
+        # return redirect(url_for("search"))
     return render_template("search.html", form=displayform)
 
 @app.route("/updateData", methods=["GET"])
