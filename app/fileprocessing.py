@@ -1,4 +1,5 @@
 import pandas as pd
+from urllib.request import urlopen
 
 def validate(df):
     """ Validate a data frame. Return an dict with a 'success' boolean and an 'error' message.
@@ -13,7 +14,10 @@ def load(file_url, mimetype):
     """ Load file into pandas dataframe."""
     if mimetype == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" or mimetype == "application/vnd.ms-excel":
         # Problem, this makes too many requests on the server
-        df = pd.read_excel(file_url)
+        data_url = file_url
+#        xld = urlopen(data_url).read()
+        #xlds = StringIO.StringIO(xld)
+        df = pd.read_excel(urlopen(data_url), sheetname=0)
     elif mimetype == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
         df = pd.read_csv(file_url)
     return df

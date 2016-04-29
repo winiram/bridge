@@ -5,6 +5,8 @@ from flask_bcrypt import Bcrypt
 from flask.ext.login import current_user
 
 
+#print(SQLALCHEMY_DATABASE_URI)
+
 app = Flask(__name__)
 app.config.from_object('config')
 
@@ -19,4 +21,12 @@ def load_user(user_id):
     """Flask-Login hook to load a User instance from ID."""
     return db.session.query(models.User).get(user_id)
 
+if not app.debug:
+    import logging
+    from logging import FileHandler
+    file_handler = FileHandler("/var/www/bridge/flask.log")
+    file_handler.setLevel(logging.WARNING)
+    app.logger.addHandler(file_handler)
+
 from app import views, models
+

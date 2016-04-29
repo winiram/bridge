@@ -65,7 +65,7 @@ def saveFile():
     # If file is valid store in database, otherwise return to upload page with error message
     if not db.engine.has_table(file_id):
         # Create table on the fly
-        df.to_sql(file_id, db.engine, index=False)
+        df.to_sql(file_id, db.engine.connect().connection)
 
         session['file'] = file_id
 
