@@ -63,7 +63,6 @@
     <div class="row flex-container">
         <!-- SEARCH INTERFACE -->
         <div class="row col s4 flex-container">
-            <!-- <form class="col grey lighten-3 center searchform" id="searchform"> -->
             <form action="/search" method="post" id="searchform" class="col grey lighten-3 center searchform">
               {{ form.hidden_tag() }}
               {{ form.csrf_token }}
@@ -76,8 +75,6 @@
                         </div>
 ​
                         <div class="input-field col s12">
-                          <!-- <input id="any_field" type="text" class="validate searchItem">
-                          <label for="any_field">Search Any Field</label> -->
                           {% for field in form.text_searches %}
                             {{ field.search_field_id}}<br>
                             {{ field.search.label}}<br>
@@ -86,35 +83,22 @@
                         </div>
 ​
                         <div class="input-field col s12">
-                          <!-- <input id="common_name" type="text" class="validate searchItem">
-                          <label for="common_name">Common Name</label> -->
                           {% for field in form.unique_searches %}
                             {{ field.search_field_id}}<br>
                             {{ field.search.label }}<br>
                             {{ field.search }}<br>{{ field.csrf_token }}
                           {% endfor %}
                         </div>
-                        </div>
-                        <!-- <div class="input-field col s12">
-                          <input id="any_name" type="text" class="validate searchItem">
-                          <label for="any_name">Any Name</label>
-                        </div>
-​
-                        <div class="input-field col s12">
-                          <input id="location" type="text" class="validate searchItem">
-                          <label for="location">Location</label>
 
-                        </div> -->
-                       <div class="row">
-
-                        <input type="button" class="searchbtn waves-effect waves-light btn" id="search" value="Search">
-                        <!-- <a class="waves-effect waves-light btn searchbtn" type="submit">search</a> -->
-                        <a class="waves-effect waves-light btn clearbtn" type="button">clear</a>
-                      </div>
               </div>
-
+                 <div class="row">
+                  <input type="button" class="searchbtn waves-effect waves-light btn" id="search" value="Search">
+                  <!-- <a class="waves-effect waves-light btn searchbtn" type="submit">search</a> -->
+                  <a class="waves-effect waves-light btn clearbtn" type="button">clear</a>
+                </div>
             </form>
           </div>
+
 ​
 <!-- Results -->
  <div class="col s10 center">
