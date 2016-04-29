@@ -1,44 +1,9 @@
 <!DOCTYPE html> {% extends "create_base.html" %} {% block content %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-<script src="/static/js/bootstrap-colorpicker.js"></script>
-<link rel="stylesheet" href="../static/css/bootstrap-colorpicker.css" type='text/css'>
-<link rel="stylesheet" href="../static/css/bootstrap-colorpicker.css.map" type="text/css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.8/jquery.form-validator.min.js"></script>
+<script type="text/javascript" src="/static/dynamic_form.js"></script>
 <title>Bridge</title>
-<script>
-    $(document).ready(function() {
-        $('#visualizations').hide();
-
-        $("#switch").click(function(){
-
-            $('#visualizations').toggle();
-        });
-
-        var row = 1;
-        var array = new Array();
-        $('select').material_select();
-        $('#customSearchOptions').hide();
-        $('#customizeSearch').click(function() {
-            $('#customSearchOptions').toggle();
-        });
-        $("#addButton").click(
-            //Don't know how to simplify this, but this NEEDS TO BE SIMPLIFIED!!!!
-            function() {
-                var newRow = row++
-                    var deleteButtonID = "deleteButton_" + newRow;
-                $("#newRow").append(' <div class="row animated fadeInUp" data-row="'+newRow+'" id="'+newRow+'"><div class="input-field col s2 offset-s2"><input id="name" type="text" class="validate"><label for="name">Search Field Name</label></div><div class="input-field col s2"><input id="desc" type="text" class="validate"><label for="desc">Description</label></div><div class="input-field col s2"><select multiple><option value="" disabled selected>Choose your option</option><option value="1">Header 1</option><option value="2">Header 2</option><option value="3">Header 3</option></select><label>Materialize Multiple Select</label></div><div class="input-field col s2"><select><option value="" disabled selected>Choose your option</option><option value="1">Textbox</option><option value="2">Dropdown</option></select><label>Materialize Multiple Select</label></div><div class="col s2"><a class="waves-effect waves-teal btn-flat" id="' + deleteButtonID + '" onclick="deleteRow(this);"><i class="tiny material-icons black-text">delete</i></a></div>');
-                $('select').material_select();
-                //returning row ID (number)
-            }); //end of add button click event functions
-    }); //end of document ready
-    // Logic for deleting row by row ID
-    function deleteRow(value) {
-        var id = $(value).attr("id");
-        rowid = id.split("_");
-        $("#" + rowid[1]).remove();
-    }
-</script>
 <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
 <script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
 <script type="text/javascript" src="/javascript/appjs.js"></script>
@@ -54,9 +19,7 @@
         <!--divider-->
         <div class="divider"></div>
 
-    <div class="section"></div>
-
-        
+    <div class="section"></div>  
     <!--begin search form-->
         
 <form action="/createSearch" method="post" id="createsearch">
@@ -86,12 +49,11 @@
         <h5 class="blue-text">2. Customize Search Interface</h5>
     </div>
 </div>
-
 <div class="row">
     <div class="col s4 offset-s2">
-        <input type="checkbox" id="fullTextSearch" />
-        <label for="fullTextSearch" class="grey-text text-darken-2">Full text search on collection</label>
+        {{ form.full_text_search() }} {{ form.full_text_search.label }}
         <p class="grey-text">Check this if you want a Google-like searchbox for your collection</p>
+
     </div>
     <div class="col s4">
         <input type="checkbox" id="customizeSearch" />
@@ -107,81 +69,87 @@
             <div class="subtitle blue-text">Create Search Fields</div>
         </div>
     </div>
-    <div class="row animated fadeInUp" data-row="0">
-        <div class="input-field col s2 offset-s2">
-            <input id="searchFieldName" type="text" class="validate">
+    {% for search_field in form.search_fields %}
+    <div class="row animated fadeInUp searchField">
+        <div class="input-field col s2 offset-s1">
+            {{ search_field.fieldname }}
             <label for="searchFieldName">Search Field Name</label>
         </div>
         <div class="input-field col s2">
-            <input id="searchFieldDescription" type="text" class="validate">
+            {{ search_field.field_description }}
             <label for="searchFieldDescription">Description</label>
         </div>
-        <div class="input-field col s2">
-            <select multiple>
-                <option value="" disabled selected>Choose your option</option>
-                <option value="header1">Header 1</option>
-                <option value="header2">Header 2</option>
-                <option value="header3">Header 3</option>
-            </select>
-            <label>Materialize Multiple Select</label>
+        <div class="input-field col s3">
+            {{search_field.header}}
         </div>
         <div class="input-field col s2">
-            <select>
-                <option value="" disabled selected>Choose your option</option>
-                <option value="option1">Textbox</option>
-                <option value="option2">Dropdown</option>
-            </select>
-            <label>Materialize Multiple Select</label>
+            {{search_field.field_type}}
         </div>
         <div class="col s2">
-            <a class="btn-floating btn waves-effect waves-light red left-margin-big" id="addButton">
-                <i class="material-icons">add</i></a>
-
+            <a class="addButton btn-floating btn waves-effect waves-light red left-margin-big">
+                <i class="material-icons">add</i>
+            </a>
         </div>
+        {{ search_field.csrf_token}} {% endfor %}
     </div>
-    <div class="row" id="newRow">
-        <!--dynamic rows will be inserted here-->
-    </div>
-      <!-- Switch -->
-
+    <div class="section"></div>
+    <div class="section"></div>
+    {{ form.csrf_token }}
+    <div class="section"></div>
 </div>
-
-
-<div class="row">
-        <div class="col s4 offset-s2">
-            <div class="subtitle blue-text">Create Visualizations (optional)</div>
-        </div>
-    </div>
 <div class="row">
     <div class="col s4 offset-s2">
- <div class="switch">
-    <label>
-      Off
-      <input type="checkbox" id="switch">
-      <span class="lever"></span>
-      On
-    </label>
-  </div>
-</div>
-</div>
-
-<div class="row" id="visualizations">
-    <div class="col s2 offset-s2">
-        <input name="group1" type="radio" id="test1" />
-         <label for ="test1" class="black-text"><i class="fa fa-line-chart fa-2x icon_padding" aria-hidden="true"></i></label>
+        <div class="subtitle blue-text">Create Visualizations (optional)</div>
     </div>
     <div class="col s2">
-        <input name="group1" type="radio" id="test2" />
-        <label for="test2" class="black-text"><i class="fa fa-bar-chart fa-2x icon_padding" aria-hidden="true"></i></label> 
-    </div>
-    <div class="col s2">
-        <input name="group1" type="radio" id="test3" />
-          <label for="test3" class="black-text"><i class="fa fa-globe fa-2x icon_padding" aria-hidden="true"></i><label>
+        <div class="switch">
+            <label>
+                No
+                <input type="checkbox" id="switch">
+                <span class="lever"></span> Yes
+            </label>
+        </div>
     </div>
 </div>
 
 <div class="section"></div>
+<div class="row animated fadeInUp" id="visualizations">
+    <div class="col s3 offset-s2">
+        <div class="row">
+            <input name="viz" type="radio" id="linechart" />
+            <label for="linechart" class="grey-text"><i class="fa fa-line-chart fa-2x icon_padding" aria-hidden="true"></i></label>
+        </div>
+        <div class="row">
+            <p class="grey-text">Recommended for showing comparison
+                <br> between categories</p>
+        </div>
+    </div>
+    <div class="col s3">
+        <div class="row">
+            <input name="viz" type="radio" id="barchart" />
+            <label for="barchart" class="grey-text"><i class="fa fa-bar-chart fa-2x icon_padding" aria-hidden="true"></i></label>
+        </div>
+        <div class="row">
+            <p class="grey-text">Recommended for comparing two
+                <br> or more categories</p>
+        </div>
+    </div>
+    <div class="col s3">
+        <div class="row">
+            <input name="viz" type="radio" id="mapchart" />
+            <label for="mapchart" class="grey-text"><i class="fa fa-globe fa-2x icon_padding" aria-hidden="true"></i>
+            </label>
+        </div>
+        <div class="row">
+            <p class="grey-text">Recommended for mapping entities</p>
+        </div>
+    </div>
+    <div class="section"></div>
+    <div class="section"></div>
+    
+</div>
 <div class="divider"></div>
+
 <div class="section"></div>
 <div id="customizeStyle">
     <div class="section"></div>
@@ -228,13 +196,12 @@
 </div>
 <div class="section"></div>
 </form>
-
-<div class="section"></div>
-
-<a class="waves-effect waves-light red accent-2 btn right right-margin" href="{{ url_for('searchInterface')}}" id="next">Next</a>
-
-<div class="section"></div>
-
 </div>
+<div class="section"></div> 
+    <div class="section">
+      <a class="waves-effect waves-light red accent-2 btn blue-grey lighten-5 blue-text left left-margin" href="{{ url_for('createUpload')}}">Back</a>
+
+     <a class="waves-effect waves-light red accent-2 btn right right-margin" onclick="$('form[id=createsearch]').submit()" id="next">Next</a>
+    </div>
 
 {% endblock %}
