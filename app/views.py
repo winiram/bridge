@@ -8,7 +8,8 @@ except ImportError:
     # Fall back to Python 2's urllib2
     from urllib2 import urlopen
 import pandas as pd
-from sqlalchemy import engine, text, union
+from sqlalchemy import engine, text, union, select, String, and_
+from sqlalchemy.sql import table, literal_column
 from .forms import SignupForm, LoginForm, SearchInterfaceForm, SearchInterface, TextboxForm, UniqueSearchForm, DisplayForm
 from .util.security import ts
 from flask_login import login_user, logout_user, login_required
@@ -202,7 +203,7 @@ def search():
         if(field.field_type == "Textbox"):
             displayform.text_searches.append_entry()
             textboxform = displayform.text_searches.entries[-1]
-            textboxform.search_field_id.value = field.id
+            textboxform.search_field_id.default = field.id
             textboxform.search.label = str(field.name)
         else:
             #Querying the selected headers for a given header
@@ -234,13 +235,14 @@ def search():
             print('adding the text search')
             text_queries.append(field.search.data)
             text_headers.append(field.search_field_id.default)
+            print(field.search_field_id.default)
         for field in displayform.unique_searches:
             print('adding the unique search')
             unique_queries.append(field.search.data)
             unique_headers.append(field.search_field_id.default)
 
         text_queries = [x for x in text_queries if x is not 'None' and x is not None]
-        text_headers = [x for x in unique_headers if x is not 'None' and x is not None]
+        text_headers = [x for x in text_headers if x is not 'None' and x is not None]
         unique_queries = [x for x in unique_queries if x is not 'None' and x is not None]
         unique_headers = [x for x in unique_headers if x is not 'None' and x is not None]
 
@@ -252,28 +254,29 @@ def search():
         for query in text_queries:
             i = 0
             if query != 'None' and query != None:
-
                 print('printing text headers')
                 print(text_headers)
                 selected_header = models.Header.query.filter(models.Header.search_fields.any(id=text_headers[i])).all()
                 print('print selected header')
                 print(selected_header[i].header_name)
 
-                print('printing query')
-                query = query.split(' ')
-                print(query)
-                sql_query = []
-                if len(query) > 1:
-                    index = 0
-                    for q in query:
-                        if index < (len(query) - 1):
-                            sql_query.append("'%" + str(q) + "%' OR " + str(selected_header[i].header_name) + " LIKE ")
-                            index += 1
-                print('printing sql_query')
-                print(sql_query)
+                # print('printing query')
+                # query = query.split(' ')
+                # print(query)
+                # sql_query = []
+                # if len(query) > 1:
+                #     index = 0
+                #     for q in query:
+                #         if index < (len(query) - 1):
+                #             sql_query.append("'%" + str(q) + "%' OR " + str(selected_header[i].header_name) + " LIKE ")
+                #             index += 1
+                # print('printing sql_query')
+                # print(sql_query)
+                sql_text = str("SELECT * FROM " + str(document_model) + " WHERE " + str(selected_header[i].header_name) + " LIKE '%" + str(query) + "%' INTERSECT ") #querying the d
 
-                text_sql = text("SELECT * FROM " + str(document_model) + " WHERE " + str(selected_header[i].header_name) + " LIKE '%" + str(query) + "%'") #querying the d
-                # result = db.engine.execute(sql)
+                # sql = text("SELECT * FROM " + str(document_model) + " WHERE " + str(selected_header[i].header_name) + " LIKE '%" + str(query) + "%'") #querying the d
+                # sql = select([str(document_model)]).where(literal_column(selected_header[i].header_name).like(query))
+                result = db.engine.execute(sql)
                 i += 1
 
         for query in unique_queries:
@@ -284,20 +287,26 @@ def search():
                 print(unique_headers)
                 selected_header = models.Header.query.filter(models.Header.search_fields.any(id=unique_headers[i])).all()
                 print(selected_header)
-                unique_sql = text("SELECT * FROM " + str(document_model) + " WHERE " + str(selected_header[i].header_name) + " = '" + str(query) + "';") #querying the db
+                sql_unique = str("SELECT * FROM " + str(document_model) + " WHERE " + str(selected_header[i].header_name) + " = '" + str(query) + "';") #querying the db
+
+                # sql_unique = text("SELECT * FROM " + str(document_model) + " WHERE " + str(selected_header[i].header_name) + " = '" + str(query) + "';") #querying the db
+
+                # unique_sql = text("SELECT * FROM " + str(document_model) + " WHERE " + str(selected_header[i].header_name) + " = '" + str(query) + "';") #querying the db
                 # unique_result = db.engine.execute(sql)
                 i += 1
 
-            sql = text_sql.unique_sql
-            result = db.engine.execute(sql)
-            data = []
-            for v in result:
-                d = OrderedDict([])
-                for column, value in v.items():
-                    d[str(column)] = str(value)
-                    #print('{0}: {1}'.format(column, value))
-                data.append(d)
-            return json.dumps(data)
+        sql = text(sql_text + sql_unique)
+        print(sql)
+        result = db.engine.execute(sql)
+
+        data = []
+        for v in result:
+            d = OrderedDict([])
+            for column, value in v.items():
+                d[str(column)] = str(value)
+                #print('{0}: {1}'.format(column, value))
+            data.append(d)
+        return json.dumps(data)
         return redirect(url_for("search"))
         # return json.dumps(data)
     return render_template("search.html", form=displayform)
