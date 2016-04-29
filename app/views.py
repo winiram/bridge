@@ -243,14 +243,16 @@ def search():
                         d[str(column)] = str(value)
                         #print('{0}: {1}'.format(column, value))
                     data.append(d)
-                    print(json.dumps(data))
-                    return json.dumps(data)
-
-        # print(text_queries, unique_queries)
-
-        return redirect(url_for('interface'))
-
+                session['json'] = json.dumps(data)
+                # return json.dumps(data)
+        return redirect(url_for("search"))
     return render_template("search.html", form=displayform)
+
+@app.route("/updateData", methods=["GET"])
+@login_required
+def updateData():
+    json = escape(session['json']) #getting the name of the table
+    return json.dumps(data)
 
 @app.route("/getData", methods=["GET"])
 @login_required
@@ -266,8 +268,6 @@ def getData():
             d[str(column)] = str(value)
             #print('{0}: {1}'.format(column, value))
         data.append(d)
-        # print('json dump')
-        # print(json.dumps(data))
     return json.dumps(data)
 
 @app.route("/test")

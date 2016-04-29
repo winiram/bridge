@@ -1,15 +1,14 @@
 $(document).ready(function(){
-    updateData("databaseCache.json");  
+    updateData("/getData");
     console.log("in herrrrrrrrrr")
   });
 
 function updateData (jsonFile) {
   console.log(jsonFile);
 
-
   //////////////////////////// POPULATE HEADERS AND RECORD DATA ////////////////////////////
     $.ajax({
-    url: "../static/" + jsonFile,
+    url: jsonFile,
     type: 'get',
     dataType: 'json',
     error: function(data){
@@ -86,7 +85,6 @@ function updateData (jsonFile) {
           headerRow.push(headers[i])
         }
 
-
   $("#table_head").html(headerRow)
   $("#table_results").html(table)
   $("#gridView").html(gridView)
@@ -145,17 +143,16 @@ function updateData (jsonFile) {
              { console.log("clear button is clicked!")
              $(this).closest('form').find("input[type=text], textarea").val("");
 
-
              }
         );
   });
 
   $(function() {
         $(".searchbtn").click( function()
-             { console.log("search button is clicked!")
-             updateData("results1.json");
-}
-)}
+             { console.log("search button is clicked!");
+             updateData("/updateData");
+           }
+  )}
         );
   //////////////////////////// POPULATE HEADERS AND RECORD DATA ////////////////////////////
 //     $.ajax({
