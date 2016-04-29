@@ -150,7 +150,7 @@ def createSearch():
             db.session.add(searchfield)
             db.session.commit()
             # entryNum += 1
-        return redirect(url_for("interface"))
+        return redirect(url_for("search"))
 
         # if "action" not in request.form and searchform.validate_on_submit():
         # elif request.form["action"] == "add":
@@ -172,8 +172,8 @@ def previewSearch():
 def interface():
     return render_template("interface.html")
 
-@app.route("/search")
-def searchInterface_side():
+@app.route("/search", methods=['GET', 'POST'])
+def search():
     ## Getting all the required information to conduct queries
     user = models.User.query.filter_by(email=session["email"]).first()
     si = models.SearchInterface.query.filter_by(user=user.id).first() #assuming user has only one search interface
@@ -184,12 +184,10 @@ def searchInterface_side():
     displayform = DisplayForm()
     for field in search_fields:
         if(field.field_type == "Textbox"):
-            textboxform = TextboxForm()
+            displayform.text_searches.append_entry()
+            textboxform = displayform.text_searches.entries[-1]
             textboxform.search_field_id.value = field.id
             textboxform.search.label = str(field.name)
-            displayform.text_searches.append_entry(textboxform)
-            # for search in textboxform:
-            #     print(search.data)
         else:
             #Querying the selected headers for a given header
             selected_header = models.Header.query.filter(models.Header.search_fields.any(id=field.id)).all()
@@ -201,28 +199,56 @@ def searchInterface_side():
                 sql = text("SELECT DISTINCT " + str(head.header_name) + " FROM \"" + str(document_model) + "\"") #querying the db
                 result = db.engine.execute(sql)
                 for item in result:
-                    i = 0
-                    choice.append((i,item[0]))
+                    choice.append((str(item[0]),str(item[0])))
 
-
-            uniquesearchform = UniqueSearchForm()
+            displayform.unique_searches.append_entry()
+            uniquesearchform = displayform.unique_searches.entries[-1]
             uniquesearchform.search.label = str(field.name)
             uniquesearchform.search.choices = choice
-            uniquesearchform.search_field_id.value = field.id
-            displayform.unique_searches.append_entry(uniquesearchform)
+            uniquesearchform.search_field_id.default = field.id
 
-            # print("####################")
-            # for search in uniquesearchform:
-            #     print(search.search.data.value)
-    #
-    # print('#########fieldlist#########')
-    # for text_search in displayform.text_searches:
-    #     print('print name')
-    #     print(text_search.search.data.label)
+    if request.method == 'POST':
+        print('############################submitting the form############################')
+        text_queries = []
+        unique_queries = []
+        unique_headers = []
+        for field in displayform.text_searches:
+            print('adding the text search')
+            text_queries.append(field.search.data)
+        for field in displayform.unique_searches:
+            print('adding the unique search')
+            unique_queries.append(field.search.data)
+            unique_headers.append(field.search_field_id.default)
 
-    print('#########secondfieldlist#########')
-    for unique in displayform.unique_searches:
-        print(unique.search.label)
+        text_queries = [x for x in text_queries if x is not 'None']
+        unique_queries = [x for x in unique_queries if x is not 'None']
+        unique_headers = [x for x in unique_headers if x is not 'None' and x is not None]
+
+        for query in unique_queries:
+            i = 0
+            if query != 'None' and query != None:
+                print(query)
+                print(unique_headers)
+                selected_header = models.Header.query.filter(models.Header.search_fields.any(id=unique_headers[i])).first()
+                print(selected_header.header_name)
+                sql = text("SELECT * FROM " + str(document_model) + " WHERE " + str(selected_header.header_name) + " = '" + str(query) + "';") #querying the db
+                result = db.engine.execute(sql)
+                # for item in result:
+                #     print(item)
+
+                data = []
+                for v in result:
+                    d = OrderedDict([])
+                    for column, value in v.items():
+                        d[str(column)] = str(value)
+                        #print('{0}: {1}'.format(column, value))
+                    data.append(d)
+                    print(json.dumps(data))
+                    return json.dumps(data)
+
+        # print(text_queries, unique_queries)
+
+        return redirect(url_for('interface'))
 
     return render_template("search.html", form=displayform)
 

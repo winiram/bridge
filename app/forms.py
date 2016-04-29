@@ -1,7 +1,7 @@
 from flask.ext.wtf import Form
 from wtforms import StringField, IntegerField, PasswordField, FieldList, SelectField, SelectMultipleField, FormField, FieldList, BooleanField
 from flask_wtf.html5 import EmailField
-from wtforms.validators import DataRequired, Email
+from wtforms.validators import DataRequired, Email, Optional
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 
 from .util.validators import Unique
@@ -50,8 +50,8 @@ class TextboxForm(Form):
 
 class UniqueSearchForm(Form):
     search_field_id = IntegerField(widget=HiddenInput())
-    search = SelectField('search')
-    # 
+    search = SelectField(coerce=str, validators=[Optional()])
+    #
     # def set_default(self, value):
     #     self.search.default = 'value'
 
