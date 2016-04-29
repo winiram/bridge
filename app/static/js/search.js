@@ -139,7 +139,6 @@ function modalMaker (data, rowNum) {
   $('#insert_modals').html(modal_content);
   $('.modal-trigger').leanModal();
 
-
   };
 
 
