@@ -11,6 +11,7 @@ $(document).ready(function () {
     }); 
 
     $('#search_fields-0-header').prepend('<option value="" disabled selected>Choose headers</option>');
+    $('#search_fields-0-field_type').prepend('<option value="" disabled selected>Choose search type</option>');
     $('select').material_select();
 
     var selector = 'div[class*=searchField]';
