@@ -71,11 +71,8 @@
         </div>
     </div>
     {% for search_field in form.search_fields %}
-    <div class="row animated fadeInUp searchField">
-        <div class="input-field col s2 offset-s1">
-            {{search_field.field_type}}
-        </div>        
-        <div class="input-field col s3">
+    <div class="row animated fadeInUp searchField">       
+        <div class="input-field col s3 offset-s1">
             {{search_field.header}}
         </div>
         <div class="input-field col s2 ">
@@ -86,6 +83,9 @@
             {{ search_field.field_description }}
             <label for="searchFieldDescription">Description</label>
         </div>
+        <div class="input-field col s2">
+            {{search_field.field_type}}
+        </div> 
         <div class="col s2">
             <a class="addButton btn-floating btn waves-effect waves-light red left-margin-big">
                 <i class="material-icons">add</i>
