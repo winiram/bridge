@@ -68,7 +68,7 @@ class Document(db.Model):
     search_interface = db.Column(db.Integer, db.ForeignKey('search_interface.id'))
     headers = db.relationship("Header",lazy='dynamic', backref="documents")
 
-headers = db.Table('headers',
+searchfield_headers = db.Table('headers',
     db.Column('search_field', db.Integer, db.ForeignKey('search_field.id')),
     db.Column('header', db.String, db.ForeignKey('header.header_name'))
 )
@@ -78,7 +78,7 @@ class SearchField(db.Model):
     field_type = db.Column(db.Enum(*FieldType.__members__.keys()))
     name = db.Column(db.String(120))
     description = db.Column(db.Text)
-    headers = db.relationship('Header', secondary=headers, backref='search_fields')
+    headers = db.relationship('Header', secondary=searchfield_headers, backref=db.backref('search_fields'))
     search_interface = db.Column(db.Integer, db.ForeignKey("search_interface.id"))
 
 class Header(db.Model):

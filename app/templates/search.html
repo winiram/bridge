@@ -8,11 +8,12 @@
 ​
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-​
+
     <!-- CM custom css -->
     <link rel="stylesheet" type="text/css" href="../static/CMsearchInterface.css" media="screen">
 ​
     <!-- search JS -->
+
     <script type="text/javascript" src="static/js/search.js"></script>
 ​
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
@@ -61,52 +62,48 @@
 ​
     <div class="row flex-container">
         <!-- SEARCH INTERFACE -->
-​
-        <div class="row flex-container">
-            <form class="col grey lighten-3 center searchform" id="searchform">
+        <div class="row col s4 flex-container">
+            <form action="/search" method="post" id="searchform" class="col grey lighten-3 center searchform">
+              {{ form.hidden_tag() }}
+              {{ form.csrf_token }}
               <div class="row">
-​
                 <h3>Search <a class="tooltipped" data-position="right" data-delay="50" data-tooltip="Enter search critera into any field to refine to locate records in the collection"><i class="fa fa-question small"></i></a></h3>
-​
+
                         <div class="row">
-                          <a class="waves-effect waves-light btn searchbtn" type="submit">search</a>
-                          <a class="waves-effect waves-light btn clearbtn" type="submit">clear</a>
+                          <input type="button" class="searchbtn waves-effect waves-light btn" id="search" value="Search">
+                          <a class="waves-effect waves-light btn clearbtn" type="button">clear</a>
                         </div>
 ​
                         <div class="input-field col s12">
-                          <input id="any_field" type="text" class="validate searchItem">
-                          <label for="any_field">Search Any Field</label>
+                          {% for field in form.text_searches %}
+                            {{ field.search_field_id}}<br>
+                            {{ field.search.label}}<br>
+                            {{ field.search}}<br>{{ field.csrf_token }}
+                          {% endfor %}
                         </div>
 ​
                         <div class="input-field col s12">
-                          <input id="common_name" type="text" class="validate searchItem">
-                          <label for="common_name">Common Name</label>
+                          {% for field in form.unique_searches %}
+                            {{ field.search_field_id}}<br>
+                            {{ field.search.label }}<br>
+                            {{ field.search }}<br>{{ field.csrf_token }}
+                          {% endfor %}
                         </div>
-​
-                        <div class="input-field col s12">
-                          <input id="any_name" type="text" class="validate searchItem">
-                          <label for="any_name">Any Name</label>
-                        </div>
-​
-                        <div class="input-field col s12">
-                          <input id="location" type="text" class="validate searchItem">
-                          <label for="location">Location</label>
-                        </div>
-​
-                       <div class="row">
-                        <a class="waves-effect waves-light btn searchbtn" type="submit">search</a>
-                        <a class="waves-effect waves-light btn clearbtn" type="submit">clear</a>
-                      </div>
+
               </div>
-​
-​
+                 <div class="row">
+                  <input type="button" class="searchbtn waves-effect waves-light btn" id="search" value="Search">
+                  <!-- <a class="waves-effect waves-light btn searchbtn" type="submit">search</a> -->
+                  <a class="waves-effect waves-light btn clearbtn" type="button">clear</a>
+                </div>
             </form>
           </div>
+
 ​
 <!-- Results -->
  <div class="col s10 center">
     <h3>Search Results</h3>
-​
+
     <div class="row">
 ​
       <div class="col s12">
@@ -144,17 +141,20 @@
 <div id="insert_modals">
 ​
 </div>
-​
-<footer class="page-footer white">
-​
-    <div class="footer-copyright grey lighten-4">
-        <div class="container">
-            <a class="grey-text text-darken-2" href="#">About Bridge</a>
-            <a class="grey-text text-darken-2 right" href="#!">Contact us</a>
-        </div>
+
+<div>
+<footer class="page-footer grey">
+  <div class="footer-copyright grey">
+    <div class="container">
+    <a class="white-text" href="#">About Bridge</a>
+    <a class="white-text right" href="#!">Contact us</a>
+
     </div>
+  </div>
 </footer>
-​
+</div>
+
+
 <!-- tooltip -->
 <script type="text/javascript">
   $(document).ready(function(){
@@ -169,7 +169,5 @@
     $('.modal-trigger').leanModal();
   });
 </script>
-​
-​
-​
+
 </body>
