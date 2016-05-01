@@ -1,6 +1,5 @@
 $(document).ready(function(){
     getData();
-    $('#unique_searches-0-search').prepend('<option value="" disabled selected>Choose option</option>')
   });
 
 function getData () {
@@ -92,10 +91,9 @@ function displayData(data) {
           headerRow.push(headers[i])
         }
 
-  $("#table_head").html(headerRow);
-  $("#table_results").html(table);
-  $("#gridView").html(gridView);
-  $("#num_rec").html("<h5>"+rowNum+" Record(s)</h5>")
+  $("#table_head").html(headerRow)
+  $("#table_results").html(table)
+  $("#gridView").html(gridView)
   $('.modal-trigger').leanModal();
 
 }

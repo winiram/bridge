@@ -14,7 +14,7 @@
     <!--begin intro section-->
     <div class="white container section z-depth-1">
         <h5 class="grey-text text-darken-2 center" id="instructions">2. Create Search Interface</h1>
-        <h6 class="grey-text center">Customize colors, cover image, and search fields for your web interface</h6>
+        <h6 class="grey-text center">Go ahead and decide how people will search your collection</h6>
     <div class="section"></div>
         <!--divider-->
         <div class="divider"></div>
@@ -47,19 +47,18 @@
 <div class="row">
     <div class="col s5 offset-s1">
         <h5 class="blue-text">2. Customize Search Interface</h5>
-        <p>Choose how users will search your collection</p>
     </div>
 </div>
 <div class="row">
     <div class="col s4 offset-s2">
         {{ form.full_text_search() }} {{ form.full_text_search.label }}
-        <p class="grey-text">Check this if you want a Google-like full text searchbox for your entire document</p>
+        <p class="grey-text">Check this if you want a Google-like searchbox for your collection</p>
 
     </div>
     <div class="col s4">
         <input type="checkbox" id="customizeSearch" />
         <label for="customizeSearch" class="grey-text text-darken-2">Customize Search</label>
-        <p class="grey-text">Check this if you want create search fields that search specific columns in your spreadsheet</p>
+        <p class="grey-text">Check this if you want to customize search fields</p>
     </div>
 </div>
 
@@ -71,21 +70,21 @@
         </div>
     </div>
     {% for search_field in form.search_fields %}
-    <div class="row animated fadeInUp searchField">       
-        <div class="input-field col s3 offset-s1">
-            {{search_field.header}}
-        </div>
-        <div class="input-field col s2 ">
+    <div class="row animated fadeInUp searchField">
+        <div class="input-field col s2 offset-s1">
             {{ search_field.fieldname }}
-            <label for="searchFieldName">Display Name</label>
+            <label for="searchFieldName">Search Field Name</label>
         </div>
         <div class="input-field col s2">
             {{ search_field.field_description }}
             <label for="searchFieldDescription">Description</label>
         </div>
+        <div class="input-field col s3">
+            {{search_field.header}}
+        </div>
         <div class="input-field col s2">
             {{search_field.field_type}}
-        </div> 
+        </div>
         <div class="col s2">
             <a class="addButton btn-floating btn waves-effect waves-light red left-margin-big">
                 <i class="material-icons">add</i>
@@ -121,8 +120,8 @@
             <label for="linechart" class="grey-text"><i class="fa fa-line-chart fa-2x icon_padding" aria-hidden="true"></i></label>
         </div>
         <div class="row">
-            <p class="blue-text">Line Graph</p>
-                <p class="grey-text">Recommended for showing comparisons between categories</p>
+            <p class="grey-text">Recommended for showing comparison
+                <br> between categories</p>
         </div>
     </div>
     <div class="col s3">
@@ -131,9 +130,8 @@
             <label for="barchart" class="grey-text"><i class="fa fa-bar-chart fa-2x icon_padding" aria-hidden="true"></i></label>
         </div>
         <div class="row">
-            <p class="blue-text">Bar Chart</p>
-            <p class="grey-text">Recommended for comparing 
-                <br>two or more categories</p>
+            <p class="grey-text">Recommended for comparing two
+                <br> or more categories</p>
         </div>
     </div>
     <div class="col s3">
@@ -143,8 +141,7 @@
             </label>
         </div>
         <div class="row">
-            <p class="blue-text">Map View</p>
-            <p class="grey-text">Recommended for location data (named place or latitude/longitude)</p>
+            <p class="grey-text">Recommended for mapping entities</p>
         </div>
     </div>
     <div class="section"></div>
@@ -166,13 +163,11 @@
         <div class="col s4 offset-s2">
             <div class="grey-text text-darken-2">a. Choose primary color
                 <input id="primarycolor" type="color" class="none" value="#000000">
-                <p class="grey-text"> The color of top navigation bar on web interface </p>
             </div>
         </div>
         <div class="col s4">
             <div class="grey-text text-darken-2">b. Choose accent color
                 <input id="accentcolor" type="color" value="#cfd8dc">
-                <p class="grey-text"> The color of all buttons and highlights</br> on web interface </p>
             </div>
         </div>
     </div>
@@ -181,7 +176,6 @@
         <div class="row">
             <div class="col s4 offset-s4 center">
                 <h6 class="subtitle blue-text">Upload Cover Photo:</h6>
-                <p class="grey-text">The top banner image on web interface</p>
             </div>
         </div>
         <div class="row">
@@ -207,7 +201,7 @@
     <div class="section">
       <a class="waves-effect waves-light red accent-2 btn blue-grey lighten-5 blue-text left left-margin" href="{{ url_for('createUpload')}}">Back</a>
 
-     <a class="waves-effect waves-light red accent-2 btn right right-margin" onclick="$('form[id=createsearch]').submit()" id="next">Publish</a>
+     <a class="waves-effect waves-light red accent-2 btn right right-margin" onclick="$('form[id=createsearch]').submit()" id="next">Next</a>
     </div>
 
 {% endblock %}
