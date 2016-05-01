@@ -97,6 +97,7 @@ def saveFile():
 
 @app.route("/createSearch", methods=['GET', 'POST'])
 def createSearch():
+    print("-----Entered create search interface-----")
     user = models.User.query.filter_by(email=session["email"]).first()
     si = models.SearchInterface.query.filter_by(user=user.id).first() #assuming user has only one search interface
     document = models.Document.query.filter_by(search_interface=si.id).first()
@@ -125,8 +126,7 @@ def createSearch():
 
         # Process custom search fields
         for search_field in searchform.search_fields:
-            print("------------printing search field data -------------")
-            print(search_field.data)
+            print("------------Saving search field {} to db -------------".format(search_field.data))
 
             ## To be removed when form validation is implemented
             if not search_field.fieldname.data or not search_field.header.data:
@@ -150,22 +150,12 @@ def createSearch():
                     .filter_by(document=document.document_id) \
                     .first()
                 searchfield.headers.append(header)
-                print('printing headers')
-                print(header)
-                # session['header' + str(entryNum)] = header.header_name
+                print('Added header {}'.format(header_name))
 
             db.session.add(searchfield)
             db.session.commit()
-            # entryNum += 1
-        return redirect(url_for("search"))
 
-        # if "action" not in request.form and searchform.validate_on_submit():
-        # elif request.form["action"] == "add":
-        #     print("Adding row requested")
-        #     searchform.search_fields.append_entry()
-        #     searchform.search_fields.entries[-1].header.choices = headers_names
-        # elif request.form["action"] == "remove":
-        #     pass
+        return redirect(url_for("search"))
 
     return render_template("createSearchSimple.html", form=searchform)
 
