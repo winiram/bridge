@@ -12,7 +12,6 @@ def validate(df):
 def load(file_url, mimetype):
     """ Load file into pandas dataframe."""
     if mimetype == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" or mimetype == "application/vnd.ms-excel":
-        # Problem, this makes too many requests on the server
         df = pd.read_excel(file_url)
     elif mimetype == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
         df = pd.read_csv(file_url)

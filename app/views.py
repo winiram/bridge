@@ -33,13 +33,6 @@ def main():
 @app.route("/createUpload")
 @login_required
 def createUpload():
-    # # Temporarily just create one search interface
-    # if not models.SearchInterface.query.first():
-    #     user = models.User.query.first()
-    #     si = models.SearchInterface()
-    #     user.search_interfaces.append(si)
-    #     db.session.add(user)
-    #     db.session.commit()
     return render_template("createUpload.html")
 
 @app.route("/storeFile", methods=["POST"])
@@ -48,7 +41,6 @@ def saveFile():
     print("Storing file")
     # Need to do some error checking on file
     file_url = request.form["url"]
-    # file_url = 'https://www.filestackapi.com/api/file/QROhdz5ITLOHRKP1mBlr'
     file_id = file_url.split('/')[-1]
 
     # Get file from filestack, Might need to implement HTTPS
@@ -56,7 +48,6 @@ def saveFile():
     print("The server's response to {} was {}".format(file_url, httpResponse.status))
     file_metadata = json.loads(httpResponse.read().decode("utf-8"))
     mimetype = file_metadata["mimetype"]
-    print(mimetype)
 
     # Check for valid file, if it contains headers.
     df = fileprocessing.load(file_url, mimetype)
@@ -69,36 +60,35 @@ def saveFile():
         # Create table on the fly
         df.to_sql(file_id, db.engine, index=False)
 
-        session['file'] = file_id
-
         user = models.User.query.filter_by(email=session["email"]).first()
 
         # Create search interface and link it to the user
         si = models.SearchInterface(user = user.id)
         db.session.add(si)
+        db.session.commit()
+
+        # Add search interface id to session to access si
+        session['search_interface_id'] = si.id
+        print("The search interface saved under id {}".format(session['search_interface_id']))
 
         # Create document and link it to the search interface
-        si_query = models.SearchInterface.query.filter_by(user=user.id).first()
-        print("printing search interface id: {}".format(si_query.id))
-
         document = models.Document()
         document.document_id = file_id
-        document.search_interface = si_query.id
+        document.search_interface = si.id
 
         # Create headers and link them to the document
         query_result = db.engine.execute('PRAGMA table_info("{}")'.format(document.document_id)).fetchall()
-        # Headers is a list of (header_name, header_value)
         for item in query_result:
-            print(item)
             header = models.Header()
             header.header_name = item[1]
             header.document = document.document_id
             db.session.add(header)
 
         db.session.add(user)
-        # db.session.add(si)
         db.session.add(document)
         db.session.commit()
+
+
     else:
         # COMPLETE check if file has been updated and passes test than can add file
         pass
@@ -320,8 +310,10 @@ def updateData():
 @app.route("/getData", methods=["GET"])
 @login_required
 def getData():
-    file = escape(session['file']) #getting the name of the table
-    sql = text("SELECT * FROM \"" + str(file) + "\"") #querying the db
+    print("----Getting data-----")
+    document = models.Document.query.filter_by(search_interface=session['search_interface_id']).first()
+    document_id = escape(document.document_id)
+    sql = text("SELECT * FROM \"" + str(document_id) + "\"") #querying the db
     result = db.engine.execute(sql)
 
     data = []
