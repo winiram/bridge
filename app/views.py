@@ -10,7 +10,7 @@ except ImportError:
 import pandas as pd
 from sqlalchemy import engine, text, union, select, String, and_
 from sqlalchemy.sql import table, literal_column
-from .forms import SignupForm, LoginForm, SearchInterfaceForm, SearchInterface, TextboxForm, UniqueSearchForm, DisplayForm
+from .forms import SignupForm, LoginForm, SearchInterface, TextboxForm, UniqueSearchForm, DisplayForm
 from .util.security import ts
 from flask_login import login_user, logout_user, login_required
 from flask.ext.login import current_user
