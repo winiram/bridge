@@ -100,17 +100,22 @@ def createSearch():
     print("-----Entered create search interface-----")
     user = models.User.query.filter_by(email=session["email"]).first()
     si = models.SearchInterface.query.filter_by(user=user.id).first() #assuming user has only one search interface
+    si_id = session["search_interface_id"]
     document = models.Document.query.filter_by(search_interface=si.id).first()
     headers = models.Header.query.filter_by(document=document.document_id).all()
     headers_names = [(header.header_name, header.header_name) for header in headers] # Headers is a list of header names
-    searchform = SearchInterface(request.form) # Bug in Flask-WTF with dynamic form, need to use original WTF
-
 
     ## Initialising SearchInterface form, could be done in object
+    print("The submitted form data is:\n{}".format(request.form))
+    searchform = SearchInterface(request.form) # Bug in Flask-WTF with dynamic form, need to use original WTF
     for search_field in searchform.search_fields:
         search_field.header.choices = headers_names
-    if request.method == 'POST' and searchform.validate():
 
+    # print("---- Submitted form: \n{}".format(request.form))
+    # for search_fields in searchform.search_fields:
+    #     for search_field in search_fields:
+    #         print("{}, {}".format(search_field.label, search_field.validate(searchform)))
+    if request.method == 'POST' and searchform.validate():
         # Process full_text_search
         if searchform.full_text_search.data:
             print("Adding full text search")
