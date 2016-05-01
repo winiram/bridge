@@ -98,10 +98,8 @@ def saveFile():
 @app.route("/createSearch", methods=['GET', 'POST'])
 def createSearch():
     print("-----Entered create search interface-----")
-    user = models.User.query.filter_by(email=session["email"]).first()
-    si = models.SearchInterface.query.filter_by(user=user.id).first() #assuming user has only one search interface
     si_id = session["search_interface_id"]
-    document = models.Document.query.filter_by(search_interface=si.id).first()
+    document = models.Document.query.filter_by(search_interface=si_id).first()
     headers = models.Header.query.filter_by(document=document.document_id).all()
     headers_names = [(header.header_name, header.header_name) for header in headers] # Headers is a list of header names
 
