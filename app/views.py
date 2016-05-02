@@ -10,16 +10,18 @@ except ImportError:
 import pandas as pd
 from sqlalchemy import engine, text, union, select, String, and_
 from sqlalchemy.sql import table, literal_column
-from .forms import SignupForm, LoginForm, SearchInterfaceForm, SearchInterface, TextboxForm, UniqueSearchForm, DisplayForm
+from .forms import SignupForm, LoginForm, SearchInterface, TextboxForm, UniqueSearchForm, DisplayForm
 from .util.security import ts
 from flask_login import login_user, logout_user, login_required
 from flask.ext.login import current_user
 from collections import OrderedDict
 from flask.ext.wtf import Form
 
+
 @app.route('/')
 def index():
     return redirect('/main')
+
 
 @app.route("/main")
 def main():
@@ -30,11 +32,14 @@ def main():
     else:
         return render_template('main.html')
 
+
 @app.route("/createUpload")
 @login_required
 def createUpload():
     return render_template("createUpload.html")
 
+
+# API endpoint to store in db the file a user has selected
 @app.route("/storeFile", methods=["POST"])
 @login_required
 def saveFile():
@@ -87,7 +92,6 @@ def saveFile():
         db.session.add(user)
         db.session.add(document)
         db.session.commit()
-
 
     else:
         # COMPLETE check if file has been updated and passes test than can add file
@@ -143,7 +147,6 @@ def createSearch():
                 description = search_field.field_description.data,
                 field_type = search_field.field_type.data
             )
-
             searchfield.search_interface = si.id
 
             # Add headers selected to db
@@ -162,23 +165,20 @@ def createSearch():
 
     return render_template("createSearchSimple.html", form=searchform)
 
-@app.route("/previewSearch")
-@login_required
-def previewSearch():
-    return render_template("previewSearch.html")
-
 
 @app.route("/interface")
 def interface():
     return render_template("interface.html")
 
+
+# Page to actually search the database
+# Need to implement custom URL to serve individual search interface
 @app.route("/search", methods=['GET', 'POST'])
 def search():
     ## Getting all the required information to conduct queries
-    user = models.User.query.filter_by(email=session["email"]).first()
-    si = models.SearchInterface.query.filter_by(user=user.id).first() #assuming user has only one search interface
-    search_fields = models.SearchField.query.filter_by(search_interface=si.id).all()
-    document = models.Document.query.filter_by(search_interface=si.id).first()
+    si_id = session["search_interface_id"]
+    document = models.Document.query.filter_by(search_interface=si_id).first()
+    search_fields = models.SearchField.query.filter_by(search_interface=si_id).all()
 
     #Instantiate Displayform so we can insert textboxform or dropdown form
     displayform = DisplayForm()

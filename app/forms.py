@@ -22,16 +22,7 @@ class SignupForm(Form):
         Unique(User, User.email,message='There is already an account with that email.')])
     password = PasswordField('password', validators=[DataRequired()])
 
-class SearchInterfaceForm(Form):
-    fieldname = StringField('fieldname', validators=[DataRequired()])
-    description = StringField('description')
-    header = SelectMultipleField(label='header')
-    display = SelectField(label='display', choices = [(name, member.value) for name, member in FieldType.__members__.items()])
-
-    def __init__(self, headers):
-        super(SearchInterfaceForm, self).__init__()
-        self.header.choices = headers
-
+##### Search creation forms ####
 # Bug in Flask-WTF with dynamic form, need to use original WTF
 class SearchField(WTForm):
     # Need to add validators when javascript for adding rows is implemented
@@ -44,6 +35,8 @@ class SearchInterface(WTForm):
     search_fields = FieldList(FormField(SearchField), min_entries=1)
     full_text_search = BooleanField()
 
+
+##### Search forms ####
 class TextboxForm(Form):
     search_field_id = IntegerField(widget=HiddenInput())
     search = StringField()
@@ -51,9 +44,6 @@ class TextboxForm(Form):
 class UniqueSearchForm(Form):
     search_field_id = IntegerField(widget=HiddenInput())
     search = SelectField(coerce=str, validators=[Optional()])
-    #
-    # def set_default(self, value):
-    #     self.search.default = 'value'
 
 class DisplayForm(Form):
     text_searches = FieldList(FormField(TextboxForm))
