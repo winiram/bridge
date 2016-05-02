@@ -97,7 +97,7 @@ nav {
 		}
 
 	.tabs .indicator {
-		background-color: black;
+		background-color: #00A379;
 	}
 
 	.btn-floating {
@@ -129,20 +129,20 @@ nav {
 /*accent colors*/
 
 .tabs .tab a:hover {
-	color: #828483;
+	color: #00A379;
 	}	
 
 .btn {
-	background-color: #828483;
-	border: solid #828483 1px;
+	background-color: #00A379;
+	border: solid #00A379 1px;
 }
 
 .btn:hover{
 	background-color: black;
-	border: solid #828483 1px;
+	border: solid #00A379 1px;
 }
 
 .btn-floating:hover {
-		background-color: #828483;
+		background-color: #00A379;
 	}
 
