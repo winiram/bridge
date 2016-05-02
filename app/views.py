@@ -10,16 +10,18 @@ except ImportError:
 import pandas as pd
 from sqlalchemy import engine, text, union, select, String, and_
 from sqlalchemy.sql import table, literal_column
-from .forms import SignupForm, LoginForm, SearchInterfaceForm, SearchInterface, TextboxForm, UniqueSearchForm, DisplayForm
+from .forms import SignupForm, LoginForm, SearchInterface, TextboxForm, UniqueSearchForm, DisplayForm
 from .util.security import ts
 from flask_login import login_user, logout_user, login_required
 from flask.ext.login import current_user
 from collections import OrderedDict
 from flask.ext.wtf import Form
 
+
 @app.route('/')
 def index():
     return redirect('/main')
+
 
 @app.route('/explore')
 def explore():
@@ -34,25 +36,20 @@ def main():
     else:
         return render_template('main.html')
 
+
 @app.route("/createUpload")
 @login_required
 def createUpload():
-    # # Temporarily just create one search interface
-    # if not models.SearchInterface.query.first():
-    #     user = models.User.query.first()
-    #     si = models.SearchInterface()
-    #     user.search_interfaces.append(si)
-    #     db.session.add(user)
-    #     db.session.commit()
     return render_template("createUpload.html")
 
+
+# API endpoint to store in db the file a user has selected
 @app.route("/storeFile", methods=["POST"])
 @login_required
 def saveFile():
     print("Storing file")
     # Need to do some error checking on file
     file_url = request.form["url"]
-    # file_url = 'https://www.filestackapi.com/api/file/QROhdz5ITLOHRKP1mBlr'
     file_id = file_url.split('/')[-1]
 
     # Get file from filestack, Might need to implement HTTPS
@@ -60,7 +57,6 @@ def saveFile():
     print("The server's response to {} was {}".format(file_url, httpResponse.status))
     file_metadata = json.loads(httpResponse.read().decode("utf-8"))
     mimetype = file_metadata["mimetype"]
-    print(mimetype)
 
     # Check for valid file, if it contains headers.
     df = fileprocessing.load(file_url, mimetype)
@@ -73,36 +69,34 @@ def saveFile():
         # Create table on the fly
         df.to_sql(file_id, db.engine, index=False)
 
-        session['file'] = file_id
-
         user = models.User.query.filter_by(email=session["email"]).first()
 
         # Create search interface and link it to the user
         si = models.SearchInterface(user = user.id)
         db.session.add(si)
+        db.session.commit()
+
+        # Add search interface id to session to access si
+        session['search_interface_id'] = si.id
+        print("The search interface saved under id {}".format(session['search_interface_id']))
 
         # Create document and link it to the search interface
-        si_query = models.SearchInterface.query.filter_by(user=user.id).first()
-        print("printing search interface id: {}".format(si_query.id))
-
         document = models.Document()
         document.document_id = file_id
-        document.search_interface = si_query.id
+        document.search_interface = si.id
 
         # Create headers and link them to the document
         query_result = db.engine.execute('PRAGMA table_info("{}")'.format(document.document_id)).fetchall()
-        # Headers is a list of (header_name, header_value)
         for item in query_result:
-            print(item)
             header = models.Header()
             header.header_name = item[1]
             header.document = document.document_id
             db.session.add(header)
 
         db.session.add(user)
-        # db.session.add(si)
         db.session.add(document)
         db.session.commit()
+
     else:
         # COMPLETE check if file has been updated and passes test than can add file
         pass
@@ -111,19 +105,24 @@ def saveFile():
 
 @app.route("/createSearch", methods=['GET', 'POST'])
 def createSearch():
-    user = models.User.query.filter_by(email=session["email"]).first()
-    si = models.SearchInterface.query.filter_by(user=user.id).first() #assuming user has only one search interface
-    document = models.Document.query.filter_by(search_interface=si.id).first()
+    print("-----Entered create search interface-----")
+    si_id = session["search_interface_id"]
+    si = models.SearchInterface.query.filter_by(id=si_id).first()
+    document = models.Document.query.filter_by(search_interface=si_id).first()
     headers = models.Header.query.filter_by(document=document.document_id).all()
     headers_names = [(header.header_name, header.header_name) for header in headers] # Headers is a list of header names
-    searchform = SearchInterface(request.form) # Bug in Flask-WTF with dynamic form, need to use original WTF
-
 
     ## Initialising SearchInterface form, could be done in object
+    print("The submitted form data is:\n{}".format(request.form))
+    searchform = SearchInterface(request.form) # Bug in Flask-WTF with dynamic form, need to use original WTF
     for search_field in searchform.search_fields:
         search_field.header.choices = headers_names
-    if request.method == 'POST' and searchform.validate():
 
+    # print("---- Submitted form: \n{}".format(request.form))
+    # for search_fields in searchform.search_fields:
+    #     for search_field in search_fields:
+    #         print("{}, {}".format(search_field.label, search_field.validate(searchform)))
+    if request.method == 'POST' and searchform.validate():
         # Process full_text_search
         if searchform.full_text_search.data:
             print("Adding full text search")
@@ -139,8 +138,7 @@ def createSearch():
 
         # Process custom search fields
         for search_field in searchform.search_fields:
-            print("------------printing search field data -------------")
-            print(search_field.data)
+            print("------------Saving search field {} to db -------------".format(search_field.data))
 
             ## To be removed when form validation is implemented
             if not search_field.fieldname.data or not search_field.header.data:
@@ -154,7 +152,6 @@ def createSearch():
                 description = search_field.field_description.data,
                 field_type = search_field.field_type.data
             )
-
             searchfield.search_interface = si.id
 
             # Add headers selected to db
@@ -164,42 +161,29 @@ def createSearch():
                     .filter_by(document=document.document_id) \
                     .first()
                 searchfield.headers.append(header)
-                print('printing headers')
-                print(header)
-                # session['header' + str(entryNum)] = header.header_name
+                print('Added header {}'.format(header_name))
 
             db.session.add(searchfield)
             db.session.commit()
-            # entryNum += 1
+
         return redirect(url_for("search"))
 
-        # if "action" not in request.form and searchform.validate_on_submit():
-        # elif request.form["action"] == "add":
-        #     print("Adding row requested")
-        #     searchform.search_fields.append_entry()
-        #     searchform.search_fields.entries[-1].header.choices = headers_names
-        # elif request.form["action"] == "remove":
-        #     pass
-
-    return render_template("createSearch.html", form=searchform)
-
-@app.route("/previewSearch")
-@login_required
-def previewSearch():
-    return render_template("previewSearch.html")
+    return render_template("createSearchSimple.html", form=searchform)
 
 
 @app.route("/interface")
 def interface():
     return render_template("interface.html")
 
+
+# Page to actually search the database
+# Need to implement custom URL to serve individual search interface
 @app.route("/search", methods=['GET', 'POST'])
 def search():
     ## Getting all the required information to conduct queries
-    user = models.User.query.filter_by(email=session["email"]).first()
-    si = models.SearchInterface.query.filter_by(user=user.id).first() #assuming user has only one search interface
-    search_fields = models.SearchField.query.filter_by(search_interface=si.id).all()
-    document = models.Document.query.filter_by(search_interface=si.id).first()
+    si_id = session["search_interface_id"]
+    document = models.Document.query.filter_by(search_interface=si_id).first()
+    search_fields = models.SearchField.query.filter_by(search_interface=si_id).all()
 
     #Instantiate Displayform so we can insert textboxform or dropdown form
     displayform = DisplayForm()
@@ -324,8 +308,10 @@ def updateData():
 @app.route("/getData", methods=["GET"])
 @login_required
 def getData():
-    file = escape(session['file']) #getting the name of the table
-    sql = text("SELECT * FROM \"" + str(file) + "\"") #querying the db
+    print("----Getting data-----")
+    document = models.Document.query.filter_by(search_interface=session['search_interface_id']).first()
+    document_id = escape(document.document_id)
+    sql = text("SELECT * FROM \"" + str(document_id) + "\"") #querying the db
     result = db.engine.execute(sql)
 
     data = []
