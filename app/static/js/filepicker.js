@@ -9,7 +9,7 @@ function storeFile() {
     success = function(response) {
       if (response["success"]) {
         file_preview(file_url)
-        //document.getElementById("filepicker").submit();
+        Materialize.toast('File Upload Success', 4000, 'teal')
       }
       else {
         alert(response["error"]);

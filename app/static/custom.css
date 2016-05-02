@@ -24,12 +24,36 @@
      box-shadow: 0 1px 0 0 #2196F3;
    }
 html,body{
-    font-family: "Roboto", sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
     display: flex !important;
     min-height: 100vh !important;
     flex-direction: column !important;
     
 
+}
+
+.ui-autocomplete {
+    background-color: white;
+    border: 1px solid;
+    margin-right: 20px;
+    width: 80%;
+    z-index: 10009;
+}
+
+.size{
+    height: 250px;
+    width: 200px;
+}
+
+.icon_padding {
+	padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.viz:selected{
+    background-color:blue !important;
 }
 
 iframe{
@@ -44,7 +68,11 @@ iframe{
 }
 
 .brand-logo{
-    margin-left: 5px;
+    margin-left: 10px;
+}
+.brand-logo img{
+    height: 55px;
+    margin-top: 4px
 }
 
 .smalltext {
@@ -55,6 +83,10 @@ iframe{
 	width: 5%;
 }
 
+#iframe{
+  margin-left: 10%;
+  margin-right: 10%;
+}
 #add {
     font-size: 20px;
     margin-right: 0;
@@ -68,6 +100,11 @@ iframe{
   -vendor-animation-duration: 5s;
   -vendor-animation-delay: 3s;
 
+}
+
+[type="radio"]:checked + label
+{
+  color: #ff5252 !important;
 }
 
 .btn{
@@ -153,5 +190,56 @@ h5{
 	height: 100%;
 }
 
+.reducedwidth {
+	width: 80% !important;
+    margin-left: 10%;
+}
 
 
+.projectCard {
+  background-color: white;
+  width: 400px;
+  height: 210px;
+  margin-left: 60px !important;
+}
+
+
+.projectCard img {
+  width: 100%;
+}
+
+.projImgContainer {
+    height: 100px; 
+    width: 100%;
+    overflow: hidden; 
+
+}
+
+.nomargin-top {
+	margin-top: 0 !important;
+}
+
+.projEditButtons {
+  position: absolute; 
+  padding-left: 15px;
+  bottom: -60px;
+
+}
+
+#profilePic {
+  width: 200px;
+}
+
+.editProfile {
+  float: right;
+}
+
+.intro img{
+  width: 100%;
+
+}
+
+.logo_head {
+  width: 150px;
+  margin-bottom: -30px;
+}

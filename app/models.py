@@ -2,13 +2,22 @@ from sqlalchemy.ext.hybrid import hybrid_property
 from app import db, lm
 from . import bcrypt
 from flask.ext.login import UserMixin, current_user
+from sqlalchemy import Column
+from sqlalchemy.schema import PrimaryKeyConstraint
+from enum import Enum
+
+
+# Accepted SearchFieldTypes
+class FieldType(Enum):
+    Textbox = "Textbox"
+    UniqueSearch = "Dropdown"
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     fname = db.Column(db.String(60), unique=False)
     lname = db.Column(db.String(60), unique=False)
-    email = db.Column(db.String(120), unique=False)
-    search_interfaces = db.relationship('SearchInterface', backref="user")
+    email = db.Column(db.String(120), unique=True)
+    search_interfaces = db.relationship('SearchInterface', lazy='dynamic', backref="users")
     _password = db.Column(db.String(128))
     authenticated = db.Column(db.Boolean, default=False)
 
@@ -50,5 +59,32 @@ class User(db.Model, UserMixin):
 
 class SearchInterface(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    document_id = db.Column(db.String(120), unique=True)
+    user = db.Column(db.Integer, db.ForeignKey('user.id'))
+    document_id = db.relationship("Document", uselist=False, backref="search_interfaces")
+    search_fields = db.relationship("SearchField", lazy="dynamic", backref="search_interfaces")
+
+class Document(db.Model):
+    document_id = db.Column(db.String(120), primary_key=True)
+    search_interface = db.Column(db.Integer, db.ForeignKey('search_interface.id'))
+    headers = db.relationship("Header",lazy='dynamic', backref="documents")
+
+searchfield_headers = db.Table('headers',
+    db.Column('search_field', db.Integer, db.ForeignKey('search_field.id')),
+    db.Column('header', db.String, db.ForeignKey('header.header_name'))
+)
+
+class SearchField(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    field_type = db.Column(db.Enum(*FieldType.__members__.keys()))
+    name = db.Column(db.String(120))
+    description = db.Column(db.Text)
+    headers = db.relationship('Header', secondary=searchfield_headers, backref=db.backref('search_fields'))
+    search_interface = db.Column(db.Integer, db.ForeignKey("search_interface.id"))
+
+class Header(db.Model):
+    header_name = db.Column(db.String(120), primary_key=True)
+    document = db.Column(db.Integer, db.ForeignKey("document.document_id"))
+
+    __table_args__ = (
+        PrimaryKeyConstraint("header_name", "document"),
+    )

@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 
 <html>
+
 <head>
     <link rel="stylesheet" type="text/css" href="/static/materialize.css" media="screen">
     <link rel="stylesheet" type="text/css" href="/static/animate.css" media="screen">
     <link rel="stylesheet" type="text/css" href="/static/custom.css" media="screen">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
     <title>Bridge</title>
 </head>
 
@@ -13,11 +16,10 @@
     <div>
         <nav class="blue">
             <div class="nav-wrapper">
-                <a href="#" class="brand-logo">Bridge</a>
+                <a href="/main" class="blue-text brand-logo"> <img src="../static/files/bridge_logos_v1-02.png"></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a href="#">Search Collections</a></li>
-                    <li><a href="#">Add Collection</a></li>
-                    <li class="active"><a href="#">Sign in/up</a></li>
+                    <li><a href="{{url_for('sign_up')}}" class="white-text">Signup</a></li>
                 </ul>
             </div>
         </nav>
@@ -26,27 +28,32 @@
 
     <div class="row">
         <form action="/log_in" method="post" id="login" class="col s4 offset-s4 card">
-        {{ form.hidden_tag() }}
+            {{ form.hidden_tag() }}
             <div class="col s12">
                 <h3 class="smalltext center grey-text">LOGIN</h3>
             </div>
             <div class="input-field col s12">
                 <!-- <input id="email" type="text" class="validate" name="email">
                 <label for="email">Email</label> -->
-                Email:<br>
-                {{ form.email(size=120) }}<br>
+                Email:
+                <br> {{ form.email(size=120) }}
+                <br>
             </div>
             <div class="input-field col s12">
                 <!-- <input id="password" type="password" class="validate" name="password">
                 <label for="password">Password</label> -->
-                Password:<br>
-                {{ form.password(size=20) }}<br>
+                Password:
+                <br> {{ form.password(size=20) }}
+                <br>
             </div>
-            <div class="input-field col s6 offset-s4">
-                <a class="waves-effect waves-light btn blue" id="signup" href="{{ url_for('sign_up') }}">Signup</a>
-            </div>
-            <div class="input-field col s6 offset-s4">
-                <p><input type="submit" class="waves-effect waves-light btn blue" id="login" value="Log In"></p>
+            <div class="row">
+                <div class="input-field col s3 offset-s1">
+                        <input type="submit" class="waves-effect waves-light btn red accent-2 nomargin-top" id="login" value="Log In">
+                </div>                
+                <div class="input-field col s3 offset-s2">
+                    <a class="waves-effect waves-light btn blue-grey lighten-5 blue-text" id="signup" href="{{ url_for('sign_up') }}">Signup</a>
+                </div>
+
             </div>
             <div class="row">
             </div>
@@ -59,6 +66,4 @@
 
 </body>
 
-
 </html>
-

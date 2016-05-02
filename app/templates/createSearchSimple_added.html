@@ -1,18 +1,19 @@
 <!DOCTYPE html> {% extends "create_base.html" %} {% block content %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.2.8/jquery.form-validator.min.js"></script>
-<script type="text/javascript" src="/static/js/dynamic_form.js"></script>
+</script>
 <title>Bridge</title>
+
 <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
 <script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
 <script type="text/javascript" src="/javascript/appjs.js"></script>
+<script type="text/javascript" src="/static/dynamic_form.js"></script>
 
 <!--end pagination-->
 <div class="grey lighten-2 full" role="main">
     <!--grey background at the back-->
     <!--begin intro section-->
-    <div class="white container section z-depth-1">
+    <div class="white container section">
         <h5 class="grey-text text-darken-2 center" id="instructions">2. Create Search Interface</h1>
         <h6 class="grey-text center">Go ahead and decide how people will search your collection</h6>
     <div class="section"></div>
@@ -20,9 +21,7 @@
         <div class="divider"></div>
 
     <div class="section"></div>
-    <!--begin search form-->
 
-<form action="/createSearch" method="post" id="createsearch">
 <div class="row">
     <div class="col s4 offset-s1">
         <h5 class="blue-text">1. Page details</h5>
@@ -41,14 +40,18 @@
     </div>
 </div>
 
-<div class="divider"></div>
+    <!--begin search form-->
 
-<div class="section"></div>
-<div class="row">
-    <div class="col s5 offset-s1">
-        <h5 class="blue-text">2. Customize Search Interface</h5>
+
+    <div class="section"></div>
+    <div class="row">
+        <div class="col s5 offset-s1">
+            <h5 class="blue-text">2. Customize Search Interface</h5>
     </div>
 </div>
+<form action="/createSearch" method="post" id="createsearch" class="col s4 offset-s4">
+
+
 <div class="row">
     <div class="col s4 offset-s2">
         {{ form.full_text_search() }} {{ form.full_text_search.label }}
@@ -95,8 +98,14 @@
     <div class="section"></div>
     <div class="section"></div>
     {{ form.csrf_token }}
+
+    <div class="section"></div>
     <div class="section"></div>
 </div>
+</form>
+
+
+
 <div class="row">
     <div class="col s4 offset-s2">
         <div class="subtitle blue-text">Create Visualizations (optional)</div>
@@ -146,7 +155,7 @@
     </div>
     <div class="section"></div>
     <div class="section"></div>
-
+    
 </div>
 <div class="divider"></div>
 
@@ -195,13 +204,11 @@
 </div>
 </div>
 <div class="section"></div>
-</form>
 </div>
-<div class="section"></div>
+<div class="section"></div> 
     <div class="section">
       <a class="waves-effect waves-light red accent-2 btn blue-grey lighten-5 blue-text left left-margin" href="{{ url_for('createUpload')}}">Back</a>
 
      <a class="waves-effect waves-light red accent-2 btn right right-margin" onclick="$('form[id=createsearch]').submit()" id="next">Next</a>
     </div>
-
 {% endblock %}
