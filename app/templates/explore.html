@@ -1,0 +1,361 @@
+<!DOCTYPE html> {% extends "explore_base.html" %} {% block content %}
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js"></script>
+<script>
+    $(document).ready(function() {
+        $('#search_result').hide();
+        $('#tags').change(function() {
+            $('#search_result').show();
+            $('#most_popular').hide();
+        });
+
+    });
+    $(function() {
+        var availableTags = [
+            "Animals",
+            "Actors",
+            "Biscuits",
+            "Bugs",
+            "Balinese bugs",
+            "Coins",
+            "Cajun recipes",
+            "Caricatures from 1990",
+            "Candid photos",
+            "Country songs",
+            "Elephant accidents",
+            "Energy bar recipes",
+            "Fossil collections",
+            "Goat fossils",
+            "Gemstones",
+            "Horse Shoes from Ancient India",
+            "Javelins",
+            "Jars",
+            "Lithuanian tombstones",
+            "Pandas",
+            "Parrots",
+            "Pythons and vipers",
+            "Rare diseases",
+            "Rabbits",
+            "San Diego Bug collection",
+            "Shark bones and fossils"
+        ];
+        $("#tags").autocomplete({
+            source: availableTags
+        });
+    });
+</script>
+<div>
+    <div class="section"></div>
+    <h5 class="blue-text center animated fadeInUp">Explore collections around the world</h5>
+    <div class="section"></div>
+    <div class="row animated fadeInUp">
+        <form class="col s12">
+            <div class="row">
+                <div class="input-field col s6 offset-s3">
+                    <i class="material-icons prefix">search</i>
+                    <input id="tags" type="text" class="validate">
+                    <label for="tags">Search by category, keyword or location</label>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="section animated fadeInUp" id="search_result">
+        <div class="row">
+            <div class="col s3">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator size" src="/static/img/coin.png">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Ancient Coins<i class="material-icons right">more_vert</i></span>
+                        <p><a href="#">Explore Collection</a></p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">Coin Collection by KC<i class="material-icons right">close</i></span>
+                        <p>I am a coin collector from NC Area, interested in ancient indian coins.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section animated fadeInUp" id="most_popular">
+        <p class="red-text text-accent-2 center">MOST POPULAR</p>
+        <div class="row">
+            <div class="col s3">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator size" src="/static/img/coin.png">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Ancient Coins<i class="material-icons right">more_vert</i></span>
+                        <p><a href="#">Explore Collection</a></p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">Coin Collection by KC<i class="material-icons right">close</i></span>
+                        <p>I am a coin collector from NC Area, interested in ancient indian coins.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col s3">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator size" src="/static/img/music.jpeg">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Music Patterns in Jazz<i class="material-icons right">more_vert</i></span>
+                        <p><a href="#">Explore Collection</a></p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">Music Collection by Jenny<i class="material-icons right">close</i></span>
+                        <p>I am a musician in Maine, interested in recording recurring patterns of jazz music.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col s3">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="/static/img/bug.jpeg">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Rare Bugs<i class="material-icons right">more_vert</i></span>
+                        <p><a href="#">Explore Collection</a></p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">Bug Collection by British Museum<i class="material-icons right">close</i></span>
+                        <p>The British Museum is home to a large collection of rare bugs. Explore its online bug archives.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col s3">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="/static/img/crown.jpeg">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Fake Crown Jewels<i class="material-icons right">more_vert</i></span>
+                        <p><a href="#">Explore Collection</a></p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">Fake Crown Jewels From Around the World<i class="material-icons right">close</i></span>
+                        <p>I collect fake crown jewels from aroud the world. Here is a collection of images and materials that these jewels are made out of</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section animated fadeInUp">
+        <p>
+            <iframe src="//batchgeo.com/map/72ca1b827a1cdfcdc1ba7921b4c727e7" frameborder="0" width="100%" height="550" style="border:1px solid #aaa;"></iframe>
+        </p>
+        <p><small>View <a href="https://batchgeo.com/map/72ca1b827a1cdfcdc1ba7921b4c727e7">Museums</a> in a full screen map</small></p>
+    </div>
+    <div class="section animated fadeInUp">
+        <div class="row">
+            <div class="col s12">
+                <ul class="tabs">
+                    <li class="tab col s3 teal-text"><a href="#test1">Most Recent</a></li>
+                    <li class="tab col s3 teal-text"><a class="active" href="#test2">Most Unique</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="section"></div>
+        <div class="section"></div>
+        <div class="section"></div>
+        <div class="row">
+            <div id="test1" class="col s12">
+                <div class="row">
+                    <div class="col s3">
+                        <div class="card">
+                            <div class="card-image waves-effect waves-block waves-light">
+                                <img class="activator size" src="/static/img/coin.png">
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title activator grey-text text-darken-4">Ancient Coins<i class="material-icons right">more_vert</i></span>
+                                <p><a href="#">Explore Collection</a></p>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title grey-text text-darken-4">Coin Collection by KC<i class="material-icons right">close</i></span>
+                                <p>I am a coin collector from NC Area, interested in ancient indian coins.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s3">
+                        <div class="card">
+                            <div class="card-image waves-effect waves-block waves-light">
+                                <img class="activator size" src="/static/img/music.jpeg">
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title activator grey-text text-darken-4">Music Patterns in Jazz<i class="material-icons right">more_vert</i></span>
+                                <p><a href="#">Explore Collection</a></p>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title grey-text text-darken-4">Music Collection by Jenny<i class="material-icons right">close</i></span>
+                                <p>I am a musician in Maine, interested in recording recurring patterns of jazz music.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s3">
+                        <div class="card">
+                            <div class="card-image waves-effect waves-block waves-light">
+                                <img class="activator" src="/static/img/bug.jpeg">
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title activator grey-text text-darken-4">Rare Bugs<i class="material-icons right">more_vert</i></span>
+                                <p><a href="#">Explore Collection</a></p>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title grey-text text-darken-4">Bug Collection by British Museum<i class="material-icons right">close</i></span>
+                                <p>The British Museum is home to a large collection of rare bugs. Explore its online bug archives.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s3">
+                        <div class="card">
+                            <div class="card-image waves-effect waves-block waves-light">
+                                <img class="activator" src="/static/img/crown.jpeg">
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title activator grey-text text-darken-4">Fake Crown Jewels<i class="material-icons right">more_vert</i></span>
+                                <p><a href="#">Explore Collection</a></p>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title grey-text text-darken-4">Fake Crown Jewels From Around the World<i class="material-icons right">close</i></span>
+                                <p>I collect fake crown jewels from aroud the world. Here is a collection of images and materials that these jewels are made out of</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="test2" class="col s12">
+                <div class="row">
+                    <div class="col s3">
+                        <div class="card">
+                            <div class="card-image waves-effect waves-block waves-light">
+                                <img class="activator size" src="/static/img/coin.png">
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title activator grey-text text-darken-4">Ancient Coins<i class="material-icons right">more_vert</i></span>
+                                <p><a href="#">Explore Collection</a></p>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title grey-text text-darken-4">Coin Collection by KC<i class="material-icons right">close</i></span>
+                                <p>I am a coin collector from NC Area, interested in ancient indian coins.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s3">
+                        <div class="card">
+                            <div class="card-image waves-effect waves-block waves-light">
+                                <img class="activator size" src="/static/img/music.jpeg">
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title activator grey-text text-darken-4">Music Patterns in Jazz<i class="material-icons right">more_vert</i></span>
+                                <p><a href="#">Explore Collection</a></p>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title grey-text text-darken-4">Music Collection by Jenny<i class="material-icons right">close</i></span>
+                                <p>I am a musician in Maine, interested in recording recurring patterns of jazz music.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s3">
+                        <div class="card">
+                            <div class="card-image waves-effect waves-block waves-light">
+                                <img class="activator" src="/static/img/bug.jpeg">
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title activator grey-text text-darken-4">Rare Bugs<i class="material-icons right">more_vert</i></span>
+                                <p><a href="#">Explore Collection</a></p>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title grey-text text-darken-4">Bug Collection by British Museum<i class="material-icons right">close</i></span>
+                                <p>The British Museum is home to a large collection of rare bugs. Explore its online bug archives.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s3">
+                        <div class="card">
+                            <div class="card-image waves-effect waves-block waves-light">
+                                <img class="activator" src="/static/img/bug.jpeg">
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title activator grey-text text-darken-4">Rare Bugs<i class="material-icons right">more_vert</i></span>
+                                <p><a href="#">Explore Collection</a></p>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title grey-text text-darken-4">Bug Collection by British Museum<i class="material-icons right">close</i></span>
+                                <p>The British Museum is home to a large collection of rare bugs. Explore its online bug archives.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="test3" class="col s12">
+                <div class="row">
+                    <div class="col s3">
+                        <div class="card">
+                            <div class="card-image waves-effect waves-block waves-light">
+                                <img class="activator size" src="/static/img/coin.png">
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title activator grey-text text-darken-4">Ancient Coins<i class="material-icons right">more_vert</i></span>
+                                <p><a href="#">Explore Collection</a></p>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title grey-text text-darken-4">Coin Collection by KC<i class="material-icons right">close</i></span>
+                                <p>I am a coin collector from NC Area, interested in ancient indian coins.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s3">
+                        <div class="card">
+                            <div class="card-image waves-effect waves-block waves-light">
+                                <img class="activator size" src="/static/img/music.jpeg">
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title activator grey-text text-darken-4">Music Patterns in Jazz<i class="material-icons right">more_vert</i></span>
+                                <p><a href="#">Explore Collection</a></p>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title grey-text text-darken-4">Music Collection by Jenny<i class="material-icons right">close</i></span>
+                                <p>I am a musician in Maine, interested in recording recurring patterns of jazz music.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s3">
+                        <div class="card">
+                            <div class="card-image waves-effect waves-block waves-light">
+                                <img class="activator" src="/static/img/bug.jpeg">
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title activator grey-text text-darken-4">Rare Bugs<i class="material-icons right">more_vert</i></span>
+                                <p><a href="#">Explore Collection</a></p>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title grey-text text-darken-4">Bug Collection by British Museum<i class="material-icons right">close</i></span>
+                                <p>The British Museum is home to a large collection of rare bugs. Explore its online bug archives.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s3">
+                        <div class="card">
+                            <div class="card-image waves-effect waves-block waves-light">
+                                <img class="activator" src="/static/img/bug.jpeg">
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title activator grey-text text-darken-4">Rare Bugs<i class="material-icons right">more_vert</i></span>
+                                <p><a href="#">Explore Collection</a></p>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title grey-text text-darken-4">Bug Collection by British Museum<i class="material-icons right">close</i></span>
+                                <p>The British Museum is home to a large collection of rare bugs. Explore its online bug archives.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
