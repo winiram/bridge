@@ -23,6 +23,12 @@ def index():
     return redirect('/main')
 
 
+
+@app.route('/explore')
+def explore():
+    return render_template('explore.html')
+
+
 @app.route("/main")
 def main():
     email = ''
@@ -164,7 +170,7 @@ def createSearch():
 
         return redirect(url_for("search"))
 
-    return render_template("createSearchSimple.html", form=searchform)
+    return render_template("createSearchSimple_added.html", form=searchform)
 
 
 @app.route("/interface")
