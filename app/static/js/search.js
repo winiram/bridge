@@ -1,5 +1,6 @@
 $(document).ready(function(){
     getData();
+    $('#unique_searches-0-search').prepend('<option value=""selected></option>')
   });
 
 function getData () {
@@ -91,9 +92,10 @@ function displayData(data) {
           headerRow.push(headers[i])
         }
 
-  $("#table_head").html(headerRow)
-  $("#table_results").html(table)
-  $("#gridView").html(gridView)
+  $("#table_head").html(headerRow);
+  $("#table_results").html(table);
+  $("#gridView").html(gridView);
+  $("#num_rec").html("<h5>"+rowNum+" Record(s)</h5>")
   $('.modal-trigger').leanModal();
 
 }
@@ -147,6 +149,7 @@ $(function() {
       $(".clearbtn").click( function()
            { console.log("clear button is clicked!")
            $(this).closest('form').find("input[type=text], textarea").val("");
+           getData();
 
            }
       );
@@ -159,6 +162,8 @@ $(function() {
          }
        )}
 );
+
+
 
 function getUpdatedData() {
   console.log("Getting updated data");

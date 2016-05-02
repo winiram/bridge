@@ -170,7 +170,7 @@ def createSearch():
 
         return redirect(url_for("search"))
 
-    return render_template("createSearchSimple.html", form=searchform)
+    return render_template("createSearchSimple_added.html", form=searchform)
 
 
 @app.route("/interface")

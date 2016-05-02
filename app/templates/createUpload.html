@@ -10,13 +10,30 @@
 
 <div class="grey lighten-2" role="main">
 
-    <div class="white container section center z-depth-1">
-        <h1 class="grey-text text-darken-2" id="instructions">1. Upload Collection</h1>
-        <div class="divider"></div>
-        <div class="section"></div>
+  <div class="white container section center z-depth-1">
+    <h1 class="grey-text text-darken-2" id="instructions">1. Upload Collection</h1>
+    <div class="divider"></div>
+    <div class="section"></div>
+          <div class="section ">
+        <div class="row">
+          <h5 class="blue-text">How to format your data</h5>
+        </div>
+        <div class="row animated fadeInUp">
+          <p class='grey-text text-darken-2'>
 
-        <div class="file-field input-field" id="upload">
+            1. The first row of data will be used as your column headers <br>
+            (You will be able to build customized search fields based on column headers)<br>
+            2. You will have the option to create a visualization based on the columns</br>
+            3. If you would like to add images, please add a column named <span class="teal-text">media</span> in your spreadsheet with complete url links to images<br>
+            4. The first <span class="teal-text">5</span> columns will be displayed on your web interface</p>
+
+          </div>
+        </div>  
+
+        <div class="file-field input-field grey lighten-5" id="upload">
             <div class="section">
+                  <div class="section"></div>
+                    <div class="section"></div>
                 <div class="row">
                     <div class="col s4 offset-s4">
                         <form id="filepicker">
@@ -30,34 +47,19 @@
                         <br>.csv, .xls, .xlsx, Google Spreadsheet</p>
                 </div>
             </div>
-            <div class="section"></div>
-        <div class="section"></div>
-        <div class="section"></div>
-        <div class="section grey lighten-5">
-            <div class="row">
-                <h5 class="blue-text">Things to remember</h5>
-            </div>
-            <div class="row animated fadeInUp">
-                <p class='grey-text text-darken-2'>1. Each column will be considered a header
-                    <br> 2. The first <span class="teal-text">10</span> columns will be displayed on your collection screen
-                    <br> 3. If you would like to add images, please add a separate column named <span class="teal-text">media</span> in your spreadsheet with links to images
-                    <br> 4. You will be able to customize search fields based on headers
-                    <br> 5. You will be able to create visualizations based on lat-long data</br>
-                </p>
 
-            </div>
-        </div>
-    </div>
-    <div class="section"></div>
-    <div class="section"></div>
-    <h5 class="grey-text center">Preview</h5>
-    <div type="filepicker-preview" id="iframe" data-fp-url="https://www.filestackapi.com/api/file/S8O2rWoSFewERT8AfNxW" style="height:300px"> </div>
-    <div class="section"></div>
-    <div class="section"></div>
-    <div class="section"></div>
-</div>
+
+      <div class="section"></div>
+
+      </div>
+      <div class="section"></div>
+      <h5 class="grey-text center">File Preview</h5>
+      <div type="filepicker-preview" id="iframe" data-fp-url="https://www.filestackapi.com/api/file/S8O2rWoSFewERT8AfNxW" style="height:300px"> </div>
+      <div class="section"></div>
 
 <div class="section"></div>
+<div class="section"></div>
+</div>
 <div class="section">
     <a class="waves-effect waves-light red accent-2 btn blue-grey lighten-5 blue-text left left-margin" href="{{ url_for('main')}}">Back</a>
 
