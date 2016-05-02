@@ -244,22 +244,8 @@ def search():
                 print('print selected header')
                 print(selected_header[i].header_name)
 
-                # print('printing query')
-                # query = query.split(' ')
-                # print(query)
-                # sql_query = []
-                # if len(query) > 1:
-                #     index = 0
-                #     for q in query:
-                #         if index < (len(query) - 1):
-                #             sql_query.append("'%" + str(q) + "%' OR " + str(selected_header[i].header_name) + " LIKE ")
-                #             index += 1
-                # print('printing sql_query')
-                # print(sql_query)
                 sql_text = str("SELECT * FROM " + str(document_model) + " WHERE " + str(selected_header[i].header_name) + " LIKE '%" + str(query) + "%' INTERSECT ") #querying the d
 
-                # sql = text("SELECT * FROM " + str(document_model) + " WHERE " + str(selected_header[i].header_name) + " LIKE '%" + str(query) + "%'") #querying the d
-                # sql = select([str(document_model)]).where(literal_column(selected_header[i].header_name).like(query))
                 result = db.engine.execute(sql)
                 i += 1
 
@@ -272,11 +258,6 @@ def search():
                 selected_header = models.Header.query.filter(models.Header.search_fields.any(id=unique_headers[i])).all()
                 print(selected_header)
                 sql_unique = str("SELECT * FROM " + str(document_model) + " WHERE " + str(selected_header[i].header_name) + " = '" + str(query) + "';") #querying the db
-
-                # sql_unique = text("SELECT * FROM " + str(document_model) + " WHERE " + str(selected_header[i].header_name) + " = '" + str(query) + "';") #querying the db
-
-                # unique_sql = text("SELECT * FROM " + str(document_model) + " WHERE " + str(selected_header[i].header_name) + " = '" + str(query) + "';") #querying the db
-                # unique_result = db.engine.execute(sql)
                 i += 1
 
         sql = text(sql_text + sql_unique)
@@ -288,18 +269,11 @@ def search():
             d = OrderedDict([])
             for column, value in v.items():
                 d[str(column)] = str(value)
-                #print('{0}: {1}'.format(column, value))
             data.append(d)
         return json.dumps(data)
-        return redirect(url_for("search"))
-        # return json.dumps(data)
+
     return render_template("search.html", form=displayform)
 
-@app.route("/updateData", methods=["GET"])
-@login_required
-def updateData():
-    json = escape(session['json']) #getting the name of the table
-    return json.dumps(data)
 
 @app.route("/getData", methods=["GET"])
 @login_required
@@ -315,17 +289,14 @@ def getData():
         d = OrderedDict([])
         for column, value in v.items():
             d[str(column)] = str(value)
-            #print('{0}: {1}'.format(column, value))
         data.append(d)
     return json.dumps(data)
 
-@app.route("/test")
-def test():
-    return render_template("test.html")
 
 @app.route("/profile")
 def projects():
     return render_template("profile.html")
+
 
 @app.route("/sign_up", methods=['GET', 'POST'])
 def sign_up():
@@ -342,6 +313,7 @@ def sign_up():
         db.session.commit()
         return redirect(url_for('log_in'))
     return render_template("signup.html", form=signupform)
+
 
 @app.route('/log_in', methods=["GET", "POST"])
 def log_in():
