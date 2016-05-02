@@ -149,6 +149,7 @@ $(function() {
       $(".clearbtn").click( function()
            { console.log("clear button is clicked!")
            $(this).closest('form').find("input[type=text], textarea").val("");
+           getData();
 
            }
       );
@@ -161,6 +162,8 @@ $(function() {
          }
        )}
 );
+
+
 
 function getUpdatedData() {
   console.log("Getting updated data");
