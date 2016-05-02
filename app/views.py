@@ -103,6 +103,7 @@ def saveFile():
 def createSearch():
     print("-----Entered create search interface-----")
     si_id = session["search_interface_id"]
+    si = models.SearchInterface.query.filter_by(id=si_id).first()
     document = models.Document.query.filter_by(search_interface=si_id).first()
     headers = models.Header.query.filter_by(document=document.document_id).all()
     headers_names = [(header.header_name, header.header_name) for header in headers] # Headers is a list of header names
