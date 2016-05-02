@@ -8,7 +8,7 @@ $(document).ready(function () {
     $('#customizeSearch').click(function () {
         $('#customSearchOptions').toggle();
 
-    }); 
+    });
 
     $('#search_fields-0-header').prepend('<option value="" disabled selected>Choose headers</option>');
     $('select').material_select();
@@ -29,7 +29,7 @@ function clone_field_list(element1, selector1) {
 
         var attr = $(this).attr('id');
         if (typeof attr !== typeof undefined && attr !== false) {
-            var id = attr.replace('-' + (elem_num - 1) + '-', '-' + elem_num + '-');
+            var id = attr.replace('-0-', '-' + elem_num + '-');
             $(this).attr({
                 'name': id,
                 'id': id
@@ -41,7 +41,7 @@ function clone_field_list(element1, selector1) {
 
         var attr = $(this).attr('id');
         if (typeof attr !== typeof undefined && attr !== false) {
-            var id = attr.replace('-' + (elem_num - 1) + '-', '-' + elem_num + '-');
+            var id = attr.replace('-0-', '-' + elem_num + '-');
             $(this).attr({
                 'name': id,
                 'id': id
@@ -56,7 +56,7 @@ function clone_field_list(element1, selector1) {
     new_element.find('label').each(function () {
         var attr = $(this).attr('for');
         if (typeof attr !== typeof undefined && attr !== false) {
-            var new_for = attr.replace('-' + (elem_num - 1) + '-', '-' + elem_num + '-');
+            var new_for = attr.replace('-0-', '-' + elem_num + '-');
             $(this).attr('for', new_for);
         }
     });

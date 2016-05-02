@@ -38,7 +38,7 @@ class SearchField(WTForm):
     fieldname = StringField()
     field_description = StringField()
     header = SelectMultipleField()
-    field_type = SelectField(choices = [(name, member.value) for name, member in FieldType.__members__.items()])
+    field_type = SelectField(choices = [(name, member.value) for name, member in FieldType.__members__.items()], default = "Textbox")
 
 class SearchInterface(WTForm):
     search_fields = FieldList(FormField(SearchField), min_entries=1)
