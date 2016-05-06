@@ -16,6 +16,7 @@ $('#next').click(function(){
     var title = $('#title').val();
     var desc = $('#description').val();
     dbref.set({projecttitle:title, description:desc});
+    //storing project title and description in firebase
 });
 });
 </script>
@@ -219,6 +220,6 @@ $('#next').click(function(){
     <div class="section">
       <a class="waves-effect waves-light red accent-2 btn blue-grey lighten-5 blue-text left left-margin" href="{{ url_for('createUpload')}}">Back</a>
 
-     <a class="waves-effect waves-light red accent-2 btn right right-margin" onclick="$('form[id=createsearch]').submit()" id="next">Next</a>
+     <a class="waves-effect waves-light red accent-2 btn right right-margin" onclick="$('form[id=createsearch]').submit()" id="next">Publish</a>
     </div>
 {% endblock %}
