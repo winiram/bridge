@@ -8,7 +8,18 @@
 <script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
 <script type="text/javascript" src="/javascript/appjs.js"></script>
 <script type="text/javascript" src="/static/js/dynamic_form.js"></script>
-
+<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+<script>
+$(document).ready(function(){
+var dbref = new Firebase("https://bridgeproject.firebaseio.com/");
+$('#next').click(function(){
+    var title = $('#title').val();
+    var desc = $('#description').val();
+    dbref.set({projecttitle:title, description:desc});
+    //storing project title and description in firebase
+});
+});
+</script>
 <!--end pagination-->
 <div class="grey lighten-2 full" role="main">
     <!--grey background at the back-->
@@ -209,6 +220,6 @@
     <div class="section">
       <a class="waves-effect waves-light red accent-2 btn blue-grey lighten-5 blue-text left left-margin" href="{{ url_for('createUpload')}}">Back</a>
 
-     <a class="waves-effect waves-light red accent-2 btn right right-margin" onclick="$('form[id=createsearch]').submit()" id="next">Next</a>
+     <a class="waves-effect waves-light red accent-2 btn right right-margin" onclick="$('form[id=createsearch]').submit()" id="next">Publish</a>
     </div>
 {% endblock %}
