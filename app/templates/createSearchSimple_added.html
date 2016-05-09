@@ -50,7 +50,7 @@ $('#next').click(function(){
         <label for="description" class="grey-text validate">About your collection</label>
     </div>
 </div>
-
+<div class="divider"></div>
     <!--begin search form-->
 
 
@@ -65,7 +65,8 @@ $('#next').click(function(){
 
 <div class="row">
     <div class="col s4 offset-s2">
-        {{ form.full_text_search() }} {{ form.full_text_search.label }}
+        {{ form.full_text_search() }}
+        <label for="full_text_search" class="grey-text text-darken-2">Full Text Search</label>
         <p class="grey-text">Check this if you want a Google-like searchbox for your collection</p>
 
     </div>
@@ -140,8 +141,9 @@ $('#next').click(function(){
             <label for="linechart" class="grey-text"><i class="fa fa-line-chart fa-2x icon_padding" aria-hidden="true"></i></label>
         </div>
         <div class="row">
-            <p class="grey-text">Recommended for showing comparison
-                <br> between categories</p>
+            <p class="blue-text">Line Chart</p>
+            <p class="grey-text">Recommended for showing comparison between <br>
+                categories</p>
         </div>
     </div>
     <div class="col s3">
@@ -150,8 +152,9 @@ $('#next').click(function(){
             <label for="barchart" class="grey-text"><i class="fa fa-bar-chart fa-2x icon_padding" aria-hidden="true"></i></label>
         </div>
         <div class="row">
-            <p class="grey-text">Recommended for comparing two
-                <br> or more categories</p>
+            <p class="blue-text">Bar Chart</p>
+            <p class="grey-text">Recommended for comparing different numbers of
+                <br>items in a category</p>
         </div>
     </div>
     <div class="col s3">
@@ -161,6 +164,7 @@ $('#next').click(function(){
             </label>
         </div>
         <div class="row">
+            <p class="blue-text">Map</p>
             <p class="grey-text">Recommended for mapping entities</p>
         </div>
     </div>
