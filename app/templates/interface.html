@@ -21,36 +21,46 @@
     ​
 </head>
 
-
-
-
 <script type="text/javascript">
     $(document).ready(function() {
         $('select').material_select();
+        var dbref = new Firebase("https://bridgeproject.firebaseio.com/");
+        dbref.on("value", function(snapshot) {
+            var snapshot = snapshot.val();
+            var projecttitle = snapshot.projecttitle;
+            var description = snapshot.description;
+            document.getElementById("project_name").innerHTML = projecttitle;
+            document.getElementById("description").innerHTML = description;
+            console.log(snapshot.val());
+        }, function(errorObject) {
+            console.log("The read failed: " + errorObject.code);
+        });
     });
 
     // Load the Visualization API and the controls package.
-      google.charts.load('current', {'packages':['controls', 'corechart']});
+    google.charts.load('current', {
+        'packages': ['controls', 'corechart']
+    });
 
-      // Set a callback to run when the Google Visualization API is loaded.
-      google.charts.setOnLoadCallback(drawDashboard);
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.charts.setOnLoadCallback(drawDashboard);
 
-      // Callback that creates and populates a data table,
-      // instantiates a dashboard, a range slider and a pie chart,
-      // passes in the data and draws it.
-      function drawDashboard() {
+    // Callback that creates and populates a data table,
+    // instantiates a dashboard, a range slider and a pie chart,
+    // passes in the data and draws it.
+    function drawDashboard() {
 
         // Create our data table.
         var data = google.visualization.arrayToDataTable([
-          ['Common Name', 'Frequency'],
-          ['Tiger Beetle' , 25],
-          ['Scarab Beetle', 10],
-          ['Longhorn Beetle', 9],
-          ['Black Swallowtail', 8],
-          ['Monarch', 5],
-          ['Karner Blue', 4],
-          ['Angentine Ant', 19],
-          ['Red Ant', 19]
+            ['Common Name', 'Frequency'],
+            ['Tiger Beetle', 25],
+            ['Scarab Beetle', 10],
+            ['Longhorn Beetle', 9],
+            ['Black Swallowtail', 8],
+            ['Monarch', 5],
+            ['Karner Blue', 4],
+            ['Angentine Ant', 19],
+            ['Red Ant', 19]
         ]);
 
         // Create a dashboard.
@@ -59,22 +69,22 @@
 
         // Create a range slider, passing some options
         var donutRangeSlider = new google.visualization.ControlWrapper({
-          'controlType': 'NumberRangeFilter',
-          'containerId': 'filter_div',
-          'options': {
-            'filterColumnLabel': 'Frequency'
-          }
+            'controlType': 'NumberRangeFilter',
+            'containerId': 'filter_div',
+            'options': {
+                'filterColumnLabel': 'Frequency'
+            }
         });
 
         // Create a pie chart, passing some options
         var barChart = new google.visualization.ChartWrapper({
-          'chartType': 'ColumnChart',
-          'containerId': 'chart_div',
-          'options': {
-            'width': 1400,
-            'height': 300,
-            'legend': 'right'
-          }
+            'chartType': 'ColumnChart',
+            'containerId': 'chart_div',
+            'options': {
+                'width': 1400,
+                'height': 300,
+                'legend': 'right'
+            }
         });
 
         // Establish dependencies, declaring that 'filter' drives 'pieChart',
@@ -84,20 +94,17 @@
 
         // Draw the dashboard.
         dashboard.draw(data);
-      }
-    </script>  
+    }
+</script>
 
 
 
 
 <body class="grey lighten-5">
-
-
-    <div class="nav-wrapper">
-        <nav>
-            <div class="nav-wrapper">
-                <a href="#!" class="brand-logo" id="project_name">The Insect Archive</a>
-                <ul class="right hide-on-med-and-down">
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#!" class="brand-logo" id="project_name"></a>
+            <span class="right hide-on-med-and-down">
                     <a class="waves-effect waves-light btn" href="/search">Search the Collection</a>
                     <!-- Modal Trigger -->
                     <a class="modal-trigger waves-effect waves-light btn" href="#about">About</a>
@@ -106,29 +113,29 @@
                     <div id="about" class="modal modal-fixed-footer">
                         <div class="modal-content">
                             <h4>About the Project</h4>
-                            <p>A Phasellus dui ante, hendrerit faucibus mollis quis, eleifend nec augue. Donec elementum nulla vel lacus accumsan, ac viverra nisi laoreet. Vestibulum pretium varius tellus id accumsan. In iaculis faucibus ullamcorper. Cras blandit a lectus a egestas. Nulla laoreet consequat finibus. Quisque felis velit, cursus id pellentesque et, iaculis vel est. In sed purus elit. Nunc accumsan, dolor non commodo hendrerit, nunc lacus rhoncus libero, in porta metus metus volutpat magna. Donec urna lacus, molestie vel velit non, viverra pharetra turpis. Quisque est purus, lobortis sed luctus ac, tincidunt vel mi. Nulla ut tellus a tortor feugiat blandit sed vitae felis. Pellentesque ac erat sed augue ullamcorper commodo. Vivamus ut dui laoreet, egestas nunc sit amet, tincidunt nunc.</p>
+                            <p id="description"></p>
                         </div>
                         <div class="modal-footer">
                             <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
                         </div>
                     </div>
-
-        </nav>
+            </span>
         </div>
+    </nav>
 
 
-        <div class="row header-img-container">
-            <!-- GET HEADER IMAGE -->
-            <img id="header-img" src="http://40.media.tumblr.com/IJtLZo0vYp07rh2oaLdBMimCo1_1280.jpg">
-        </div>
+    <div class="row header-img-container">
+        <!-- GET HEADER IMAGE -->
+        <img id="header-img" src="http://40.media.tumblr.com/IJtLZo0vYp07rh2oaLdBMimCo1_1280.jpg">
+    </div>
 
 
-        <div class="row flex-container">
+    <div class="row flex-container">
 
-            <!-- Results -->
-            <div class="col s12 center">
-                <h3>What's in the Collection</h3>
-                <!--
+        <!-- Results -->
+        <div class="col s12 center">
+            <h3>What's in the Collection</h3>
+            <!--
                 <div id="vizz">
                     <div id='highcharts-ujiqur'>
                         <div id='highcharts-alawem'>
@@ -138,74 +145,68 @@
                 </div>
 -->
 
-                <div id="dashboard_div" class="white">
-                    <!--Divs that will hold each control and chart-->
-                    <div id="filter_div"></div>
-                    <div id="chart_div" class="center"></div>
+            <div id="dashboard_div" class="white">
+                <!--Divs that will hold each control and chart-->
+                <div id="filter_div"></div>
+                <div id="chart_div" class="center"></div>
+            </div>
+            <h3>Collection Items</h3>
+            <div class="row">
+                ​
+                <div class="col s12">
+                    <ul class="tabs">
+                        <li class="tab col s3"><a class="active black" href="#listView">List View</a></li>
+                        <li class="tab col s3"><a href="#gridView" class="black">Grid View</a></li>
+                    </ul>
                 </div>
-                <h3>Collection Items</h3>
-                <div class="row">
+                ​
+                <!-- list view -->
+                <div id="listView" class="listView col s12">
                     ​
-                    <div class="col s12">
-                        <ul class="tabs">
-                            <li class="tab col s3"><a class="active" href="#listView">List View</a></li>
-                            <li class="tab col s3"><a href="#gridView">Grid View</a></li>
-                        </ul>
-                    </div>
-                    ​
-                    <!-- list view -->
-                    <div id="listView" class="listView col s12">
+                    <table class="highlight" id="results">
+                        <thead id="table_head">
+                        </thead>
                         ​
-                        <table class="highlight" id="results">
-                            <thead id="table_head">
-                            </thead>
-                            ​
-                            <tbody id="table_results">
-                            </tbody>
-                        </table>
-                        ​
-                    </div>
+                        <tbody id="table_results">
+                        </tbody>
+                    </table>
                     ​
-                    <!-- grid view -->
-                    <div id="gridView" class="col s12 row">
-                        </br>
-                        <!-- end grid view -->
-                    </div>
+                </div>
+                ​
+                <!-- grid view -->
+                <div id="gridView" class="col s12 row">
+                    </br>
+                    <!-- end grid view -->
                 </div>
             </div>
-            ​
-        </div>
-        ​ ​
-        <!-- Modal Structure -->
-        <div id="insert_modals">
-            ​
         </div>
         ​
-        <footer class="page-footer white">
-            ​
-            <div class="footer-copyright grey lighten-4">
-                <div class="container">
-                    <a class="grey-text text-darken-2" href="#">About Bridge</a>
-                    <a class="grey-text text-darken-2 right" href="#!">Contact us</a>
-                </div>
+    </div>
+    ​ ​
+    <!-- Modal Structure -->
+    <div id="insert_modals">
+        ​
+    </div>
+    ​
+    <footer class="page-footer white">
+        ​
+        <div class="footer-copyright grey lighten-4">
+            <div class="container">
+                <a class="grey-text text-darken-2" href="#">About Bridge</a>
+                <a class="grey-text text-darken-2 right" href="#!">Contact us</a>
             </div>
-        </footer>
-        ​
-        <!-- tooltip -->
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $('.tooltipped').tooltip({
-                    delay: 50
-                });
+        </div>
+    </footer>
+    ​
+    <!-- modal -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.tooltipped').tooltip({
+                delay: 50
             });
-        </script>
-
-        <!-- modal -->
-        <script type="text/javascript">
-            $(document).ready(function() {
-                // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-                $('.modal-trigger').leanModal();
-            });
-        </script>
+            // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+            $('.modal-trigger').leanModal();
+        });
+    </script>
 
 </body>

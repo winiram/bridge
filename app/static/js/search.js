@@ -79,7 +79,7 @@ function displayData(data) {
           }
   // LIST & GRID VIEW adds table rows with details button (and row number as ID)
            table.push('<tr>'+ deetButtonStart + rowNum + deetButtonEnd + row +"</tr>")
-           gridView.push("<div class= 'gridItem'>"+ gridItem +"</div>")
+           gridView.push("<div class= 'item card gridItem'>"+ gridItem +"</div>")
            // console.log(rowNum)
            rowNum+=1;
 
